@@ -1,0 +1,42 @@
+\newcommand\nwafu@label@nwafu{西北农林科技大学}
+\newcommand\nwafu@label@worktype@paper{毕业论文}
+\newcommand\nwafu@label@worktype@design{毕业设计}
+\newcommand\nwafu@label@worktype@master{硕士学位论文}
+\newcommand\nwafu@label@worktype@doctor{博士学位论文}
+\newcommand\nwafu@label@thesisnum{编号}
+\newcommand\nwafu@label@stuno{学号}
+\newcommand\nwafu@label@clscode{分类号}
+\newcommand\nwafu@label@udccode{UDC}
+\newcommand\nwafu@label@cfdlevel{密级}
+\newcommand\nwafu@label@unvcode{学校代码}
+\newcommand\nwafu@label@title{题\quad 目}
+\newcommand\nwafu@label@teamname{团队名称}
+\newcommand\nwafu@label@author{学生姓名}
+\newcommand\nwafu@label@studentid{学号}
+\newcommand\nwafu@label@college{学院}
+\newcommand\nwafu@label@department{系部}
+\newcommand\nwafu@label@major{专业}
+\newcommand\nwafu@label@classid{班级}
+\newcommand\nwafu@label@adviser{指导教师}
+\newcommand\nwafu@label@coadviser{协助指导教师}
+\newcommand\nwafu@label@applydate{完成日期}
+\newcommand\nwafu@label@researchername{研究生}
+\newcommand\nwafu@label@majorsubject{学科专业}
+\newcommand\nwafu@label@researchfield{研究方向}
+\newcommand\nwafu@label@professionaltype{专业类别}
+\newcommand\nwafu@label@professionalfield{专业领域}
+\newcommand\nwafu@label@graduateschool{研究生院}
+\newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
+\newcommand\nwafu@labelEn@majorsubject{Major}
+\newcommand\nwafu@labelEn@researchfield{Research field}
+\newcommand\nwafu@labelEn@researchername{Name of Postgraduate}
+\newcommand\nwafu@labelEn@adviser{Adviser}
+\newcommand\nwafu@labelEn@coadviser{Co-adviser}
+\newcommand\nwafu@labelEn@applydate{Date of submission}
+\newcommand\nwafu@labelEn@nwafu{Norhtwest A \& F University}
+\newcommand\nwafu@labelEn@graduateschool{The Graduate School}
+\newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
+\newcommand\nwafu@labelEn@clscode{Classification code}
+\newcommand\nwafu@labelEn@cfdlevel{Confidentiality level}
+\newcommand\nwafu@labelEn@unvcode{University code}
+\newcommand\nwafu@labelEn@studentid{Postgraduate number}

@@ -1,0 +1,217 @@
+% 本文件是示例论文的一部分
+% 论文的主文件位于上级目录的 `main.tex`
+
+\chapter{公式与参考文献}
+
+本章节介绍由 \nwafuthesis{} 提供的特有的宏。
+
+\section{定理环境}
+
+\nwafuthesis{} 提供了三个宏 \cs{nwafutheorem(g|chap|chapu)} 以定义不同编号方法的定理环境。
+\begin{enumerate}
+  \item \cs{nwafutheoremg} 的编号只有一个数字；
+  \item \cs{nwafutheoremchap} 的编号由\qtmark{章节.序号}构成，不同定理环境的编号是独立的，
+  它们的数字编号会重复，如\qtmark{\autoref{ex:oneplus}}后面可能出现\qtmark{\autoref{non:dora}}；
+  \item \cs{nwafutheoremchapu} 的编号也是由\qtmark{章节.序号}构成，
+  但它们的数字编号是统一的，同一个数字不会重复出现（仅限用\cs{nwafutheoremchapu}声明的定理环境之间）。
+  如\qtmark{\autoref{def:distance}}后面\textbf{不会}出现\qtmark{假设~2.1}，但可能出现\qtmark{定义~2.2}或\qtmark{\autoref{assume:fail}}；
+\end{enumerate}
+
+关于用这三个宏定义定理环境的样例请参阅\qtmark{\file{setup/format.tex}}。
+
+由于学校没有规定计数的编号，所以所有的定理环境应该由作者来决定编号方式，
+这也意味着所有的定理环境都要由作者来定义。
+
+顺便一提，在同一章里同时出现两种编号方式的定理环境，很可能造成混乱，
+所以请合理安排定理环境的编号方式。
+
+\subsection*{样例}
+
+\begin{definition}[欧几里得距离]
+\label{def:distance}
+点$\mathbf{p}$与点$\mathbf{q}$的\textbf{欧几里得距离}，是连接该两点的线段($\overline{\mathbf{pq}}$)的长度。
+
+在笛卡尔坐标系下，如果 $n$维欧几里得空间下的两个点 $\mathbf{p}=(p_1, p_2, \dots, p_n)$ 与点
+$\mathbf{q} = (q_1, q_2, q_3, \dots, q_n)$，那么点$\mathbf{p}$与点$\mathbf{q}$的距离，
+或者点$\mathbf{q}$与点$\mathbf{p}$的距离，由以下公式定义：
+\begin{align}
+\label{equ:1}
+d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2-p_2)^2 + \cdots + (q_n-p_n)^2} \\
+\label{equ:2}
+& = \sqrt{\sum_{i=1}^n (q_i-p_i)^2}
+\end{align}
+\end{definition}
+
+\begin{proof}
+由\cs{nwafutheorem(g|chap|chapu)}定义的定理环境支持 \cs{autoref}，
+比如在\autoref{def:distance}中，\autoref{equ:2}是\autoref{equ:1}的简写。
+
+但是 \cs{autoref} 只能在 \cs{ref} 加上前缀，无法加上后缀。
+所以上一句话的后半部分，更推荐手工来写标注 “(\ref{equ:2}) 是 (\ref{equ:1}) 的简写”。
+
+定理环境里面可以换行，不过证明与其他定理环境稍有不同，它是单独定义实现的，
+因此末尾会有一个 QED 符号。
+\end{proof}
+
+\begin{assumption}
+\label{assume:fail}
+假设本身就不成立
+\end{assumption}
+
+\begin{lines}
+\label{s1}
+例句1
+\end{lines}
+
+与图表一样，公式、定理等也需要采用专用的命令或环境进行排版以实现
+编号、交叉引用等\qtb{自动化}处理，\qtbr{万万不可}手动编号、引用！
+
+\section{参考文献}
+\label{sec:bib}
+参考文献的引用采用\qtmark{著者-出版年}制，如：
+
+\subsection{引用方式}
+\subsubsection{著者作为引用主语}
+
+文中提及著者，在被引用的著者姓名或外国著者姓氏之后用
+圆括号标注文献出版年，可使用\cs{yearcite}、\cs{textcite}
+命令或手动模式引用文献，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}
+    \begin{texdemov}%[0.5]
+赵耀东\yearcite{赵耀东1998--}认为...；
+\textcite{赵耀东1998--}认为...；
+赵耀东(\cite*{赵耀东1998--})认为...；
+赵耀东(\citeyear{赵耀东1998--})认为...；
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\emph{注意}：手动模式使用\cs{cite*}或\cs{citeyear}命令时，需要在两端加上小括
+  号，\qtbr{推荐使用}\cs{textcite}命令。
+
+\subsubsection{提及内容未提及著者}
+
+文中只提及所引用的资料内容而未提及著者，则在引文叙述
+文字之后用圆括号标注著者姓名或外国著者姓氏和出版年份，在著者
+和年份之间空一格，此时可以使用\cs{cite}命令引用文
+献，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+孟德尔发现了一个很重要的现象，即红、白花豌豆杂交后的所结种子
+第二年长出的植株的红白花比例为3:1\cite{fzx1962}。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\subsubsection{同一著者多篇文献}
+
+引用同一著者不同年份出版的多篇文献时，后者只注出版年；
+引用同一著者在同一年份出版的多篇文献时，无论正文还是文末，年
+份之后用英文小写字母 a、b、c 等加以区别。按年份递增顺序排列,
+不同文献之间用逗号隔开。此时可以使用\cs{cite}命令引用文
+献，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+      UML基础和Rose建模教程中给出了大量案例及案例分析\cite{蔡敏2006a--,蔡敏2006b--}。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\subsubsection{两著者文献}
+
+引用两个著者的文献时,两个著者之间加\qtmark{和}(中文)或
+\qtmark{and}(英文)。此时可以使用\cs{cite}命令引用文
+献，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+利用基于Matlab的计算机仿真\cite{郭文彬2006--}，研究了UWB和窄带通讯中的信号共存特性\cite{Chiani2009-231-254}。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\subsubsection{三个以上著者文献}
+
+引用三个以上著者时，只标注第一著者姓名，其后加\qtmark{等}(中
+文)或\qtmark{et al.}(英文)。此时可以使用\cs{cite}命令引用文
+献，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+      UML基础和Rose建模教程中详细说明了其基本方法和技巧\cite{蔡敏2006--}。你不好好学点\LaTeX{}基本命令还真不行\cite{r9}。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\subsubsection{同一处引用多篇文献}
+
+同一处引用多篇文献时，按著者字母顺序排列，不同著者文
+献之间用分号隔开。此时可以使用\cs{cite}命令引用文
+献，注意用\qtbr{逗号}分开\texttt{citeKey}就好，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+      同时引用多个文献\cite{r2,r3,r4,r6}。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+  
+\subsubsection{多次引用同一著者的同一文献}
+
+多次引用同一著者的同一文献，在正文中标注著者与出版年，
+并在\qtmark{()}内以以冒号形式标注引文页码。此时可以使用\cs{parencite}命令引用文
+献，注意用可选参数指定引用页码，如：
+
+\begin{center}
+  \begin{minipage}[h]{0.9\linewidth}    
+    \begin{texdemov}%[0.5]      、
+      在文献\parencite[20-22]{程根伟1999-32-36}说了一， 在文献\parencite[55-60]{程根伟1999-32-36}说了二。%
+    \end{texdemov}
+  \end{minipage}
+\end{center}
+
+\subsection{输出参考文献列表}
+
+参考文献列表的输出只需在需要输出文献的位置，使用命令\cs{printbibliography}进行输出即可。
+
+\subsection{参考文献数据文件准备}
+
+\LaTeX 文档中生成参考文献一般都需要准备一个参考文献数据源文件即
+\qtmark{*.bib}文件。这一文件内保存有各条参考文献的信息，具体可以参考
+biblatex宏包手册和biblatex-gb7714-2015样式包手册\cite{胡振震2019}中关
+于域信息录入的说明。
+
+参考文献源文件本质上只是一个文本文件，只是其内容需要遵守BibTeX格式，参
+考文献源文件可以有多种生成方式，具体可参考\LaTeX{}文档中文参考文献的
+biblatex 解决方案\parencite[2.2节]{胡振震2016}。
+
+\note{学校的参考文献格式并不完全符合\texttt{GB7714-2015}参考文献著录标准，强烈建议学校参考文
+  献执行\texttt{GB7714-2015}参考文献著录标准！}
+
+本模板采用由胡振震维护的
+\qtmark{符合 GB/T 7714-2015 标准的 biblatex 参考文献样式}实现参考文献
+的编排\cite{胡振震2019}，其Github链接为
+\url{https://github.com/hushidong/biblatex-gb7714-2015}。
+大家也可以通过\TeX~Live的 \verb|texdoc gb7714-2015|命令查看其使用说明。
+
+关于著者-出版年样式命令的详细说明可参见胡振震\qtmark{符合 GB/T
+  7714-2015 标准的 biblatex 参考文献样式}说明中的中的相关内容
+\parencite[2.2、2.3节]{胡振震2016}。
+
+\qtbr{切记：}与图表、公式、定理等一样，请使用专用命令引用并输出参考文
+献，以实现参考文献的\qtb{自动化}处理，\qtbr{万万不可}手动编写参考文献！
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:
