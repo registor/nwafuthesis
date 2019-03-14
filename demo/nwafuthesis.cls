@@ -13,7 +13,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafuthesis}
-[2019/1/22 v1.0 NWAFU Thesis Template]
+[2019/3/14 v2.0 NWAFU Thesis Template]
 \InputIfFileExists{nwafuthesis.cfg}{}{}
 \AtEndOfClass{
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
@@ -1456,6 +1456,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 \setlist{nosep}
 \setlist*{leftmargin=*}
 \setlist[1]{labelindent=\dimexpr\parindent+\nwafuparleft\relax} %% Only the level 1
+\setlist[enumerate]{wide=\parindent}  % 设置列表首行缩进
+\setlist[itemize]{wide=\parindent}    % 设置编号首行缩进
 \newcommand{\nwafu@dateCn}{
   \the\year 年\the\month 月
 }

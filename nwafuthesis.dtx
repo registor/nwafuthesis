@@ -210,7 +210,7 @@ and the derived files           nwafuthesis.ins,
 %
 % \subsection{获取模板}
 % 您可以从 \url{https://github.com/registor/nwafuthesis} 获取本模板的源代码，
-% 或者从 Release 里下载代码压缩包（强烈推荐后者）。
+% 或者从 release 里下载``nwafuthesis-LaTeX.zip''代码及示例压缩包（强烈推荐后者）。
 %
 % 表~\ref{tab:contents} 列出了 \nwafuthesis{} 的主要文件及其功能：
 % \begin{table}[H]
@@ -222,8 +222,7 @@ and the derived files           nwafuthesis.ins,
 % nwafuthesis.dtx & 本模板和文档源代码 \\
 % \midrule
 % build.sh/bat & 编译脚本 \\
-% demo\_chs/ & 带完整目录结构的中文示例文档 \\
-% demo\_*/ & 其他示例文档 \\
+% demo/ & 带完整目录结构的示例文档 \\
 % logo/ & 论文封面、页眉所需用到的图片 \\ \bottomrule
 % \end{tabular}
 % \end{table}
@@ -445,7 +444,7 @@ and the derived files           nwafuthesis.ins,
 % 如果觉得 \CTeX 和对应的文档类的字体不够美观的话，可以按以下步骤修改字体，
 % 需要注意的是以下步骤只适用于 \XeLaTeX 环境。
 %
-% 修改一个中文字体需要两条命令，可以参考 \verb|demo_chs/setup/format.tex| 开头被 \cs{iffalse} 注释掉的那段代码，
+% 修改一个中文字体需要两条命令，可以参考 \verb|demo/setup/format.tex| 开头被 \cs{iffalse} 注释掉的那段代码，
 % 它同时修改了宋体与黑体。
 % \begin{latex}
 % % 加载字体，字体名称可以通过在命令行通过执行 fc-list 命令查看。
@@ -509,7 +508,7 @@ and the derived files           nwafuthesis.ins,
 %<cls>\NeedsTeXFormat{LaTeX2e}
 %<cls>\ProvidesClass{nwafuthesis}
 %<cfg>\ProvidesFile{nwafuthesis.cfg}
-%<cls|cfg>[2019/1/22 v1.0 NWAFU Thesis Template]
+%<cls|cfg>[2019/3/14 v2.0 NWAFU Thesis Template]
 %    \end{macrocode}
 % \subsection{配置文件}
 % 配置文件的内容将于模板加载前期执行，一般内容为空（或不存在该配置文件），
@@ -2688,7 +2687,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 \fi
 %    \end{macrocode}
 % \subsubsection{列表环境}
-% 使用enumitem宏包配制列表环境，紧凑间距。
+% 使用enumitem宏包配置列表环境，紧凑间距。
 %    \begin{macrocode}
 \setlist{nosep}
 %    \end{macrocode}
@@ -2696,6 +2695,12 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %    \begin{macrocode}
 \setlist*{leftmargin=*}
 \setlist[1]{labelindent=\dimexpr\parindent+\nwafuparleft\relax} %% Only the level 1
+%    \end{macrocode}
+% 首行缩进。
+% \changes{v2.01}{2019/3/15}{设置列表环境各条目的首行缩进。}
+%    \begin{macrocode}
+\setlist[enumerate]{wide=\parindent}  % 设置列表首行缩进
+\setlist[itemize]{wide=\parindent}    % 设置编号首行缩进
 %    \end{macrocode}
 %
 % \subsection{实用命令}
@@ -3532,8 +3537,6 @@ headsep=3mm]{geometry}
 
 \lstnewenvironment{latex}{\lstset{style=lstStyleLaTeX}}{}
 \lstnewenvironment{shell}{\lstset{style=lstStyleShell}}{}
-
-\setlist{nosep}
 
 \DeclareDocumentCommand{\option}{m}{\textsf{#1}\xspace}
 \DeclareDocumentCommand{\env}{m}{\texttt{#1}\xspace}
