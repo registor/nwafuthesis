@@ -10,7 +10,7 @@
 #### 使用说明
 
 1. 目前支持本科生毕业论文（设计），硕士(学硕、专硕)、博士学位论文。
-2. 请按注释说明使用不同参数及参数组合，以选择模板不同工作方式：
+2. 请按注释说明使用不同参数及参数组合引入`nwafuthesis`文档类，以选择模板不同工作方式：
    ```
    \documentclass[
      lang=cn,                                         % 目前只支持中文
@@ -22,8 +22,7 @@
      % openany,oneside                  % 单面打印
      openright,blankleft,twoside % 双面打印
      ]{nwafuthesis}
-   ```
-   引入`nwafuthesis`文档类。
+   ```   
 
    使用`\nwafuset`和`\nwafusetEn`命令设置论文基本信息
    ```
