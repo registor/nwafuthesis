@@ -7,6 +7,49 @@
 
 根目录下所有文件为模板开发文档，`demo`下为示例文档，`realease`下的`nwafuthesis-LaTeX.zip`为最终发布文档。
 
+使用该模板时，文件组织建议按如下方式存储：
+```
+jobname(根目录)
+│ 
+├── bib(存储参考文献数据库，可以有多个，根据需要增减)
+│   └── sample.bib                
+├── content(各章节内容，可以有多个章节，根据需要增减)
+│   ├── chap00-abs.tex
+│   ├── chap01.tex
+│   ├── chap02.tex
+│   ├── chap03.tex
+│   ├── chap04.tex
+│   ├── chap05.tex
+│   ├── chap06-app1.tex
+│   ├── chap07-app2.tex
+│   └── chap08-ack.tex
+├── figs(插图目录，根据需要增减)
+│   ├── data
+│   │   ├── plot_2d.csv
+│   │   └── plot_3d.csv
+│   ├── plot_2d.tex
+│   ├── plot_3d.tex
+│   ├── tikz_func.tex
+│   ├── tikz_rot.tex
+│   └── tikz_sum.tex
+├── gb7714-2015ay.bbx(参考文献著录、列表样式文件，必须存在，且置于根目录)
+├── gb7714-2015ay.cbx(参考文献引注样式文件，必须存在，且置于根目录)
+├── logo(学校图标，必须存在，且置于根目录)
+│   ├── cie.png
+│   ├── nwafu-bar.png
+│   ├── nwafubilogo.png
+│   ├── nwafu-circle.png
+│   ├── NWAFU_logo.png
+│   └── nwsuaf_logo_new.png
+├── main.tex(主控文件，必须存在，且置于根目录)
+├── Makefile(make命令需要的文件，如能执行make，可以在根目录执行make命令进行编译)
+├── nwafuthesis.cls(文档类文件，即模板文件，必须存在，且置于根目录)
+├── setup(自定义命令、环境等文件、引入宏包文件，可根据需要进行调整)
+│   ├── format.tex
+│   └── packages.tex
+└── texboxie.sty(编译样例需要的宏包，如不需要，可以删除，请注意不能再使用相应命令)
+```
+
 #### 使用说明
 
 1. 目前支持本科生毕业论文（设计），硕士(学硕、专硕)、博士学位论文。
