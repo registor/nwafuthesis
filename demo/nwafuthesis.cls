@@ -60,7 +60,7 @@
 \newcommand\nwafu@labelEn@studentid{Postgraduate number}
 \newcommand\nwafu@labelEn@worktype@master{Master\textquotesingle s}
 \newcommand\nwafu@labelEn@worktype@doctor{Doctor}
-\newcommand\nwafu@label@abstract{摘要}
+\newcommand\nwafu@label@abstract{摘\quad 要}
 \newcommand\nwafu@label@abstractshort{摘要}
 \newcommand\nwafu@label@keywords{关键词}
 \newcommand\nwafu@label@keywordsep{; }
@@ -2009,9 +2009,13 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \clearpage
   \fi
 
-  % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}
-  \chapter*{{\MakeUppercase \nwafu@valueEn@title} \vskip 1\baselineskip minus
-    0.5\baselineskip \nwafu@labelEn@ABSTRACT}
+  \begingroup
+    \titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
+
+    % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}
+    \chapter*{{\MakeUppercase \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
+      0.5\baselineskip \nwafu@labelEn@ABSTRACT}
+  \endgroup
 
   \thispagestyle{style@empty}
 
