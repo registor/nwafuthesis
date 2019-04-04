@@ -1106,6 +1106,7 @@ and the derived files           nwafuthesis.ins,
 \RequirePackage[inline]{enumitem} % 列表环境格式调整
 \RequirePackage{environ}   % 创建环境和命令
 \RequirePackage{zhlineskip}% 调整行距
+\RequirePackage{datatool} % 处理csv数据文件的宏包
 \RequirePackage{floatrow} % 根据需要单独添加，代原float包
 %\RequirePackage{setspace} % 设置间距
 \floatsetup[table]{style=plaintop}
@@ -3347,6 +3348,14 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \vspace{\stretch{3}}
   \linespread{1.5}\sffamily\songti\zihao{3}
   {\bfseries 答辩委员会：}
+  % 从 namelist.csv 读档为 namelist 资料库
+  \DTLloaddb{memblist}{data/committeememb.csv}
+  \DTLforeach{memblist}{
+    % .csv 档里对应每一列的宏
+    \Name=name,%
+    \Inst=inst,%
+    \Title=title%
+  }{\Name\Inst\Title}
   % %\hspace{2\ccwd}
   \begin{center}
     \linespread{1.5}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%    

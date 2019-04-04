@@ -413,6 +413,7 @@
 \RequirePackage[inline]{enumitem} % 列表环境格式调整
 \RequirePackage{environ}   % 创建环境和命令
 \RequirePackage{zhlineskip}% 调整行距
+\RequirePackage{datatool} % 处理csv数据文件的宏包
 \RequirePackage{floatrow} % 根据需要单独添加，代原float包
 \floatsetup[table]{style=plaintop}
 \RequirePackage{CJKfntef}
@@ -1959,27 +1960,19 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
       \fi
     \end{tabular}
   \end{center}
-  % % 作者及指导教师
-  % \begingroup
-  %   \linespread{2.0}\bfseries\sffamily\songti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
-  %   \noindent
-  %   % 作者信息
-  %   \nwafu@label@researchername ： \nwafu@value@researchername \\
-  %   % 指导教师
-  %   \nwafu@label@adviser ： \nwafu@value@advisers
-  %   % 博士需要指导小组
-  %   \ifnwafu@doctor
-  %     \\
-  %     \nwafu@label@adviserteam ： \nwafu@value@adviserteam
-  %   \else
-  %     \relax
-  %   \fi
-  % \endgroup
 
   % 答辩委员会
   \vspace{\stretch{3}}
   \linespread{1.5}\sffamily\songti\zihao{3}
   {\bfseries 答辩委员会：}
+  % 从 namelist.csv 读档为 namelist 资料库
+  \DTLloaddb{memblist}{data/committeememb.csv}
+  \DTLforeach{memblist}{
+    % .csv 档里对应每一列的宏
+    \Name=name,%
+    \Inst=inst,%
+    \Title=title%
+  }{\Name\Inst\Title}
   % %\hspace{2\ccwd}
   \begin{center}
     \linespread{1.5}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
