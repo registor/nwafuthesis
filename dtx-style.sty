@@ -25,27 +25,31 @@ headsep=3mm]{geometry}
 \RequirePackage{xfrac}
 
 \def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
-\let\cqu@footnotesize\footnotesize
-\renewcommand{\footnotesize}{\cqu@footnotesize\zihao{-5}}
+\let\nwafu@footnotesize\footnotesize
+\renewcommand{\footnotesize}{\nwafu@footnotesize\zihao{-5}}
 \footnotemargin1.5em\relax
 
-\let\cqu@makefnmark\@makefnmark
-\def\cqu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
-\pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
-\apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
+\let\nwafu@makefnmark\@makefnmark
+\def\nwafu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
+\pretocmd{\@makefntext}{\let\@makefnmark\nwafu@@makefnmark}{}{}
+\apptocmd{\@makefntext}{\let\@makefnmark\nwafu@makefnmark}{}{}
 
-\colorlet{cqu@macro}{blue!60!black}
-\colorlet{cqu@env}{blue!70!black}
-\colorlet{cqu@option}{purple}
+\colorlet{nwafu@macro}{blue!60!black}
+\colorlet{nwafu@env}{blue!70!black}
+\colorlet{nwafu@option}{purple}
+\patchcmd{\PrintMacroName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+\patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+\patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
+\patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
 
 \def\DescribeOption{%
     \leavevmode\@bsphack\begingroup\MakePrivateLetters%
     \Describe@Option}
 \def\Describe@Option#1{\endgroup
     \marginpar{\raggedleft\PrintDescribeOption{#1}}%
-    \cqu@special@index{option}{#1}\@esphack\ignorespaces}
-\def\PrintDescribeOption#1{\strut \MacroFont\bfseries\sffamily\color{cqu@option} #1\ }
-\def\cqu@special@index#1#2{\@bsphack
+    \nwafu@special@index{option}{#1}\@esphack\ignorespaces}
+\def\PrintDescribeOption#1{\strut \MacroFont\bfseries\sffamily\color{nwafu@option} #1\ }
+\def\nwafu@special@index#1#2{\@bsphack
     \begingroup
     \HD@target
     \let\HDorg@encapchar\encapchar
@@ -111,9 +115,9 @@ headsep=3mm]{geometry}
 \DeclareDocumentCommand{\env}{m}{\texttt{#1}\xspace}
 \DeclareDocumentCommand{\mac}{m}{\texttt{\textbackslash#1}\xspace}
 \DeclareDocumentCommand{\pkg}{s m}{%
-    \texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{package}{#2}}}
+    \texttt{#2}\xspace\IfBooleanF#1{\nwafu@special@index{package}{#2}}}
 \DeclareDocumentCommand{\file}{s m}{%
-    \texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{file}{#2}}}
+    \texttt{#2}\xspace\IfBooleanF#1{\nwafu@special@index{file}{#2}}}
 \newcommand{\myentry}[1]{%
     \marginpar{\raggedleft\color{purple}\bfseries\strut #1}}
 \newcommand{\note}[2][Note]{{%

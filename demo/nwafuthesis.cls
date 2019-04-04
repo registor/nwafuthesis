@@ -272,6 +272,23 @@
   \newcommand\nwafu@title{\nwafu@valueEn@title}
 \fi\fi
 \newcommand\nwafu@font@toc{\normalsize}
+\newenvironment{denotation}[1][2.5cm]{%
+  \nwafu@chapter*[]{\nwafu@denotation@name} % no tocline
+  \vskip-30bp\zihao{-4}\begin{nwafu@denotation}[labelwidth=#1]
+}{%
+  \end{nwafu@denotation}
+}
+\newlist{nwafu@denotation}{description}{1}
+\setlist[nwafu@denotation]{%
+  nosep,
+  font=\normalfont,
+  align=left,
+  leftmargin=!, % sum of the following 3 lengths
+  labelindent=0pt,
+  labelwidth=2.5cm,
+  labelsep*=0.5cm,
+  itemindent=0pt,
+}
 \RequirePackage{expl3}
 \ExplSyntaxOn
 \sys_if_engine_xetex:TF{
@@ -368,7 +385,7 @@
 \RequirePackage{amssymb}   % 数学符号
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
-\RequirePackage[inline]{enumitem} % 列表环境格式调整
+\RequirePackage[shortlabels]{enumitem}
 \RequirePackage{environ}   % 创建环境和命令
 \RequirePackage{zhlineskip}% 调整行距
 \RequirePackage{datatool} % 处理csv数据文件的宏包
@@ -823,9 +840,11 @@
     bibname=参考文献,
     indexname=索引,
   }
+  \newcommand\nwafu@denotation@name{主要符号对照表}
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
 \else
+  \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
   \newcommand\equationname{Equation}
 \fi
@@ -2164,6 +2183,17 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \nwafu@put@kw{\nwafu@textbf{\nwafu@labelEn@keywords}: }{\nwafu@keywordsEn}
 }
+\newcommand\nwafu@atendpackage{\csname ctex_at_end_package:nn\endcsname}
+\nwafu@atendpackage{nomencl}{
+  \let\nomname\nwafu@denotation@name
+  \def\thenomenclature{\begin{denotation}[\nom@tempdim]}
+  \def\endthenomenclature{\end{denotation}}
+}
+\NewDocumentCommand{\shuji}{O{\nwafu@ctitle} O{\nwafu@cauthor}}{%
+  \newpage\thispagestyle{empty}%
+  \fangsong\addCJKfontfeatures*{RawFeature={vertical:}}
+  \xiaosan\ziju{0.4}%
+  \noindent\hfill\rotatebox[origin=lt]{-90}{\makebox[\textheight]{#1\hfill#2}}}
 
 \newcommand{\nwafuthesis}{%
   \makebox{\rmfamily%

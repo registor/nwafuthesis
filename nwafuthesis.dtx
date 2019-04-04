@@ -379,6 +379,39 @@ and the derived files           nwafuthesis.ins,
 % \option{applydate}、
 % 这些参数与中文封面的含义完全一致。
 %
+% \subsection{符号对照表}
+% \DescribeEnv{denotation}
+% 主要符号表环境，跟 \env{description} 类似，使用方法参见示例文件。带一个可选参数，
+% 用来指定符号列的宽度（默认为 2.5cm）。
+% \begin{latex}
+% \begin{denotation}
+%   \item[E] 能量
+%   \item[m] 质量
+%   \item[c] 光速
+% \end{denotation}
+% \end{latex}
+%
+% 如果默认符号列的宽度不满意，可以通过参数来调整：
+% \begin{latex}
+% \begin{denotation}[1.5cm] % 设置为 1.5cm
+%   \item[E] 能量
+%   \item[m] 质量
+%   \item[c] 光速
+% \end{denotation}
+% \end{latex}
+%
+% 另外一种方法是调用 \pkg{nomencl} 宏包，需要在导言区设置：
+% \begin{latex}
+% \usepackage{nomencl}
+% \makenomenclature
+% \end{latex}
+% 然后在正文中任意位置使用 \cs{nomenclature} 声明需要添加到主要符号表的符号：
+% \begin{latex}
+% \nomenclature{$m$}{The mass of one angel}
+% \end{latex}
+% 最后使用 \cs{printnomenclature} 命令生成符号表。
+% 更详细的使用方法参见 \pkg{nomencl} 宏包的文档。
+%
 % \subsubsection*{摘要页}
 % \DescribeEnv{abstract}
 % 环境，包括 \env{abstract}和\env{abstractEn}，
@@ -882,6 +915,32 @@ and the derived files           nwafuthesis.ins,
 \newcommand\nwafu@font@toc{\normalsize}
 %    \end{macrocode}
 %
+% \subsubsection{主要符号表}
+% \label{sec:denotationfmt}
+% \begin{environment}{denotation}
+% 主要符号对照表。
+% \changes{v2.1}{2019/04/05}{利用 \pkg{enumitem} 定义主要符号表环境。}
+%    \begin{macrocode}
+\newenvironment{denotation}[1][2.5cm]{%
+  \nwafu@chapter*[]{\nwafu@denotation@name} % no tocline
+  \vskip-30bp\zihao{-4}\begin{nwafu@denotation}[labelwidth=#1]
+}{%
+  \end{nwafu@denotation}
+}
+\newlist{nwafu@denotation}{description}{1}
+\setlist[nwafu@denotation]{%
+  nosep,
+  font=\normalfont,
+  align=left,
+  leftmargin=!, % sum of the following 3 lengths
+  labelindent=0pt,
+  labelwidth=2.5cm,
+  labelsep*=0.5cm,
+  itemindent=0pt,
+}
+%    \end{macrocode}
+% \end{environment}
+%
 % \subsection{主文档类}
 % 本节将第二次解析参数、加载基础文档类、设置全局格式，如页面大小、字号、行间距等，并定义标题字体。
 %
@@ -1057,7 +1116,8 @@ and the derived files           nwafuthesis.ins,
 \RequirePackage{amssymb}   % 数学符号
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
-\RequirePackage[inline]{enumitem} % 列表环境格式调整
+%\RequirePackage[inline]{enumitem} % 列表环境格式调整
+\RequirePackage[shortlabels]{enumitem}
 \RequirePackage{environ}   % 创建环境和命令
 \RequirePackage{zhlineskip}% 调整行距
 \RequirePackage{datatool} % 处理csv数据文件的宏包
@@ -1757,9 +1817,11 @@ and the derived files           nwafuthesis.ins,
     bibname=参考文献,
     indexname=索引,
   }
+  \newcommand\nwafu@denotation@name{主要符号对照表}  
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
 \else
+  \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
   \newcommand\equationname{Equation}
 \fi
@@ -3577,6 +3639,40 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{其他宏包的设置}
+%
+% 这些宏包并非格式要求，但是为了方便同学们使用，在这里进行简单设置。
+%    \begin{macrocode}
+\newcommand\nwafu@atendpackage{\csname ctex_at_end_package:nn\endcsname}
+%    \end{macrocode}
+%
+% \subsubsection{\pkg{nomencl} 宏包}
+%
+% \changes{v5.5}{2018/12/09}{增加 \pkg{nomencl} 宏包的支持。}
+%    \begin{macrocode}
+\nwafu@atendpackage{nomencl}{
+  \let\nomname\nwafu@denotation@name
+  \def\thenomenclature{\begin{denotation}[\nom@tempdim]}
+  \def\endthenomenclature{\end{denotation}}
+}
+%    \end{macrocode}
+%
+% \subsection{书脊}
+% \label{sec:shuji}
+% \begin{macro}{\shuji}
+% 单独使用书脊命令会在新的一页产生竖排书脊。
+% \changes{v4.5}{2009/01/04}{简化代码，同时支持 \XeLaTeX。}
+% \changes{v5.0.0}{2015/12/21}{扩展 \cs{shuji}\oarg{标题}\oarg{作者}。}
+%    \begin{macrocode}
+\NewDocumentCommand{\shuji}{O{\nwafu@ctitle} O{\nwafu@cauthor}}{%
+  \newpage\thispagestyle{empty}%
+  \fangsong\addCJKfontfeatures*{RawFeature={vertical:}}
+  \xiaosan\ziju{0.4}%
+  \noindent\hfill\rotatebox[origin=lt]{-90}{\makebox[\textheight]{#1\hfill#2}}}
+%    \end{macrocode}
+% \end{macro}
+%
 %    \begin{macrocode}
 %</cls>
 %    \end{macrocode}
@@ -3612,31 +3708,38 @@ headsep=3mm]{geometry}
 \RequirePackage{xfrac}
 
 \def\footnoterule{\vskip-3\p@\hrule\@width0.3\textwidth\@height0.4\p@\vskip2.6\p@}
-\let\cqu@footnotesize\footnotesize
-\renewcommand{\footnotesize}{\cqu@footnotesize\zihao{-5}}
+\let\nwafu@footnotesize\footnotesize
+\renewcommand{\footnotesize}{\nwafu@footnotesize\zihao{-5}}
 \footnotemargin1.5em\relax
 
-\let\cqu@makefnmark\@makefnmark
-\def\cqu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
-\pretocmd{\@makefntext}{\let\@makefnmark\cqu@@makefnmark}{}{}
-\apptocmd{\@makefntext}{\let\@makefnmark\cqu@makefnmark}{}{}
+\let\nwafu@makefnmark\@makefnmark
+\def\nwafu@@makefnmark{\mbox{{\normalfont\@thefnmark}}}
+\pretocmd{\@makefntext}{\let\@makefnmark\nwafu@@makefnmark}{}{}
+\apptocmd{\@makefntext}{\let\@makefnmark\nwafu@makefnmark}{}{}
 
-\colorlet{cqu@macro}{blue!60!black}
-\colorlet{cqu@env}{blue!70!black}
-\colorlet{cqu@option}{purple}
-%\patchcmd{\PrintMacroName}{\MacroFont}{\MacroFont\bfseries\color{cqu@macro}}{}{}
-%\patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{cqu@macro}}{}{}
-%\patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
-%\patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{cqu@env}}{}{}
+%\colorlet{nwafu@macro}{blue!60!black}
+%\colorlet{nwafu@env}{blue!70!black}
+%\colorlet{nwafu@option}{purple}
+%\patchcmd{\PrintMacroName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+%\patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+%\patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
+%\patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
+\colorlet{nwafu@macro}{blue!60!black}
+\colorlet{nwafu@env}{blue!70!black}
+\colorlet{nwafu@option}{purple}
+\patchcmd{\PrintMacroName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+\patchcmd{\PrintDescribeMacro}{\MacroFont}{\MacroFont\bfseries\color{nwafu@macro}}{}{}
+\patchcmd{\PrintDescribeEnv}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
+\patchcmd{\PrintEnvName}{\MacroFont}{\MacroFont\bfseries\color{nwafu@env}}{}{}
 
 \def\DescribeOption{%
     \leavevmode\@bsphack\begingroup\MakePrivateLetters%
     \Describe@Option}
 \def\Describe@Option#1{\endgroup
     \marginpar{\raggedleft\PrintDescribeOption{#1}}%
-    \cqu@special@index{option}{#1}\@esphack\ignorespaces}
-\def\PrintDescribeOption#1{\strut \MacroFont\bfseries\sffamily\color{cqu@option} #1\ }
-\def\cqu@special@index#1#2{\@bsphack
+    \nwafu@special@index{option}{#1}\@esphack\ignorespaces}
+\def\PrintDescribeOption#1{\strut \MacroFont\bfseries\sffamily\color{nwafu@option} #1\ }
+\def\nwafu@special@index#1#2{\@bsphack
     \begingroup
     \HD@target
     \let\HDorg@encapchar\encapchar
@@ -3702,9 +3805,9 @@ headsep=3mm]{geometry}
 \DeclareDocumentCommand{\env}{m}{\texttt{#1}\xspace}
 \DeclareDocumentCommand{\mac}{m}{\texttt{\textbackslash#1}\xspace}
 \DeclareDocumentCommand{\pkg}{s m}{%
-    \texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{package}{#2}}}
+    \texttt{#2}\xspace\IfBooleanF#1{\nwafu@special@index{package}{#2}}}
 \DeclareDocumentCommand{\file}{s m}{%
-    \texttt{#2}\xspace\IfBooleanF#1{\cqu@special@index{file}{#2}}}
+    \texttt{#2}\xspace\IfBooleanF#1{\nwafu@special@index{file}{#2}}}
 \newcommand{\myentry}[1]{%
     \marginpar{\raggedleft\color{purple}\bfseries\strut #1}}
 %\newcommand{\note}[1]{{%
