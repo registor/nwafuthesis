@@ -13,10 +13,11 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafuthesis}
-[2019/3/14 v2.0 NWAFU Thesis Template]
+[2019/3/14 v2.1 NWAFU Thesis Template]
 \InputIfFileExists{nwafuthesis.cfg}{}{}
 \AtEndOfClass{
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
+\newcommand\nwafu@label@worktype@degree{学位论文}
 \newcommand\nwafu@label@worktype@paper{毕业论文}
 \newcommand\nwafu@label@worktype@design{毕业设计}
 \newcommand\nwafu@label@worktype@master{硕士}
@@ -36,21 +37,27 @@
 \newcommand\nwafu@label@major{专业}
 \newcommand\nwafu@label@classid{班级}
 \newcommand\nwafu@label@adviser{指导教师}
-\newcommand\nwafu@label@coadviser{合作指导教师}
-\newcommand\nwafu@label@applydate{完成日期}
-\newcommand\nwafu@label@researchername{研究生}
+\newcommand\nwafu@label@bachelorcoadviser{协助指导教师}
+\newcommand\nwafu@label@postcoadviser{联合指导教师}
+\newcommand\nwafu@label@adviserteam{指导小组}
+\newcommand\nwafu@label@bachelorapplydate{完成日期}
+\newcommand\nwafu@label@postapplydate{论文提交时间}
+\newcommand\nwafu@label@defensedate{答辩日期}
+\newcommand\nwafu@label@researchername{论文作者}
 \newcommand\nwafu@label@majorsubject{学科专业}
 \newcommand\nwafu@label@researchfield{研究方向}
-\newcommand\nwafu@label@professionaltype{类型}
-\newcommand\nwafu@label@professionalfield{领域、方向}
+\newcommand\nwafu@label@professionaltype{专业学位类型}
+\newcommand\nwafu@label@professionalfield{领域名称}
 \newcommand\nwafu@label@graduateschool{研究生院}
 \newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
+\newcommand\nwafu@labelEn@techmasterfield{Field}
+\newcommand\nwafu@labelEn@techmastertype{Degree Type}
 \newcommand\nwafu@labelEn@majorsubject{Major}
-\newcommand\nwafu@labelEn@researchfield{Research field}
-\newcommand\nwafu@labelEn@researchername{Name of Postgraduate}
-\newcommand\nwafu@labelEn@adviser{Adviser}
-\newcommand\nwafu@labelEn@coadviser{Co-adviser}
-\newcommand\nwafu@labelEn@applydate{Date of submission}
+\newcommand\nwafu@labelEn@researchfield{Research Field}
+\newcommand\nwafu@labelEn@researchername{Candidate}
+\newcommand\nwafu@labelEn@adviser{Supervisor}
+\newcommand\nwafu@labelEn@coadviser{Co-Supervisor}
+\newcommand\nwafu@labelEn@applydate{Date of Submission}
 \newcommand\nwafu@labelEn@nwafu{Norhtwest A \& F University}
 \newcommand\nwafu@labelEn@graduateschool{The Graduate School}
 \newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
@@ -58,7 +65,7 @@
 \newcommand\nwafu@labelEn@cfdlevel{Confidentiality level}
 \newcommand\nwafu@labelEn@unvcode{University code}
 \newcommand\nwafu@labelEn@studentid{Postgraduate number}
-\newcommand\nwafu@labelEn@worktype@master{Master\textquotesingle s}
+\newcommand\nwafu@labelEn@worktype@master{Master}
 \newcommand\nwafu@labelEn@worktype@doctor{Doctor}
 \newcommand\nwafu@label@abstract{摘\quad 要}
 \newcommand\nwafu@label@abstractshort{摘要}
@@ -162,7 +169,20 @@
     \nwafu@labelEn@worktype@doctor%
   \fi%
 }
-
+\newcommand\nwafu@label@coadviser{%
+  \ifnwafu@bachelor%
+    \nwafu@label@bachelorcoadviser%
+  \else%
+    \nwafu@label@postcoadviser%
+  \fi%
+}
+\newcommand\nwafu@label@applydate{%
+  \ifnwafu@bachelor%
+    \nwafu@label@bachelorapplydate%
+  \else%
+    \nwafu@label@postapplydate%
+  \fi%
+}
 \def\nwafuset{\kvsetkeys{nwafu@value}}
 \def\nwafusetEn{\kvsetkeys{nwafu@valueEn}}
 \def\nwafu@define #1{
@@ -193,6 +213,7 @@
 \nwafu@define{value@researchername}
 \nwafu@define{value@college}
 \nwafu@define{value@applydate}
+\nwafu@define{value@defensedate}
 \ifnwafu@bachelor
   \nwafu@define@list{value@advisers}{、}
   \nwafu@define@list{value@coadvisers}{、}
@@ -200,6 +221,30 @@
   \nwafu@define@list{value@advisers}{\linebreak}
   \nwafu@define@list{value@coadvisers}{\linebreak}
 \fi
+\nwafu@define@list{value@adviserteam}{、}
+\nwafu@define{value@dcteeaunv}
+\nwafu@define{value@dcteebunv}
+\nwafu@define{value@dcteecunv}
+\nwafu@define{value@dcteedunv}
+\nwafu@define{value@dcteeeunv}
+\nwafu@define{value@dcteeainst}
+\nwafu@define{value@dcteebinst}
+\nwafu@define{value@dcteecinst}
+\nwafu@define{value@dcteedinst}
+\nwafu@define{value@dcteeeinst}
+\nwafu@define{value@dcteeaname}
+\nwafu@define{value@dcteebname}
+\nwafu@define{value@dcteecname}
+\nwafu@define{value@dcteedname}
+\nwafu@define{value@dcteeename}
+\nwafu@define{value@dcteeatitle}
+\nwafu@define{value@dcteebtitle}
+\nwafu@define{value@dcteectitle}
+\nwafu@define{value@dcteedtitle}
+\nwafu@define{value@dcteeetitle}
+\nwafu@define{value@dcteeunvdefault}
+\nwafu@define{value@dcteeinstdefault}
+\nwafu@define{value@dcteetitledefault}
 \nwafu@define{value@major}
 \nwafu@define{value@studentid}
 \nwafu@define{value@classid}
@@ -233,6 +278,28 @@
 \nwafu@define{valueEn@cfdlevel}
 \nwafu@define{valueEn@applydate}
 \nwafu@define{valueEn@applyaddress}
+\nwafu@define{valueEn@institute}
+\newcommand\nwafu@label@dcteeunvdefault{%
+  \ifdefempty{\nwafu@value@dcteeunvdefault}{
+    \nwafu@label@nwafu
+  }{
+    \nwafu@value@dcteeunvdefault
+  }
+}
+\newcommand\nwafu@label@dcteeinstdefault{%
+  \ifdefempty{\nwafu@value@dcteeinstdefault}{
+    信息工程学院
+  }{
+    \nwafu@value@dcteeinstdefault
+  }
+}
+\newcommand\nwafu@label@dcteetitledefault{%
+  \ifdefempty{\nwafu@value@dcteetitledefault}{
+    教授
+  }{
+    \nwafu@value@dcteetitledefault
+  }
+}
 \RequirePackage{etoolbox}
 \RequirePackage{environ}
 \newcommand{\nwafu@@abstract}[1]{\long\gdef\nwafu@abstract{#1}}
@@ -496,7 +563,7 @@
   space=auto,
   autoindent=true
 }
-\geometry{
+\ifnwafu@bachelor \geometry{
   top=3.0cm,
   bottom=2.0cm,
   left=2.5cm,
@@ -504,7 +571,16 @@
   headheight=2.0cm,
   headsep=2bp,
   footskip=1.0cm
+} \else \geometry{
+  top=3.0cm,
+  bottom=2.5cm,
+  left=2.6cm,
+  right=2.6cm,
+  headheight=2.0cm,
+  headsep=2bp,
+  footskip=1.75cm
 }
+\fi
 \newcommand\nwafu@footerpagenum@decorate[1]{%
 \ifnwafu@bachelor%
   \if@frontmatter{#1}\else{- #1 -}\fi%
@@ -1516,11 +1592,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@cover@bachelor
   \else
     \nwafu@make@cover@master@cn
-    \ifnwafu@techmaster% 专业硕士无英文封面
-      \relax
-    \else
-      \nwafu@make@cover@master@en%
-    \fi%
+    \nwafu@make@cover@master@en%
+    \nwafu@make@titlepage@master@cn
   \fi
 }
 \newcommand\makedeclare{
@@ -1744,6 +1817,215 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \cleardoublepage
   %\pagestyle{style@empty}
   %\pagenumbering{Alph}
+  \newgeometry{top=2.0in, bottom=1.0in, left=1.25in, right=1.25in}
+
+  \vspace{\stretch{8}}
+
+  % LOGO及论文类别名称
+  \begin{center}
+    \includegraphics[width=0.65\linewidth]{logo/nwafubilogo.png}
+    \vspace{\stretch{0.8}}
+
+    \linespread{1}\heiti\zihao{0}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
+    \makebox[0.8\textwidth][s]{\nwafu@worktypecn \nwafu@label@worktype@degree}
+  \end{center}
+  \vspace{\stretch{3.0}}
+
+  % 题目及作者信息
+  \begin{center}
+    % 题目
+    \linespread{1.0}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    {\nwafu@value@title}
+    %\makebox[0.9\linewidth][c]{\nwafu@value@title}
+    \vspace{\stretch{4.0}}
+
+    \linespread{2.0}\sffamily\heiti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    % 作者信息
+    \begin{tabular}{cc}%>{\bfseries}
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\ifnwafu@techmaster{\nwafu@label@professionaltype}\else{\nwafu@label@majorsubject}\fi}&
+                                                                                                                                            \ifnwafu@techmaster{\nwafu@value@professionaltype}\else{\nwafu@value@majorsubject}\fi \\ \cline{2-2}%
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\ifnwafu@techmaster{\nwafu@label@professionalfield}\else{\nwafu@label@researchfield}\fi}& \ifnwafu@techmaster{\nwafu@value@professionalfield}\else{\nwafu@value@researchfield}\fi \\ \cline{2-2}%
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@researchername} & \nwafu@value@researchername \\ \cline{2-2}%
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@adviser} & \nwafu@value@advisers \\ \cline{2-2}%
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@coadviser} & \nwafu@value@coadvisers \\ \cline{2-2}%
+      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@applydate} & \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}%
+    \end{tabular}
+  \end{center}
+  \vspace{\stretch{4}}
+
+  \restoregeometry
+}
+\newcommand\nwafu@make@cover@master@en{
+  \cleardoublepage
+  \newgeometry{top=2.0in, bottom=2.0in, left=1.25in, right=1.25in}
+
+  \vspace{\stretch{8.0}}
+
+  % 论文类别
+  \begin{center}
+    \linespread{1.212}\zihao{-3}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
+
+    Dissertation Submitted to Northwest A \& F University\\
+    in Partial Fulfillment of the Requirements\\
+    for Degree of\\
+    \nwafu@worktypeen \ of \uline{\nwafu@valueEn@degreefull}
+  \end{center}
+  \vspace{\stretch{3.0}}
+
+  % 题目及作者信息
+  \begin{center}
+    {\linespread{1.0}\bfseries\zihao{1}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    \nwafu@valueEn@title}%
+    %\makebox[0.9\linewidth][c]{\nwafu@valueEn@title}}
+    \vspace{\stretch{4.0}}
+
+    \linespread{2.0}\rmfamily\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    \begin{tabular}{l}
+      \ifnwafu@techmaster{\nwafu@labelEn@techmasterfield}\else{\nwafu@labelEn@majorsubject}\fi : \uline{\nwafu@valueEn@majorsubject}\\
+      \ifnwafu@techmaster{\nwafu@labelEn@techmastertype}\else{\nwafu@labelEn@researchfield}\fi: \uline{\nwafu@valueEn@researchfield}\\
+      \nwafu@labelEn@researchername: \uline{\nwafu@valueEn@researchername}\\
+      \nwafu@labelEn@adviser: \uline{\nwafu@valueEn@advisers}\\
+      \nwafu@labelEn@coadviser: \uline{\nwafu@valueEn@coadvisers}\\
+      \nwafu@labelEn@applydate: \uline{\ifdefempty{\nwafu@valueEn@applydate}{\nwafu@dateEn}{\nwafu@valueEn@applydate}}
+    \end{tabular}
+  \end{center}
+  \vspace{\stretch{4}}
+
+  \begin{center}
+    \linespread{1}
+
+    \rmfamily\zihao{-3}%fontsize{18bp}{31.2bp}\selectfont
+    \nwafu@valueEn@institute , \nwafu@labelEn@nwafu%
+  \end{center}
+  \restoregeometry
+}
+\newcommand\nwafu@make@titlepage@master@cn{
+  \cleardoublepage
+  %\pagestyle{style@empty}
+  %\pagenumbering{Alph}
+  \newgeometry{top=1.0in, bottom=1.0in, left=1.25in, right=1.25in}
+
+  % 分类号等
+  \begin{multicols}{2}
+    \linespread{1.3}\songti\zihao{5}%\fontsize{10.5bp}{15.6bp}\selectfont
+    \begin{flushleft}
+      \begin{tabular} {cc}%
+        \makebox[\widthof{\nwafu@label@clscode}][s]{分类号}：& \nwafu@value@clscode \\ \cline{2-2}%
+        \makebox[\widthof{\nwafu@label@clscode}][l]{UDC}：& \nwafu@value@udccode \\ \cline{2-2}%
+        \makebox[\widthof{\nwafu@label@clscode}][s]{密级}：& \ifdefempty{\nwafu@value@cfdlevel}{公开}{\nwafu@value@cfdlevel} \\ \cline{2-2}%
+      \end{tabular}
+    \end{flushleft}
+    \columnbreak
+    \begin{flushright}
+      \begin{tabular} {cc}%
+        \makebox[\widthof{研究生\nwafu@label@studentid}][s]{\nwafu@label@unvcode}：& \ifdefempty{\nwafu@value@unvcode}{10712}{\nwafu@value@unvcode}  \\ \cline{2-2}%
+        \\ %
+        \makebox[\widthof{研究生\nwafu@label@studentid}][s]{研究生\nwafu@label@studentid}：& \nwafu@value@studentid \\ \cline{2-2}%
+      \end{tabular}
+      % \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@unvcode}：\nwafu@value@unvcode \par
+      % \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@studentid}：\nwafu@value@studentid
+    \end{flushright}
+  \end{multicols}
+  \vspace{\stretch{3.0}}
+
+  % 论文类别名称
+  \begin{center}
+
+    \linespread{1}\bfseries\sffamily\songti\zihao{-2}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
+    \nwafu@label@nwafu \nwafu@worktypecn \nwafu@label@worktype@degree
+    %\makebox[0.8\textwidth][s]{\nwafu@worktypecn \nwafu@label@worktype@degree}
+  \end{center}
+  \vspace{\stretch{1.0}}
+
+  % 题目及作者
+  \begin{center}
+    % 题目
+    \linespread{1.0}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    {\nwafu@value@title}
+    %\makebox[0.9\linewidth][c]{\nwafu@value@title}
+    \vspace{\stretch{4.5}}
+
+    \linespread{1.5}\sffamily\songti\zihao{3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    % 作者信息
+    \begin{tabular}{>{\bfseries}cc}%>{\bfseries}
+      \nwafu@label@researchername ： & \nwafu@value@researchername \\ \cline{2-2}%
+      \nwafu@label@adviser ： & \nwafu@value@advisers \\ \cline{2-2}%
+      % 博士需要指导小组
+      \ifnwafu@doctor
+        \nwafu@label@adviserteam ： & \nwafu@value@adviserteam \\
+      \cline{2-2}%
+      \else
+        \relax
+      \fi
+    \end{tabular}
+  \end{center}
+  % % 作者及指导教师
+  % \begingroup
+  %   \linespread{2.0}\bfseries\sffamily\songti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+  %   \noindent
+  %   % 作者信息
+  %   \nwafu@label@researchername ： \nwafu@value@researchername \\
+  %   % 指导教师
+  %   \nwafu@label@adviser ： \nwafu@value@advisers
+  %   % 博士需要指导小组
+  %   \ifnwafu@doctor
+  %     \\
+  %     \nwafu@label@adviserteam ： \nwafu@value@adviserteam
+  %   \else
+  %     \relax
+  %   \fi
+  % \endgroup
+
+  % 答辩委员会
+  \vspace{\stretch{3}}
+  \linespread{1.5}\sffamily\songti\zihao{3}
+  {\bfseries 答辩委员会：}
+  % %\hspace{2\ccwd}
+  \begin{center}
+    \linespread{1.5}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    % 答辩委员会委员列表
+    \begin{tabular}{lll}%>{\bfseries}
+     \ifdefempty{\nwafu@value@dcteeaunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteeaunv} &
+     \ifdefempty{\nwafu@value@dcteeainst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteeainst} &
+     \nwafu@value@dcteeaname \ifdefempty{\nwafu@value@dcteeatitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteeatitle}\\
+
+     \ifdefempty{\nwafu@value@dcteebunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteebunv} &
+     \ifdefempty{\nwafu@value@dcteebinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteebinst} &
+     \nwafu@value@dcteebname \ifdefempty{\nwafu@value@dcteebtitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteebtitle}\\
+
+     \ifdefempty{\nwafu@value@dcteecunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteecunv} &
+     \ifdefempty{\nwafu@value@dcteecinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteecinst} &
+     \nwafu@value@dcteecname \ifdefempty{\nwafu@value@dcteectitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteectitle}\\
+
+     \ifdefempty{\nwafu@value@dcteedunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteedunv} &
+     \ifdefempty{\nwafu@value@dcteedinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteedinst} &
+     \nwafu@value@dcteedname \ifdefempty{\nwafu@value@dcteedtitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteedtitle}\\
+
+     \ifdefempty{\nwafu@value@dcteeeunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteeeunv} &
+     \ifdefempty{\nwafu@value@dcteeeinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteeeinst} &
+     \nwafu@value@dcteeename \ifdefempty{\nwafu@value@dcteeetitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteeetitle}
+    \end{tabular}
+  \end{center}
+
+  % 答辩日期
+  \vspace{\stretch{3}}
+  \linespread{2.0}\sffamily\songti\zihao{3}
+  {\bfseries 答辩日期：}\nwafu@value@defensedate
+
+  % % 完成地点
+  % \begin{center}
+  %   \linespread{1}
+
+  %   \songti\zihao{5}%fontsize{18bp}{31.2bp}\selectfont
+  %   \nwafu@label@applyaddress%
+
+  % \end{center}
+  \restoregeometry
+}
+\newcommand\nwafu@make@acknowledgementpage@master{
+  \cleardoublepage
+  %\pagestyle{style@empty}
+  %\pagenumbering{Alph}
   \newgeometry{top=1.0in, bottom=1.0in, left=1.25in, right=1.25in}
 
   % 分类号等
@@ -1813,66 +2095,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \end{center}
   \restoregeometry
 }
-\newcommand\nwafu@make@cover@master@en{
-  \cleardoublepage
-  \newgeometry{top=1.0in, bottom=1.0in, left=1.25in, right=1.25in}
 
-  % 英文分类号等
-  \begin{multicols}{2}
-    \linespread{1.3}\zihao{5}%\fontsize{10.5bp}{15.6bp}\selectfont
-    \begin{flushleft}
-      \begin{tabular}{rc}%
-        \nwafu@labelEn@clscode : & \nwafu@value@clscode \\ \cline{2-2}%
-        \nwafu@label@udccode : & \nwafu@value@udccode \\ \cline{2-2}%
-        \nwafu@labelEn@cfdlevel : & \ifdefempty{\nwafu@valueEn@cfdlevel}{Open}{\nwafu@valueEn@cfdlevel} \\ \cline{2-2}%
-      \end{tabular}
-    \end{flushleft}
-    \columnbreak
-    \begin{flushright}
-      \begin{tabular} {rc}%
-        \nwafu@labelEn@unvcode：& \ifdefempty{\nwafu@value@unvcode}{10712}{\nwafu@value@unvcode}  \\ \cline{2-2}%
-        \\ %
-        \nwafu@labelEn@studentid：& \nwafu@value@studentid \\ \cline{2-2}%
-      \end{tabular}
-    \end{flushright}
-  \end{multicols}
-  \vspace{\stretch{3.0}}
-
-  % 论文类别
-  \begin{center}
-    \linespread{1.212}\bfseries\zihao{3}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
-
-    {Thesis for \nwafu@worktypeen\ Degree\\
-     \nwafu@labelEn@nwafu\ in \uline{\nwafu@value@gradyear}}
-  \end{center}
-  \vspace{\stretch{1.0}}
-
-  % 题目及作者信息
-  \begin{center}
-    {\linespread{1.0}\bfseries\zihao{-2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
-    \makebox[0.9\linewidth][c]{\nwafu@valueEn@title}}
-    \vspace{\stretch{5.5}}
-
-    \linespread{2.0}\rmfamily\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
-    \begin{tabular}{l}
-      \nwafu@labelEn@majorsubject: \uline{\nwafu@valueEn@majorsubject}\\
-      \nwafu@labelEn@researchfield: \uline{\nwafu@valueEn@researchfield}\\
-      \nwafu@labelEn@researchername: \uline{\nwafu@valueEn@researchername}\\
-      \nwafu@labelEn@adviser: \uline{\nwafu@valueEn@advisers}\\
-      \nwafu@labelEn@coadviser: \uline{\nwafu@valueEn@coadvisers}\\
-      \nwafu@labelEn@applydate: \uline{\ifdefempty{\nwafu@valueEn@applydate}{\nwafu@dateEn}{\nwafu@valueEn@applydate}}
-    \end{tabular}
-  \end{center}
-  \vspace{\stretch{3}}
-
-  \begin{center}
-    \linespread{1}
-
-    \songti\zihao{5}%fontsize{18bp}{31.2bp}\selectfont
-    \nwafu@labelEn@applyaddress%
-  \end{center}
-  \restoregeometry
-}
 \newcommand\nwafu@make@declare@master{
   \cleardoublepage
   % \newgeometry{top=1.0in, bottom=1.0in, left=1.25in, right=1.25in}
@@ -2043,6 +2266,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \textsc{Thesix}}
 }
 \newcommand\nuaathesis{\textsc{Nuaa}\-\textsc{Thesis}}
+
 %% 
 %% Copyright (C) 2019 by nangeng
 %% 
