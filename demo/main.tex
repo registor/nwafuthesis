@@ -43,36 +43,10 @@
   applydate = {\today},            % 完成日期(默认为当前日期)，本科/研究生需要
   defensedate = {\today},            % 答辩日期(默认为当前日期)，研究生需要
   adviserteam = {耿楠,Knuth,Lamport}, % 指导小组，博士论文需要(不同人名用英文逗号分割)
-  % 答辩委员会信息，研究生论文需要
-  % 委员1
-  dcteeaunv = {西北农林科技大学},     % 单位
-  dcteeainst = {信息工程学院},    % 学院
-  dcteeaname = {耿楠}, % 姓名
-  dcteeatitle = {教授},   % 职称
-  % 委员2
-  dcteebunv = {},
-  dcteebinst = {},
-  dcteebname = {耿楠},
-  dcteebtitle = {},
-  % 委员3
-  dcteecunv = {},
-  dcteecinst = {},
-  dcteecname = {耿楠},
-  dcteectitle = {},
-  % 委员4
-  dcteedunv = {},
-  dcteedinst = {},
-  dcteedname = {耿楠},
-  dcteedtitle = {},
-  % 委员5
-  dcteeeunv = {},
-  dcteeeinst = {},
-  dcteeename = {耿楠},
-  dcteeetitle = {},
-  % 默认值
-  dcteeunvdefault = {},
-  dcteeinstdefault = {},
-  dcteetitledefault = {},
+  % 答辩委员会成员csv文件名称，包含相对路径，研究生论文需要
+  cmteemembfile = {data/committeememb.csv},
+  % 资助项目csv文件名称，包含相对路径，研究生论文需要
+  ackdatafile = {data/ackdata.csv},
 }
 
 % 英文
@@ -95,8 +69,10 @@
 
 % 排版封页
 \makecover
-% % 排版独创性和版权声明页
-% \makedeclare
+% 资助声明页
+\makeack
+% 排版独创性和版权声明页
+\makedeclare
 % % 排版摘要
 % \input{content/chap00-abs}
 % \makeabstract

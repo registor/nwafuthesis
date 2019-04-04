@@ -222,29 +222,8 @@
   \nwafu@define@list{value@coadvisers}{\linebreak}
 \fi
 \nwafu@define@list{value@adviserteam}{、}
-\nwafu@define{value@dcteeaunv}
-\nwafu@define{value@dcteebunv}
-\nwafu@define{value@dcteecunv}
-\nwafu@define{value@dcteedunv}
-\nwafu@define{value@dcteeeunv}
-\nwafu@define{value@dcteeainst}
-\nwafu@define{value@dcteebinst}
-\nwafu@define{value@dcteecinst}
-\nwafu@define{value@dcteedinst}
-\nwafu@define{value@dcteeeinst}
-\nwafu@define{value@dcteeaname}
-\nwafu@define{value@dcteebname}
-\nwafu@define{value@dcteecname}
-\nwafu@define{value@dcteedname}
-\nwafu@define{value@dcteeename}
-\nwafu@define{value@dcteeatitle}
-\nwafu@define{value@dcteebtitle}
-\nwafu@define{value@dcteectitle}
-\nwafu@define{value@dcteedtitle}
-\nwafu@define{value@dcteeetitle}
-\nwafu@define{value@dcteeunvdefault}
-\nwafu@define{value@dcteeinstdefault}
-\nwafu@define{value@dcteetitledefault}
+\nwafu@define{value@cmteemembfile}
+\nwafu@define{value@ackdatafile}
 \nwafu@define{value@major}
 \nwafu@define{value@studentid}
 \nwafu@define{value@classid}
@@ -279,27 +258,6 @@
 \nwafu@define{valueEn@applydate}
 \nwafu@define{valueEn@applyaddress}
 \nwafu@define{valueEn@institute}
-\newcommand\nwafu@label@dcteeunvdefault{%
-  \ifdefempty{\nwafu@value@dcteeunvdefault}{
-    \nwafu@label@nwafu
-  }{
-    \nwafu@value@dcteeunvdefault
-  }
-}
-\newcommand\nwafu@label@dcteeinstdefault{%
-  \ifdefempty{\nwafu@value@dcteeinstdefault}{
-    信息工程学院
-  }{
-    \nwafu@value@dcteeinstdefault
-  }
-}
-\newcommand\nwafu@label@dcteetitledefault{%
-  \ifdefempty{\nwafu@value@dcteetitledefault}{
-    教授
-  }{
-    \nwafu@value@dcteetitledefault
-  }
-}
 \RequirePackage{etoolbox}
 \RequirePackage{environ}
 \newcommand{\nwafu@@abstract}[1]{\long\gdef\nwafu@abstract{#1}}
@@ -1597,6 +1555,13 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@titlepage@master@cn
   \fi
 }
+\newcommand\makeack{
+  \ifnwafu@bachelor
+    \relax
+  \else
+    \nwafu@make@acknowledgementpage@master
+  \fi
+}
 \newcommand\makedeclare{
   \ifnwafu@bachelor
     \nwafu@make@declare@bachelor
@@ -1896,7 +1861,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1}
 
     \rmfamily\zihao{-3}%fontsize{18bp}{31.2bp}\selectfont
-    \nwafu@valueEn@institute , \nwafu@labelEn@nwafu%
+    \nwafu@valueEn@institute\\ \nwafu@labelEn@nwafu%
   \end{center}
   \restoregeometry
 }
@@ -1960,132 +1925,88 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
       \fi
     \end{tabular}
   \end{center}
+  \vspace{\stretch{3}}
 
   % 答辩委员会
-  \vspace{\stretch{3}}
+  % 定义用于记录最长字符串的变量及初始化
+  \newlength{\textlen}
+  \newlength{\namelen}
+  \setlength{\namelen}{\widthof{a}}
+  \newlength{\instlen}
+  \setlength{\instlen}{\widthof{a}}
+  \newlength{\titlelen}
+  \setlength{\titlelen}{\widthof{a}}
+
   \linespread{1.5}\sffamily\songti\zihao{3}
-  {\bfseries 答辩委员会：}
-  % 从 namelist.csv 读档为 namelist 资料库
-  \DTLloaddb{memblist}{data/committeememb.csv}
+  {\noindent\bfseries 答辩委员会：}
+  % 读取答辩委员会成员数据，计算最长字数
+  % \nwafu@define{value@cmteemembfile}  \nwafu@define{value@ackdatafile}
+  \DTLloaddb{memblist}{\nwafu@value@cmteemembfile}%data/committeememb.csv}
   \DTLforeach{memblist}{
     % .csv 档里对应每一列的宏
     \Name=name,%
     \Inst=inst,%
     \Title=title%
-  }{\Name\Inst\Title}
+  }{
+    \settowidth{\textlen}{\Name}
+    \ifdim \textlen > \namelen
+      \setlength{\namelen}{\textlen}
+    \else
+      \relax
+    \fi
+    \settowidth{\textlen}{\Inst}
+    \ifdim \textlen > \instlen
+      \setlength{\instlen}{\textlen}
+    \else
+      \relax
+    \fi
+    \settowidth{\textlen}{\Title}
+    \ifdim \textlen > \titlelen
+      \setlength{\titlelen}{\textlen}
+    \else
+      \relax
+    \fi
+  }
+  % 为姓名长度加上1个汉字的长度
+  \addtolength{\namelen}{\widthof{我}}
   % %\hspace{2\ccwd}
   \begin{center}
     \linespread{1.5}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
-    % 答辩委员会委员列表
-    \begin{tabular}{lll}%>{\bfseries}
-     \ifdefempty{\nwafu@value@dcteeaunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteeaunv} &
-     \ifdefempty{\nwafu@value@dcteeainst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteeainst} &
-     \nwafu@value@dcteeaname \ifdefempty{\nwafu@value@dcteeatitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteeatitle}\\
-
-     \ifdefempty{\nwafu@value@dcteebunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteebunv} &
-     \ifdefempty{\nwafu@value@dcteebinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteebinst} &
-     \nwafu@value@dcteebname \ifdefempty{\nwafu@value@dcteebtitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteebtitle}\\
-
-     \ifdefempty{\nwafu@value@dcteecunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteecunv} &
-     \ifdefempty{\nwafu@value@dcteecinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteecinst} &
-     \nwafu@value@dcteecname \ifdefempty{\nwafu@value@dcteectitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteectitle}\\
-
-     \ifdefempty{\nwafu@value@dcteedunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteedunv} &
-     \ifdefempty{\nwafu@value@dcteedinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteedinst} &
-     \nwafu@value@dcteedname \ifdefempty{\nwafu@value@dcteedtitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteedtitle}\\
-
-     \ifdefempty{\nwafu@value@dcteeeunv}{\nwafu@label@dcteeunvdefault}{\nwafu@value@dcteeeunv} &
-     \ifdefempty{\nwafu@value@dcteeeinst}{\nwafu@label@dcteeinstdefault}{\nwafu@value@dcteeeinst} &
-     \nwafu@value@dcteeename \ifdefempty{\nwafu@value@dcteeetitle}{\nwafu@label@dcteetitledefault}{\nwafu@value@dcteeetitle}
-    \end{tabular}
+    % 读取答辩委员会成员数据，根据最长字数宽度输出各个数据
+    \DTLforeach{memblist}{
+    % .csv 档里对应每一列的宏
+    \Name=name,%
+    \Inst=inst,%
+    \Title=title%
+    }{
+      \makebox[\the\instlen][s]{\Inst}\uline{\makebox[\the\namelen][c]{\Name}}\makebox[\the\titlelen][s]{\Title}\\
+    }
   \end{center}
 
   % 答辩日期
   \vspace{\stretch{3}}
   \linespread{2.0}\sffamily\songti\zihao{3}
-  {\bfseries 答辩日期：}\nwafu@value@defensedate
+  {\noindent\bfseries 答辩日期：}\nwafu@value@defensedate
 
-  % % 完成地点
-  % \begin{center}
-  %   \linespread{1}
-
-  %   \songti\zihao{5}%fontsize{18bp}{31.2bp}\selectfont
-  %   \nwafu@label@applyaddress%
-
-  % \end{center}
   \restoregeometry
 }
 \newcommand\nwafu@make@acknowledgementpage@master{
   \cleardoublepage
   %\pagestyle{style@empty}
   %\pagenumbering{Alph}
-  \newgeometry{top=1.0in, bottom=1.0in, left=1.25in, right=1.25in}
+  \newgeometry{top=3.0in, bottom=1.0in, left=1.25in, right=1.25in}
 
-  % 分类号等
-  \begin{multicols}{2}
-    \linespread{1.3}\songti\zihao{5}%\fontsize{10.5bp}{15.6bp}\selectfont
-    \begin{flushleft}
-      \begin{tabular} {cc}%
-        \makebox[\widthof{\nwafu@label@clscode}][s]{分类号}：& \nwafu@value@clscode \\ \cline{2-2}%
-        \makebox[\widthof{\nwafu@label@clscode}][l]{UDC}：& \nwafu@value@udccode \\ \cline{2-2}%
-        \makebox[\widthof{\nwafu@label@clscode}][s]{密级}：& \ifdefempty{\nwafu@value@cfdlevel}{公开}{\nwafu@value@cfdlevel} \\ \cline{2-2}%
-      \end{tabular}
-    \end{flushleft}
-    \columnbreak
-    \begin{flushright}
-      \begin{tabular} {cc}%
-        \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@unvcode}：& \ifdefempty{\nwafu@value@unvcode}{10712}{\nwafu@value@unvcode}  \\ \cline{2-2}%
-        \\ %
-        \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@studentid}：& \nwafu@value@studentid \\ \cline{2-2}%
-      \end{tabular}
-      % \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@unvcode}：\nwafu@value@unvcode \par
-      % \makebox[\widthof{\nwafu@label@unvcode}][s]{\nwafu@label@studentid}：\nwafu@value@studentid
-    \end{flushright}
-  \end{multicols}
-  \vspace{\stretch{3.0}}
+  \linespread{1.5}\heiti\zihao{3}%
+  % 读取资助项目员数据，输出内容
+  \DTLloaddb{ackdatalist}{\nwafu@value@ackdatafile}
+  \DTLforeach{ackdatalist}{
+    % .csv 档里对应每一列的宏
+    \ProjName=name,%
+    \ProjID=id%
+  }{
+    本研究得到\ProjName (编号:\ProjID )资助。\par
+  }
 
-  % LOGO及论文类别名称
-  \begin{center}
-    \includegraphics[width=0.7\linewidth]{logo/nwafubilogo.png}
-    \vspace{\stretch{1.1}}
-
-    \linespread{1}\heiti\zihao{-1}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
-    {\uline{\nwafu@value@gradyear} 届
-        \ifnwafu@techmaster{专业学位}\else{攻读}\fi \nwafu@worktypecn
-        \ifnwafu@techmaster \relax \else{学位}\fi 研究生学位论文}
-  \end{center}
-  \vspace{\stretch{1.0}}
-
-  % 题目及作者信息
-  \begin{center}
-    \linespread{1.0}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
-
-    % 题目
-    \makebox[0.9\linewidth][c]{\nwafu@value@title}
-     \vspace{\stretch{5.5}}
-
-    \linespread{2.0}\sffamily\songti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
-    % 作者信息
-    \begin{tabular}{cc}%>{\bfseries}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\ifnwafu@techmaster{\nwafu@label@professionaltype}\else{\nwafu@label@majorsubject}\fi}&
-                                                                                                                                            \ifnwafu@techmaster{\nwafu@value@professionaltype}\else{\nwafu@value@majorsubject}\fi \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\ifnwafu@techmaster{\nwafu@label@professionalfield}\else{\nwafu@label@researchfield}\fi}& \ifnwafu@techmaster{\nwafu@value@professionalfield}\else{\nwafu@value@researchfield}\fi \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@researchername} & \nwafu@value@researchername \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@adviser} & \nwafu@value@advisers \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@coadviser} & \nwafu@value@coadvisers \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@applydate} & \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}%
-    \end{tabular}
-  \end{center}
-  \vspace{\stretch{3}}
-
-  % 完成地点
-  \begin{center}
-    \linespread{1}
-
-    \songti\zihao{5}%fontsize{18bp}{31.2bp}\selectfont
-    \nwafu@label@applyaddress%
-
-  \end{center}
   \restoregeometry
 }
 
@@ -2102,16 +2023,15 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
 
-    本人声明：所呈交的{\ifnwafu@techmaster{专业学位硕士论
-      文}\else{\nwafu@worktypecn{}学位论文}\fi}是我个人在导师指导下独立
-    进行的研究工作及取得的研究结果；论文中的研究数据及结果的获得完全符
-    合学校《关于规范西北农林科技大学研究生学术道德的暂行规定》，如果违
-    反此规定，一切后果与法律责任均由本人承担。
+    本人声明:所呈交的学位论文是我个人在导师指导下独立进行的研究工作及取
+    得的研究结果;论文中的研究数据及结果的获得完全符合学校《关于规范西北
+    农林科技大学研究生学术道德的暂行规定》,如果违反此规定,一切后果与法
+    律责任均由本人承担。
 
-    尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发
-    表或撰写过的研究结果，也不包含其他人和自己本人已获得西北农林科技大学或
-    其它教育机构的学位或证书而使用过的材料。与我一同工作的同事对本研究所
-    做的任何贡献均已在论文的致谢中作了明确的说明并表示了谢意。
+    尽我所知,除了文中特别加以标注和致谢的地方外,论文中不包含其他人已经
+    发表或撰写过的研究结果,也不包含其他人和自己本人已获得西北农林科技大
+    学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同事对本
+    研究所做的任何贡献均已在论文的致谢中作了明确的说明并表示了谢意。
 
     \vspace{25.6bp}
 
@@ -2135,14 +2055,13 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
     % \phantom{西北农林科技}
-    本人承诺：我的{\ifnwafu@techmaster{专业学位硕
-        士}\else{\nwafu@worktypecn{}}\fi}研究
+    本人承诺：我的研究
     生\uline{\hspace{\ccwd}\nwafu@value@researchername\hspace{\ccwd}}所
-    呈交的\nwafu@worktypecn{}学位论文是在我指导下独立开展研究工作及取得
-    的研究结果，属于我现岗职务工作的结果，并严格按照学校《关于规范西北
-    农林科技大学研究生学术道德的暂行规定》而获得的研究结果。如果违反学
-    校《关于规范西北农林科技大学研究生学术道德的暂行规定》，我愿接受按
-    学校有关规定的处罚处理并承担相应导师连带责任。
+    呈交的学位论文是在我指导下独立开展研究工作及取得的研究结果,属于我现
+    岗职务工作的结果,并严格按照学校《关于规范西北农林科技大学研究生学术
+    道德的暂行规定》而获得的研究结果。如果违反学校《关于规范西北农林科
+    技大学研究生学术道德的暂行规定》,我愿接受按学校有关规定的处罚处理并
+    承担相应导师连带责任。
 
     \vspace{25.6bp}
 
@@ -2166,23 +2085,23 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \setlength\parindent{2\ccwd}\indent
 
     本学位论文的知识产权归属西北农林科技大学。本人同意西北农林科技大学
-    保存或向国家有关部门或机构送交论文的纸质版和电子版，允许论文被查阅
-    和借阅；同意西北农林科技大学将本学位论文的全部或部分内容授权汇编录
-    入《中国优秀硕士学位论文全文数据库》和《中国学位论文全文数据库》进
-    行出版，并享受相关权益。
+    保存或向国家有关部门或机构送交论文的纸质版和电子版,允许论文被查阅和
+    借阅;同意西北农林科技大学将本学位论文的全部或部分内容授权汇编录入
+    《中国博士/硕士学位论文全文数据库》和《中国学位论文全文数据库》进行
+    出版,并享受相关权益。
 
-    本人保证，在毕业离开(或者工作调离)西北农林科技大学后，发表或者使用本
-    学位(毕业)论文及其相关的工作成果时，将以西北农林科技大学为第一署名单
-    位，否则，愿意按《中华人民共和国著作权法》等有关规定接受处理并承担法
-    律责任。
+    本人保证,在毕业离开(或者工作调离)西北农林科技大学后,发表或者使用本
+    学位论文及其相关的工作成果时,将以西北农林科技大学为第一署名单位,否
+    则,愿意按《中华人民共和国著作权法》等有关规定接受处理并承担法律责
+    任。
 
     任何收存和保管本论文各种版本的其他单位和个人(包括研究生本人)未经本
-    论文作者的导师同意，不得有对本论文进行复制、修改、发行、出租、改编等
-    侵犯著作权的行为，否则，按违背《中华人民共和国著作权法》等有关规定处
+    论文作者的导师同意,不得有对本论文进行复制、修改、发行、出租、改编等
+    侵犯著作权的行为,否则,按违背《中华人民共和国著作权法》等有关规定处
     理并追究法律责任。
 
-    {\heiti (保密的学位论文在保密期限内，不得以任何方式发表、借阅、复印、缩印或
-    扫描复制手段保存、汇编论文)}
+    {\heiti (保密的学位论文在保密期限内,不得以任何方式发表、借阅、复印、
+      缩印或扫描复制手段保存、汇编论文)}
 
     \vspace{25.6bp}
 
