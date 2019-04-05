@@ -1634,7 +1634,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 }
 \newcommand\nwafutableofcontents{
   \cleardoublepage
-  \chapter*{
+  \nwafu@chapter*[]{
     \ifnwafu@bachelor
       \linespread{1.5}\fontsize{16bp}{15.6bp}\selectfont
     \fi
@@ -1856,7 +1856,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     %\makebox[0.9\linewidth][c]{\nwafu@value@title}
     \vspace{\stretch{4.0}}
 
-    \linespread{2.0}\sffamily\heiti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    \linespread{1.5}\sffamily\heiti\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
     % 作者信息
     \begin{tabular}{cc}%>{\bfseries}
       \makebox[\widthof{\nwafu@label@coadviser}][s]{\ifnwafu@techmaster{\nwafu@label@professionaltype}\else{\nwafu@label@majorsubject}\fi}&
@@ -1896,7 +1896,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     %\makebox[0.9\linewidth][c]{\nwafu@valueEn@title}}
     \vspace{\stretch{4.0}}
 
-    \linespread{2.0}\rmfamily\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    \linespread{1.5}\rmfamily\zihao{-3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
     \begin{tabular}{l}
       \ifnwafu@techmaster{\nwafu@labelEn@techmasterfield}\else{\nwafu@labelEn@majorsubject}\fi : \uline{\nwafu@valueEn@majorsubject}\\
       \ifnwafu@techmaster{\nwafu@labelEn@techmastertype}\else{\nwafu@labelEn@researchfield}\fi: \uline{\nwafu@valueEn@researchfield}\\
@@ -2023,7 +2023,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \addtolength{\namelen}{\widthof{我}}
   % %\hspace{2\ccwd}
   \begin{center}
-    \linespread{1.5}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    \linespread{1.3}\sffamily\songti\zihao{3}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
     % 读取答辩委员会成员数据，根据最长字数宽度输出各个数据
     \DTLforeach{memblist}{
     % .csv 档里对应每一列的宏
@@ -2177,8 +2177,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \else
     \clearpage
   \fi
-  \chapter[\nwafu@label@abstractshort]{\nwafu@label@abstract}%{\nwafu@value@title} \vskip 1\baselineskip minus 0.5\baselineskip
-  %\addcontentsline{toc}{chapter}{\nwafu@label@abstract}
+  \nwafu@chapter*[]{\nwafu@label@abstract}
+  %\chapter[\nwafu@label@abstractshort]{\nwafu@label@abstract}%{\nwafu@value@title} \vskip 1\baselineskip minus 0.5\baselineskip
+  \addcontentsline{toc}{chapter}{\nwafu@label@abstract}
   %\thispagestyle{style@empty}
 
   \begingroup
@@ -2205,8 +2206,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}{\MakeUppercase
     % \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
     % 0.5\baselineskip
-    \chapter[\nwafu@labelEn@abstract]{\rmfamily  \nwafu@labelEn@ABSTRACT}
-    %\addcontentsline{toc}{chapter}{\nwafu@labelEn@abstract}
+    \nwafu@chapter*[]{\rmfamily  \nwafu@labelEn@ABSTRACT}
+    %\chapter[\nwafu@labelEn@abstract]{\rmfamily  \nwafu@labelEn@ABSTRACT}
+    \addcontentsline{toc}{chapter}{\nwafu@labelEn@abstract}
   \endgroup
 
   %\thispagestyle{style@empty}

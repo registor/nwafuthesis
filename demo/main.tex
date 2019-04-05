@@ -1,12 +1,12 @@
 \documentclass[
   lang=cn,           % 目前只支持中文
-   degree=doctor,   % 博士论文
+  degree=doctor,   % 博士论文
   % degree=master,   % 硕士论文(学硕不能使用techmaster参数)
   % techmaster,      % 专业学位硕士论文(必须与degree=master参数共同作用)
   % degree=bachelor,  % 本科生论文(设计)
   type=paper,        % 支持paper(论文)或design(设计)(该参数仅对本科生作用)
-  % openany,oneside  % 单面打印
-  openright,blankleft,twoside % 双面打印
+   openany,oneside  % 单面打印
+  %openright,blankleft,twoside % 双面打印
 ]{nwafuthesis}
 
 % 载入需要的宏包
@@ -73,50 +73,53 @@
 % 排版独创性和版权声明页
 \makedeclare
 
-\frontmatter
+% 研究生需要将\frontmatter置于摘要之前，以实现页眉页脚处理
+\frontmatter 
 % 排版摘要
 \input{content/chap00-abs}
 \makeabstract
 
-% 排版目录
+% 本科生需要将\frontmatter置于摘要之后，以实现空白页眉页脚处理
 %\frontmatter
+% 排版目录
 % 如果需要调整目录层级数量的话，取消下一行注释，数字含义: 0=chapter, 1=section, 2=subsection
 % \setcounter{tocdepth}{1}
 \expandafter\nwafutableofcontents
-%% 符号对照表
+
+%% 符号对照表， 本科生不需要
 \input{content/denotation}
 
 % 排版正文
 \mainmatter
 \include{content/chap01}
-% \include{content/chap02}
-% \include{content/chap03}
-% \include{content/chap04}
-% \include{content/chap05}
+\include{content/chap02}
+\include{content/chap03}
+\include{content/chap04}
+\include{content/chap05}
 
-% % 排版参考文献表
-% \bibliomatter
-% % \nocite{*}
-% \nocite{广西壮族自治区林业厅1993--,r4,张若凌2004--,于潇2012-1518-1523,马克思2013-302-302,张田勤2000--,萧钰2001--,刘加林1993--,张志祥1998--,n42,n43}
-% \printbibliography[heading=bibintoc]%
+% 排版参考文献表
+\bibliomatter
+% \nocite{*}
+\nocite{广西壮族自治区林业厅1993--,r4,张若凌2004--,于潇2012-1518-1523,马克思2013-302-302,张田勤2000--,萧钰2001--,刘加林1993--,张志祥1998--,n42,n43}
+\printbibliography[heading=bibintoc]%
 
-% % 排版附录(推荐用appendix环境排版)
-% % \appendix
-% % 如果需要附录的话，在这里 include
-% % \include{content/05ex_duplicate}
-% % \include{content/06ex_postscript}
-% \begin{appendix}
-%   \input{content/chap06-app1}
-%   \input{content/chap07-app2}
-% \end{appendix}
+% 排版附录(推荐用appendix环境排版)
+% \appendix
+% 如果需要附录的话，在这里 include
+% \include{content/05ex_duplicate}
+% \include{content/06ex_postscript}
+\begin{appendix}
+  \input{content/chap06-app1}
+  \input{content/chap07-app2}
+\end{appendix}
 
-% % 排版致谢
-% \backmatter
-% \makeatletter % necessary for using \@chapapp
-% \renewcommand{\chaptermark}[1]{%
-%   \markboth{#1}{}}
-% \makeatother
-% \include{content/chap08-ack}
+% 排版致谢
+\backmatter
+\makeatletter % necessary for using \@chapapp
+\renewcommand{\chaptermark}[1]{%
+  \markboth{#1}{}}
+\makeatother
+\include{content/chap08-ack}
 
 \end{document}
 
