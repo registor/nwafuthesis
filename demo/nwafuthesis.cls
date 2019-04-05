@@ -272,23 +272,6 @@
   \newcommand\nwafu@title{\nwafu@valueEn@title}
 \fi\fi
 \newcommand\nwafu@font@toc{\normalsize}
-\newenvironment{denotation}[1][2.5cm]{%
-  \nwafu@chapter*[]{\nwafu@denotation@name} % no tocline
-  \vskip-30bp\zihao{-4}\begin{nwafu@denotation}[labelwidth=#1]
-}{%
-  \end{nwafu@denotation}
-}
-\newlist{nwafu@denotation}{description}{1}
-\setlist[nwafu@denotation]{%
-  nosep,
-  font=\normalfont,
-  align=left,
-  leftmargin=!, % sum of the following 3 lengths
-  labelindent=0pt,
-  labelwidth=2.5cm,
-  labelsep*=0.5cm,
-  itemindent=0pt,
-}
 \RequirePackage{expl3}
 \ExplSyntaxOn
 \sys_if_engine_xetex:TF{
@@ -385,7 +368,7 @@
 \RequirePackage{amssymb}   % 数学符号
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
-\RequirePackage[shortlabels]{enumitem}
+\RequirePackage[shortlabels]{enumitem} % 列表环境格式调整宏包
 \RequirePackage{environ}   % 创建环境和命令
 \RequirePackage{zhlineskip}% 调整行距
 \RequirePackage{datatool} % 处理csv数据文件的宏包
@@ -468,7 +451,7 @@
   \@backmatterfalse
   \@appendixfalse
   \ifnwafu@bachelor\pagenumbering{roman}\else\pagenumbering{Roman}\fi
-  \pagestyle{style@main}
+  \pagestyle{style@front}
 }
 \renewcommand{\mainmatter}{
   \nwafu@mainmatter
@@ -539,7 +522,7 @@
   space=auto,
   autoindent=true
 }
-\ifnwafu@bachelor \geometry{
+\ifnwafu@bachelor \geometry{% 本科生页边距
   top=3.0cm,
   bottom=2.0cm,
   left=2.5cm,
@@ -547,7 +530,7 @@
   headheight=2.0cm,
   headsep=2bp,
   footskip=1.0cm
-} \else \geometry{
+} \else \geometry{% 研究生页边距
   top=3.0cm,
   bottom=2.5cm,
   left=2.6cm,
@@ -559,15 +542,64 @@
 \fi
 \newcommand\nwafu@footerpagenum@decorate[1]{%
 \ifnwafu@bachelor%
-  \if@frontmatter{#1}\else{- #1 -}\fi%
+  \if@frontmatter{#1}\else{- #1 -}\fi% 本科生页码修饰
 \else%
-  {#1}%
+  {#1}% 研究生页码无修饰
 \fi%
 }
 \fancypagestyle{style@empty}{
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{style@front}{
+  \fancyhead{}
+  \ifnwafu@bachelor
+    \fancyhead[C]{
+      \ifodd\value{page}
+      {
+        \mbox{\songti\zihao{5}\leftmark}
+      }
+      \else
+      {
+        \mbox{\songti\zihao{5}\nwafu@title}
+      }
+      \fi
+    }
+  \else
+    \fancyhead[C]{
+      \ifodd\value{page}
+      {
+        \mbox{\songti\zihao{5}sdfsafsafsa}
+      }
+      \else
+      {
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}%\nwafu@title}
+      }
+      \fi
+    }
+  \fi
+  % 页脚
+  \fancyfoot{}
+  \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \if@twoside
+  %   \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \else
+  %   \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \fi
+  % \ifnwafu@bachelor
+  %   \if@twoside
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \else
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \fi
+  % \else
+  %   \relax
+  % \fi
+  \renewcommand{\headrulewidth}{0.75bp}
+  %\ifnwafu@bachelor
+  %  \renewcommand{\footrulewidth}{0.75bp}
+  %\fi
 }
 \fancypagestyle{style@main}{
   \fancyhead{}
@@ -591,43 +623,28 @@
       }
       \else
       {
-        \mbox{\songti\zihao{5}\nwafu@title}
-      }
-      \fi
-    }
-    \fancyhead[L]{
-      \ifodd\value{page}
-      {
-        \relax
-      }
-      \else
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \fi
-    }
-    \fancyhead[R]{
-      \ifodd\value{page}
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \else
-      {
-        \relax
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}%\nwafu@title}
       }
       \fi
     }
   \fi
+  % 页脚
   \fancyfoot{}
-  \ifnwafu@bachelor
-    \if@twoside
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \else
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \fi
-  \else
-    \relax
-  \fi
+  \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \if@twoside
+  %   \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \else
+  %   \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \fi
+  % \ifnwafu@bachelor
+  %   \if@twoside
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \else
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \fi
+  % \else
+  %   \relax
+  % \fi
   \renewcommand{\headrulewidth}{0.75bp}
   %\ifnwafu@bachelor
   %  \renewcommand{\footrulewidth}{0.75bp}
@@ -659,39 +676,40 @@
       }
       \fi
     }
-    \fancyhead[L]{
-      \ifodd\value{page}
-      {
-        \relax
-      }
-      \else
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \fi
-    }
-    \fancyhead[R]{
-      \ifodd\value{page}
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \else
-      {
-        \relax
-      }
-      \fi
-    }
+    % \fancyhead[L]{
+    %   \ifodd\value{page}
+    %   {
+    %     \relax
+    %   }
+    %   \else
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \fi
+    % }
+    % \fancyhead[R]{
+    %   \ifodd\value{page}
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \else
+    %   {
+    %     \relax
+    %   }
+    %   \fi
+    % }
   \fi
   \fancyfoot{}
-  \ifnwafu@bachelor
-    \if@twoside
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \else
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \fi
-  \else
-    \relax
-  \fi
+  \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \ifnwafu@bachelor
+  %   \if@twoside
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \else
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \fi
+  % \else
+  %   \relax
+  % \fi
   \renewcommand{\headrulewidth}{0.75bp}
   %\ifnwafu@bachelor
   %  \renewcommand{\footrulewidth}{0.75bp}
@@ -725,39 +743,41 @@
       }
       \fi
     }
-    \fancyhead[L]{
-      \ifodd\value{page}
-      {
-        \relax
-      }
-      \else
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \fi
-    }
-    \fancyhead[R]{
-      \ifodd\value{page}
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \else
-      {
-        \relax
-      }
-      \fi
-    }
+    % \fancyhead[L]{
+    %   \ifodd\value{page}
+    %   {
+    %     \relax
+    %   }
+    %   \else
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \fi
+    % }
+    % \fancyhead[R]{
+    %   \ifodd\value{page}
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \else
+    %   {
+    %     \relax
+    %   }
+    %   \fi
+    % }
   \fi
   \fancyfoot{}
-  \ifnwafu@bachelor
-    \if@twoside
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \else
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \fi
-  \else
-    \relax
-  \fi
+  \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \ifnwafu@bachelor
+  %   \if@twoside
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \else
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \fi
+  % \else
+  %   \relax
+  % \fi
+
   \renewcommand{\headrulewidth}{0.75bp}
   %\ifnwafu@bachelor
   %  \renewcommand{\footrulewidth}{0.75bp}
@@ -791,39 +811,40 @@
       }
       \fi
     }
-    \fancyhead[L]{
-      \ifodd\value{page}
-      {
-        \relax
-      }
-      \else
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \fi
-    }
-    \fancyhead[R]{
-      \ifodd\value{page}
-      {
-        \mbox{\songti\zihao{5}\thepage}
-      }
-      \else
-      {
-        \relax
-      }
-      \fi
-    }
+    % \fancyhead[L]{
+    %   \ifodd\value{page}
+    %   {
+    %     \relax
+    %   }
+    %   \else
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \fi
+    % }
+    % \fancyhead[R]{
+    %   \ifodd\value{page}
+    %   {
+    %     \mbox{\songti\zihao{5}\thepage}
+    %   }
+    %   \else
+    %   {
+    %     \relax
+    %   }
+    %   \fi
+    % }
   \fi
   \fancyfoot{}
-  \ifnwafu@bachelor
-    \if@twoside
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \else
-      \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
-    \fi
-  \else
-    \relax
-  \fi
+  \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  % \ifnwafu@bachelor
+  %   \if@twoside
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \else
+  %     \fancyfoot[C]{\footnotesize{\nwafu@footerpagenum@decorate{\thepage}}}
+  %   \fi
+  % \else
+  %   \relax
+  % \fi
   \renewcommand{\headrulewidth}{0.75bp}
   %\ifnwafu@bachelor
   %  \renewcommand{\footrulewidth}{0.75bp}
@@ -1507,6 +1528,23 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \DeclareFloatFont{bachelor}{\linespread{1.3}\fontsize{10.5bp}{15.6bp}\selectfont}
   \floatsetup[table]{font=bachelor}
 \fi
+\newenvironment{denotation}[1][2.5cm]{%
+  \nwafu@chapter*[]{\nwafu@denotation@name} % no tocline
+  \vskip-30bp\zihao{-4}\begin{nwafu@denotation}[labelwidth=#1]
+}{%
+  \end{nwafu@denotation}
+}
+\newlist{nwafu@denotation}{description}{1}
+\setlist[nwafu@denotation]{%
+  nosep,
+  font=\normalfont,
+  align=left,
+  leftmargin=!, % sum of the following 3 lengths
+  labelindent=0pt,
+  labelwidth=2.5cm,
+  labelsep*=0.5cm,
+  itemindent=0pt,
+}
 \setlist{nosep}
 \setlist*{leftmargin=*}
 \setlist[1]{labelindent=\dimexpr\parindent+\nwafuparleft\relax} %% Only the level 1
@@ -1572,12 +1610,6 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@cover@master@cn
     \nwafu@make@cover@master@en%
     \nwafu@make@titlepage@master@cn
-  \fi
-}
-\newcommand\makeack{
-  \ifnwafu@bachelor
-    \relax
-  \else
     \nwafu@make@acknowledgementpage@master
   \fi
 }
@@ -1948,6 +1980,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   % 答辩委员会
   % 定义用于记录最长字符串的变量及初始化
+  \begingroup
   \newlength{\textlen}
   \newlength{\namelen}
   \setlength{\namelen}{\widthof{a}}
@@ -2006,6 +2039,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \vspace{\stretch{3}}
   \linespread{2.0}\sffamily\songti\zihao{3}
   {\noindent\bfseries 答辩日期：}\nwafu@value@defensedate
+  \endgroup
 
   \restoregeometry
 }
@@ -2015,6 +2049,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   %\pagenumbering{Alph}
   \newgeometry{top=3.0in, bottom=1.0in, left=1.25in, right=1.25in}
 
+  \begingroup
   \linespread{1.5}\heiti\zihao{3}%
   % 读取资助项目员数据，输出内容
   \DTLloaddb{ackdatalist}{\nwafu@value@ackdatafile}
@@ -2025,6 +2060,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   }{
     本研究得到\ProjName (编号:\ProjID )资助。\par
   }
+  \endgroup
 
   \restoregeometry
 }
@@ -2141,10 +2177,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \else
     \clearpage
   \fi
-  \chapter*{{\nwafu@value@title} \vskip 1\baselineskip minus
-    0.5\baselineskip \nwafu@label@abstract}
-
-  \thispagestyle{style@empty}
+  \chapter[\nwafu@label@abstractshort]{\nwafu@label@abstract}%{\nwafu@value@title} \vskip 1\baselineskip minus 0.5\baselineskip
+  %\addcontentsline{toc}{chapter}{\nwafu@label@abstract}
+  %\thispagestyle{style@empty}
 
   \begingroup
     \setlength\parindent{2\ccwd}
@@ -2154,7 +2189,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \endgroup
   \vskip 1\baselineskip minus 0.5\baselineskip
 
-  \nwafu@put@kw{\nwafu@textbf{\songti\nwafu@label@keywords}：}{\songti\nwafu@keywords}
+  \begingroup
+    \nwafu@put@kw{\zihao{-4}\nwafu@textbf{\songti\nwafu@label@keywords}：}{\zihao{-4}\songti\nwafu@keywords}
+  \endgroup
 }
 \newcommand\nwafu@make@abstract@master@en{
   \ifnwafu@abstractopenright
@@ -2165,23 +2202,25 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \begingroup
     \titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
-
-    % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}
-    \chapter*{{\MakeUppercase \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
-      0.5\baselineskip \nwafu@labelEn@ABSTRACT}
+    % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}{\MakeUppercase
+    % \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
+    % 0.5\baselineskip
+    \chapter[\nwafu@labelEn@abstract]{\rmfamily  \nwafu@labelEn@ABSTRACT}
+    %\addcontentsline{toc}{chapter}{\nwafu@labelEn@abstract}
   \endgroup
 
-  \thispagestyle{style@empty}
+  %\thispagestyle{style@empty}
 
   \begingroup
     \setlength\parindent{2em}
     \rmfamily\zihao{-4}\indent
-
     \nwafu@abstractEn
   \endgroup
   \vskip 1\baselineskip minus 0.5\baselineskip
 
-  \nwafu@put@kw{\nwafu@textbf{\nwafu@labelEn@keywords}: }{\nwafu@keywordsEn}
+  \begingroup
+    \nwafu@put@kw{\zihao{-4}\nwafu@textbf{\nwafu@labelEn@keywords}: }{\rmfamily\zihao{-4}\nwafu@keywordsEn}
+  \endgroup
 }
 \newcommand\nwafu@atendpackage{\csname ctex_at_end_package:nn\endcsname}
 \nwafu@atendpackage{nomencl}{

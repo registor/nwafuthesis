@@ -69,23 +69,26 @@
 
 % 排版封页
 \makecover
-% 资助声明页
-\makeack
+
 % 排版独创性和版权声明页
 \makedeclare
-% % 排版摘要
-% \input{content/chap00-abs}
-% \makeabstract
 
-% % 排版目录
-% \frontmatter
-% % 如果需要调整目录层级数量的话，取消下一行注释，数字含义: 0=chapter, 1=section, 2=subsection
-% % \setcounter{tocdepth}{1}
-% \expandafter\nwafutableofcontents
+\frontmatter
+% 排版摘要
+\input{content/chap00-abs}
+\makeabstract
 
-% % 排版正文
-% \mainmatter
-% \include{content/chap01}
+% 排版目录
+%\frontmatter
+% 如果需要调整目录层级数量的话，取消下一行注释，数字含义: 0=chapter, 1=section, 2=subsection
+% \setcounter{tocdepth}{1}
+\expandafter\nwafutableofcontents
+%% 符号对照表
+\input{content/denotation}
+
+% 排版正文
+\mainmatter
+\include{content/chap01}
 % \include{content/chap02}
 % \include{content/chap03}
 % \include{content/chap04}
