@@ -2008,9 +2008,9 @@ and the derived files           nwafuthesis.ins,
 %    \end{macrocode}
 %
 % \begin{macro}{\nwafu@chapter*}
-% 默认的 \cs{chapter*} 很难同时满足研究生院和本科生的论文要求。本科论文要求所有的
+% 默认的 \cs{chapter*} 很难同时满足研究生院和本科生的论文要求。研究生论文要求所有的
 % 章都出现在目录里，比如摘要、Abstract、主要符号表等，所以可以简单的扩展默
-% 认\cs{chapter*} 实现这个目的。但是研究生又不要这些出现在目录中，而且致谢和声明
+% 认\cs{chapter*} 实现这个目的。但是本科生又不要这些出现在目录中，而且致谢和声明
 % 部分的章名、页眉和目录都不同，所以定义一个灵活的 \cs{nwafu@chapter*} 专门处理这些
 % 要求。
 %
@@ -2091,7 +2091,11 @@ and the derived files           nwafuthesis.ins,
   {\tablename}
   {\titlerule*[1ex]{.}\contentspage}
 %    \end{macrocode}
+%
 % \subsubsection{参考文献}
+% 本节基于胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式(\url{https://github.com/hushidong/biblatex-gb7714-2015}) 实现，
+% 并针对我校参考文献样式要求，在胡振震编的指导下进行了部分样式和驱动代码设计。
+% 强烈建议学校能够完全采用GB/T 7714-2015标准进行参考文献编排，以便直接采用胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式文件。
 %    \begin{macrocode}
 %
 % 表示范围的波浪线符号
@@ -2131,7 +2135,6 @@ and the derived files           nwafuthesis.ins,
     in={In:\addspace},
     incn={见:\addspace},
 }
-%
 %
 %   修改最后一个作者前的字符串，比如 and(摘录于gb7714-2015.bbx)
 %   v1.0o,20190103,hzz
@@ -2941,7 +2944,20 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@cover@master@cn
     \nwafu@make@cover@master@en%    
     \nwafu@make@titlepage@master@cn
-    \nwafu@make@acknowledgementpage@master
+    %\nwafu@make@projlist@master
+  \fi
+}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\makeprojlist}
+% 绘制资助声明页，本科生无资助声明页
+%    \begin{macrocode}
+\newcommand\makeprojlist{
+  \ifnwafu@bachelor
+    \relax 
+  \else
+    \nwafu@make@projlist@master
   \fi
 }
 %    \end{macrocode}
@@ -3475,11 +3491,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{硕/博士资助声明页}
-% \begin{macro}{\nwafu@make@acknowledgementpage@master}
+% \begin{macro}{\nwafu@make@projlist@master}
 % 硕/博士资助声明页，只要把论文信息排好就行。
 %
 %    \begin{macrocode}
-\newcommand\nwafu@make@acknowledgementpage@master{
+\newcommand\nwafu@make@projlist@master{
   \cleardoublepage
   %\pagestyle{style@empty}
   %\pagenumbering{Alph}
@@ -3704,8 +3720,6 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 % \label{sec:shuji}
 % \begin{macro}{\shuji}
 % 单独使用书脊命令会在新的一页产生竖排书脊。
-% \changes{v4.5}{2009/01/04}{简化代码，同时支持 \XeLaTeX。}
-% \changes{v5.0.0}{2015/12/21}{扩展 \cs{shuji}\oarg{标题}\oarg{作者}。}
 %    \begin{macrocode}
 \NewDocumentCommand{\shuji}{O{\nwafu@ctitle} O{\nwafu@cauthor}}{%
   \newpage\thispagestyle{empty}%

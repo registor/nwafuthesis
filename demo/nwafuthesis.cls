@@ -1610,7 +1610,14 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@cover@master@cn
     \nwafu@make@cover@master@en%
     \nwafu@make@titlepage@master@cn
-    \nwafu@make@acknowledgementpage@master
+    %\nwafu@make@projlist@master
+  \fi
+}
+\newcommand\makeprojlist{
+  \ifnwafu@bachelor
+    \relax
+  \else
+    \nwafu@make@projlist@master
   \fi
 }
 \newcommand\makedeclare{
@@ -2043,7 +2050,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \restoregeometry
 }
-\newcommand\nwafu@make@acknowledgementpage@master{
+\newcommand\nwafu@make@projlist@master{
   \cleardoublepage
   %\pagestyle{style@empty}
   %\pagenumbering{Alph}
