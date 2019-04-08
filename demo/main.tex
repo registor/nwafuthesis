@@ -116,13 +116,18 @@
   \input{content/chap07-app2}
 \end{appendix}
 
-% 排版致谢
-\backmatter
-\makeatletter % necessary for using \@chapapp
-\renewcommand{\chaptermark}[1]{%
-  \markboth{#1}{}}
-\makeatother
-\include{content/chap08-ack}
+% % 排版致谢
+% \backmatter
+% \makeatletter % necessary for using \@chapapp
+% \renewcommand{\chaptermark}[1]{%
+%   \markboth{#1}{}}
+% \makeatother
+% \include{content/chap08-ack}
+%% 致谢
+\input{content/ack}
+
+%% 个人简历
+\input{content/resume}
 
 \end{document}
 

@@ -864,6 +864,7 @@
   \newcommand\nwafu@denotation@name{主要符号对照表}
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
+  \newcommand\nwafu@ack@name{致\hspace{\ccwd}谢}
 \else
   \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
@@ -872,8 +873,10 @@
 \ifnwafu@bachelor
   \newcommand{\cabstractname}{摘要}
   \newcommand{\eabstractname}{Abstract}
+  \newcommand\nwafu@resume@title{个人简历}
 \else
   \newcommand{\cabstractname}{摘\hspace{\ccwd}要}
+  \newcommand\nwafu@resume@title{个人简历}
   \newcommand{\eabstractname}{Abstract}
 \fi
 \let\CJK@todaysave=\today
@@ -1545,6 +1548,23 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   labelsep*=0.5cm,
   itemindent=0pt,
 }
+\newenvironment{acknowledgement}[1][\nwafu@ack@name]{%
+    \nwafu@chapter*{#1}
+  }{}
+\newenvironment{resume}[1][\nwafu@resume@title]{%
+    \nwafu@chapter*{#1}
+  }{}
+\newcommand{\resumeitem}[1]{%
+  \vspace{24bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{6bp}}
+\newcommand{\researchitem}[1]{%
+  \vspace{32bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{14bp}}
+\newlist{publications}{enumerate}{1}
+\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=8bp,
+  leftmargin=10mm,labelsep=!,before=\zihao{-4},resume}
+\newlist{achievements}{enumerate}{1}
+\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=8bp,
+  leftmargin=10mm,labelsep=!,before=\zihao{-4}}
+\def\publicationskip{\bigskip\bigskip}
 \setlist{nosep}
 \setlist*{leftmargin=*}
 \setlist[1]{labelindent=\dimexpr\parindent+\nwafuparleft\relax} %% Only the level 1

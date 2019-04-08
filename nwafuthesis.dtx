@@ -125,7 +125,7 @@ and the derived files           nwafuthesis.ins,
 %  \nwafuthesis{} --- 西北农林科技大学学位论文 \LaTeX{} 宏包
 %}
 %\author{
-%  耿楠\thanks{https://github.com/registor/nwafuthesis}
+%  耿楠\thanks{https://ginwafub.com/registor/nwafuthesis}
 %}
 %\date{\fileversion{} \qquad \filedate}
 %
@@ -210,7 +210,7 @@ and the derived files           nwafuthesis.ins,
 % （也可以参考 \TeX~Live 的宏包列表手动安装）。
 %
 % \subsection{获取模板}
-% 您可以从 \url{https://github.com/registor/nwafuthesis} 获取本模板的开
+% 您可以从 \url{https://ginwafub.com/registor/nwafuthesis} 获取本模板的开
 % 发源代码，或者从 release 里下载``nwafuthesis-LaTeX.zip''模板代码及使
 % 用示例压缩包（强烈推荐后者）。
 %
@@ -510,12 +510,151 @@ and the derived files           nwafuthesis.ins,
 %
 % 但由于学校的论文模板中没有提及外文的格式，
 % 所以没能总结出值得信任的标准，请打算用外文写学位论文的准毕业生提前与指导老师确认格式是否有问题。
-% 欢迎在 github\footnote{\url{https://github.com/registor/nwafuthesis/issues/new}} 上指正格式问题，
+% 欢迎在 ginwafub\footnote{\url{https://ginwafub.com/registor/nwafuthesis/issues/new}} 上指正格式问题，
 % 笔者会在第一时间修正模板，使其符合规范的。
 %
 % \subsection{英文}
 % 英文环境下（即文档参数\option{lang=en}），本模板将加载 \verb|book| 文档类。
 % 基本与中文环境兼容，可以在正文中直接使用中文。
+%
+% \subsection{封底部分}
+%
+% \subsubsection{致谢声明}
+% \DescribeEnv{acknowledgement}
+% 把致谢做成一个环境更好一些，直接往里面写感谢的话就可以啦。
+% \begin{latex}
+% \begin{acknowledgement}
+%   …
+%   还要特别感谢 \nwafuthesis\ 节省了论文排版时间！
+% \end{acknowledgement}
+% \end{latex}
+%
+% 本科论文在此处还有一节“声明”，提交版本时需要替换为签字扫描文件，同样我们也提供：
+% 如果使用声明扫描页，将可选参数指定为扫描后的 PDF 文件名，例如：
+% \begin{latex}
+% \begin{acknowledgement}[scan-statement.pdf]
+%   加了扫描文件后，这里面的文字就没用了。
+%
+%   还要特别感谢计算机系薛瑞尼同学在论文格式和 \LaTeX\ 编译等方面给我的很多帮助！
+% \end{acknowledgement}
+% \end{latex}
+%
+% \subsubsection{附录}
+% \DescribeEnv{appendix}
+% 所有的附录都插到这里来。因为附录会更改默认的 chapter 属性，而后面的{\heiti 个人简
+%   历}又需要恢复，所以实现为环境可以保证全局的属性不受影响。
+% \begin{latex}
+% \begin{appendix}
+%  \input{data/appendix01}
+%  \input{data/appendix02}
+% \end{appendix}
+% \end{latex}
+%
+% \DescribeMacro{\title}
+% 附录里主要是本科的外文资料以及翻译，在这种情况下，\cs{chapter} 的标题是固定的
+% （即“外文资料的调研阅读报告或书面翻译”），所以用 \cs{title}\marg{标题} 开排版外
+% 文资料以及翻译的标题。这个命令只能在附录环境下使用。
+%
+% \DescribeEnv{translationbib}
+% 本环境用来描述外文资料中的参考文献，例子：
+% \begin{latex}
+% \begin{translationbib}
+%   \item Donald E. Knuth. The \TeX book. Addison-Wesley, 1984. ISBN: 0-201-13448-9
+%   \item Paul W. Abrahams, Karl Berry and Kathryn A. Hargreaves. \TeX\ for the
+%     Impatient. Addison-Wesley, 1990. ISBN: 0-201-51375-7
+%   \item David Salomon. The advanced \TeX book.  New York : Springer, 1995. ISBN:0-387-94556-3
+% \end{translationbib}
+% \end{latex}
+%
+% \subsubsection{简历}
+% \DescribeEnv{resume}
+% 开启个人简历章节，包括个人简历，发表文章，研究成果列表等。每个子项目请
+% 用以下对应命令开启：\cs{xxxitem}\marg{subtitle}。
+%
+% \DescribeMacro{\resumeitem}
+% 个人简历，用法：\cs{resumeitem}\{个人简历\}。简历内容部分没有格式要求，正常段
+% 落排版。
+%
+% \DescribeMacro{\researchitem}
+% 发表学术论文，用法：\cs{researchitem}\marg{类别}，包括“学术论文”和“研究成果”两
+% 个类别。分别用 \env{publications} 和 \env{achievements} 罗列。
+%
+% \DescribeEnv{publications}
+% \DescribeMacro{\publicationskip}
+% 用 \env{publications} 环境进行罗列发表的论文。按照学校要求，在学期间发表的学术
+% 论文分以下三部分按顺序分别列出，每部分之间空 1 行，序号可连续排列：
+% \begin{enumerate}
+% \item 已经刊载的学术论文（本人是第一作者，或者导师为第一作者本人是第二作者）
+% \item 尚未刊载，但已经接到正式录用函的学术论文（本人为第一作者，或者导师为第一
+%   作者本人是第二作者）。
+% \item 其他学术论文。可列出除上述两种情况以外的其他学术论文，但必须是已经刊载或
+%   者收到正式录用函的论文。
+% \end{enumerate}
+%
+% \env{publications} 环境支持每一部分分别编写，逻辑上更清楚，为了在环境之间支持
+% 空行，需要利用 \cs{publicationskip} 控制。示例：
+% \begin{latex}
+%  \researchitem{发表的学术论文}
+%
+%  % 1. 已经刊载的学术论文
+%  \begin{publications}
+%    \item Yang Y, Ren T L, Zhang L T, et al. Miniature microphone with silicon-
+%      based ferroelectric thin films. Integrated Ferroelectrics, 2003,
+%      52:229-235. (SCI 收录, 检索号:758FZ.)
+%    \item 杨轶, 张宁欣, 任天令, 等. 硅基铁电微声学器件中薄膜残余应力的研究. 中国机
+%      械工程, 2005, 16(14):1289-1291. (EI 收录, 检索号:0534931 2907.)
+%    \item 杨轶, 张宁欣, 任天令, 等. 集成铁电器件中的关键工艺研究. 仪器仪表学报,
+%      2003, 24(S4):192-193. (EI 源刊.)
+%  \end{publications}
+%
+%  % 2. 尚未刊载，但已经接到正式录用函的学术论文
+%  \begin{publications}[before=\publicationskip,after=\publicationskip]
+%    \item Yang Y, Ren T L, Zhu Y P, et al. PMUTs for handwriting recognition. In
+%      press. (已被 Integrated Ferroelectrics 录用. SCI 源刊.)
+%  \end{publications}
+%
+%  % 3. 其他学术论文。
+%  \begin{publications}
+%    \item Wu X M, Yang Y, Cai J, et al. Measurements of ferroelectric MEMS
+%      microphones. Integrated Ferroelectrics, 2005, 69:417-429. (SCI 收录, 检索号
+%      :896KM)
+%    \item 贾泽, 杨轶, 陈兢, 等. 用于压电和电容微麦克风的体硅腐蚀相关研究. 压电与声
+%      光, 2006, 28(1):117-119. (EI 收录, 检索号:06129773469)
+%    \item 伍晓明, 杨轶, 张宁欣, 等. 基于MEMS技术的集成铁电硅微麦克风. 中国集成电路,
+%      2003, 53:59-61.
+%  \end{publications}
+% \end{latex}
+%
+% \DescribeEnv{achievements}
+% 研究成果用 \cs{researchitem}\{研究成果\} 开启，随后用 \env{achievements} 环
+% 境罗列。
+%
+% 具体用法请参看示例文档 \file{data/resume.tex}。
+%
+% \subsection{书脊}
+% \DescribeMacro{\shuji}
+% 生成装订的书脊，为竖排格式，命令格式：\cs{shuji}\oarg{标题}\oarg{作者}。默认参
+% 数为论文中文题目和中文作者。如果中文题目中没有英文字母，那么直接调用此命令即可。
+% 否则，就要像例子里面那样做一些微调（参看模板自带的 \file{shuji.tex}）。下面是一
+% 个例子：
+% \begin{latex}
+% \documentclass[degree=master]{nwafuthesis}
+%
+% \begin{document}
+% \nwafuset{
+%   ctitle={论文中文题目},
+%   cauthor={中文姓名}}
+%
+% \shuji % 使用默认标题和默认作者
+%
+% \shuji[使用默认作者的标题]
+%
+% \shuji[同时修改标题和作者的标题][尼瑞薛]
+%
+% % 如果标题中有英文，那可以参考如下方法进行微调：
+% \shuji[清华大学 \raisebox{-5pt}{\LaTeX} 论文模板 \raisebox{-5pt}{v\version} 样例]
+% \end{document}
+% \end{latex}
 %
 % \subsubsection*{已知问题}
 % 部分英文格式没有确定下来，目前只参照中文的格式、姑且按笔者的直觉设置了一下，包括不限于：
@@ -530,7 +669,7 @@ and the derived files           nwafuthesis.ins,
 % 很可能不符合评审老师的要求，因此在交稿前务必与指导老师确认格式是否正确。
 %
 % \section{致谢}
-% 这个模板是站在巨人肩膀上的成果，感谢为本模板提供基本框架的\textsc{thuthesis}和\nuaathesis{}，
+% 这个模板是站在巨人肩膀上的成果，感谢为本模板提供基本框架的\textsc{nwafuthesis}和\nuaathesis{}，
 % 感谢西北农林科技大学信息工程学院2014级硕士研究生马福峰、唐秋虎、何鹏等；2013级本科生王迪和江旭、2014级刘朝洋
 % 的模板初稿，感谢张志毅老师的协作，感谢学校、学院相关部分的大力支持，
 % 特别感谢信息工程学院的鼎力支持，在学院中从2018届毕业论文撰写中开始推广该模板，
@@ -1837,6 +1976,7 @@ and the derived files           nwafuthesis.ins,
   \newcommand\nwafu@denotation@name{主要符号对照表}  
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
+  \newcommand\nwafu@ack@name{致\hspace{\ccwd}谢}
 \else
   \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
@@ -1845,8 +1985,10 @@ and the derived files           nwafuthesis.ins,
 \ifnwafu@bachelor
   \newcommand{\cabstractname}{摘要}
   \newcommand{\eabstractname}{Abstract}
+  \newcommand\nwafu@resume@title{个人简历}
 \else
   \newcommand{\cabstractname}{摘\hspace{\ccwd}要}
+  \newcommand\nwafu@resume@title{个人简历}
   \newcommand{\eabstractname}{Abstract}
 \fi
 \let\CJK@todaysave=\today
@@ -2093,7 +2235,7 @@ and the derived files           nwafuthesis.ins,
 %    \end{macrocode}
 %
 % \subsubsection{参考文献}
-% 本节基于胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式(\url{https://github.com/hushidong/biblatex-gb7714-2015}) 实现，
+% 本节基于胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式(\url{https://ginwafub.com/hushidong/biblatex-gb7714-2015}) 实现，
 % 并针对我校参考文献样式要求，在胡振震编的指导下进行了部分样式和驱动代码设计。
 % 强烈建议学校能够完全采用GB/T 7714-2015标准进行参考文献编排，以便直接采用胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式文件。
 %    \begin{macrocode}
@@ -2830,6 +2972,80 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 }
 %    \end{macrocode}
 % \end{environment}
+%
+% \subsubsection{致谢}
+% \label{sec:ackanddeclare}
+%
+% \begin{environment}{acknowledgement}
+%
+% \changes{v2.1}{2019/04/08}{将致谢定义为一个环境。}
+% \changes{v2.1}{2019/04/08}{在那些不显示编号的章节前面先执行一次
+%  \cs{cleardoublepage}，使新开章节的页码到达正确的状态。否则会因为 \cs{addcontentsline}
+% 在 chapter 之前而导致目录页码错误。}
+% 定义致谢环境。
+%
+%    \begin{macrocode}
+%\NewDocumentEnvironment{acknowledgement}{%
+%    \nwafu@chapter*{\nwafu@ack@name}
+%  }
+\newenvironment{acknowledgement}[1][\nwafu@ack@name]{%
+    \nwafu@chapter*{#1}
+  }{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \subsection{个人简历}
+%
+% \begin{environment}{resume}
+% \changes{v2.1}{2019/04/08}{添加简历环境。}
+% 个人简历发表文章等。
+%    \begin{macrocode}
+\newenvironment{resume}[1][\nwafu@resume@title]{%
+    \nwafu@chapter*{#1}
+  }{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{\resumeitem}
+% 个人简历部分。每条信息一个段落，故不需要特别处理。
+%    \begin{macrocode}
+\newcommand{\resumeitem}[1]{%
+  \vspace{24bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{6bp}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\researchitem}
+% 研究成果用 \cs{researchitem}\marg{类别} 开启，包括“学术论文”和“研究成果”两个
+% 列表。
+%    \begin{macrocode}
+\newcommand{\researchitem}[1]{%
+  \vspace{32bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{14bp}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{publications}
+% \begin{environment}{achievements}
+% 二者分别通过两个环境 \env{publications} 和 \env{achievements} 罗
+% 列。
+%
+%    \begin{macrocode}
+\newlist{publications}{enumerate}{1}
+\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=8bp,
+  leftmargin=10mm,labelsep=!,before=\zihao{-4},resume}
+\newlist{achievements}{enumerate}{1}
+\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=8bp,
+  leftmargin=10mm,labelsep=!,before=\zihao{-4}}
+%    \end{macrocode}
+% \end{environment}
+% \end{environment}
+%
+% \begin{macro}{\publicationskip}
+% \env{publications} 环境可以连续出现多次，第二类论文列表前后要空一行，使
+% 用 \cs{publicationskip}。
+%    \begin{macrocode}
+\def\publicationskip{\bigskip\bigskip}
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{列表环境}
 % 使用enumitem宏包配置列表环境，紧凑间距。
