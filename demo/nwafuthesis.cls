@@ -360,6 +360,7 @@
 \RequirePackage{booktabs}  % 三线表格
 \RequirePackage{multicol}  % 合并表格列
 \RequirePackage{caption}   % 标题
+\RequirePackage{bicaption} % 双语标题
 \RequirePackage{hyperref}  % 超链接
 \RequirePackage{ifxetex}   % 条件判断
 \RequirePackage{siunitx}   % 单位符号、数字
@@ -938,7 +939,7 @@
       indent=2\ccwd,
     },
     subsubsection={
-      name={（,）},
+      name={（ , ）},
       number=\arabic{subsubsection},
       afterindent=true,
       beforeskip={8bp \@plus 1ex \@minus .2ex},
@@ -1524,6 +1525,10 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}
 \captionsetup{justification=centerlast}
+\captionsetup[figure][bi-first]{name=图}
+\captionsetup[figure][bi-second]{name=Fig.}
+\captionsetup[table][bi-first]{name=表}
+\captionsetup[table][bi-second]{name=Tab.}
 \setlength\heavyrulewidth{0.5bp}
 \setlength\lightrulewidth{0.5bp}
 \setlength\cmidrulewidth{0.5bp}

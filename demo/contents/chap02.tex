@@ -15,9 +15,9 @@
 然后可以去 texample\footnote{\url{http://texample.net/tikz}} 等网站上找类似的例子，
 也可以使用 GeoGebra\footnote{\url{https://www.geogebra.org}} 之类的工具来生成\TeX 代码，
 效果可以参见\autoref{fig:tikzrot}；
-\item 其次推荐使用其他绘图工具生成的 \verb|PDF|、 \verb|EPS| 格式的\qtbr{矢量图}，
-\verb|svg| 格式可以通过 inkscape 软件转换成带 \TeX{}文本代码的 \verb|PDF|。效果可以参见\autoref{fig:logo}；
-\item 诚然，\verb|PNG|、 \verb|jpeg| 之类的位图也能做插图，不过
+\item 其次推荐使用其他绘图工具生成的 \verb|pdf|、 \verb|eps| 格式的\qtbr{矢量图}，
+\verb|svg| 格式可以通过 inkscape 软件转换成带 \TeX{}文本代码的 \verb|pdf|。效果可以参见\autoref{fig:logo}；
+\item 诚然，\verb|png|、 \verb|jpeg| 之类的位图也能做插图，不过
   \qtbr{质量堪忧}，小心导师狠批；
 \item 最后，一般论文都是\emph{单色印刷}的，请确保插图在黑白打印情况下的清晰度。
 \end{enumerate}
@@ -42,7 +42,7 @@
 \emph{页面留白}问题，强烈建议使用\env{figure}环境排版插图，
 同时，\env{figure}环境还能够实现插图编号及交叉引用的自动化，如\autoref{fig:tikzrot}所示。
 
-\subsection{排版子图}
+\subsubsection{排版子图}
 
 如多个子图共用题注，需加载额外宏包，可以使
 用\pkg{floatrow}、\pkg{subcaption} 或 \pkg{subfig}，注
@@ -77,19 +77,19 @@
 效果可以参见\autoref{fig:subfigss} 的\autoref{fig:logo6}。
 
 \begin{figure}[t]
-  \subfloat[校徽$\times 1$]{\includegraphics[width=2cm]{nwafu-circle}}\quad
-  \subfloat[校徽$\times 2$]{\includegraphics[width=2cm]{nwafu-circle}}\\
-  \subfloat[校徽$\times 3$]{\includegraphics[width=2cm]{nwafu-circle}}\quad
-  \subfloat[校徽$\times 4$]{\includegraphics[width=2cm]{nwafu-circle}}
+  \subfloat[校徽$\times 1$]{\includegraphics[width=3cm]{nwafu-circle}}\quad
+  \subfloat[校徽$\times 2$]{\includegraphics[width=3cm]{nwafu-circle}}\\
+  \subfloat[校徽$\times 3$]{\includegraphics[width=3cm]{nwafu-circle}}\quad
+  \subfloat[校徽$\times 4$]{\includegraphics[width=3cm]{nwafu-circle}}
   \caption{包含多张图片的插图}
   \label{fig:subfigss}
 \end{figure}
 \begin{figure}[t]
   \ContinuedFloat
-  \subfloat[校徽$\times 5$]{\includegraphics[width=2cm]{nwafu-circle}}\quad
-  \subfloat[校徽$\times 6$ \label{fig:logo6}]{\includegraphics[width=2cm]{nwafu-circle}}\\
-  \subfloat[校徽$\times 7$]{\includegraphics[width=2cm]{nwafu-circle}}\quad
-  \subfloat[校徽$\times 8$]{\includegraphics[width=2cm]{nwafu-circle}}
+  \subfloat[校徽$\times 5$]{\includegraphics[width=3cm]{nwafu-circle}}\quad
+  \subfloat[校徽$\times 6$ \label{fig:logo6}]{\includegraphics[width=3cm]{nwafu-circle}}\\
+  \subfloat[校徽$\times 7$]{\includegraphics[width=3cm]{nwafu-circle}}\quad
+  \subfloat[校徽$\times 8$]{\includegraphics[width=3cm]{nwafu-circle}}
   % 指定图表清单中的标题为[]，即可将其消除，避免目录中出现重复条目
   \caption[]{包含多张图片的插图（续）}
 \end{figure}
@@ -116,6 +116,18 @@
   \caption{又一幅占用完整页面的图片}
   \label{fig:fullpage2}
 \end{sidewaysfigure}
+
+\subsubsection{排版双语标题}
+
+如需要使用双语题注(中文和英文)，需加载额外宏包，本模板使用
+\pkg{bicaption}宏包实现双语题注，其效果可以参考\autoref{fig:bicap}。
+
+\begin{figure}[htb]
+  \includegraphics[width=3.2cm]{nwafu-bar}
+  \bicaption{双语题注}{bilingual caption}
+  \label{fig:bicap}
+\end{figure}
+
 
 \section{表格}
 
@@ -248,7 +260,25 @@
         EP.B.4 & 247.69 & 0.002 & 0.012 & 0.004 & 0.122 & 1663 \\
         EP.B.8 & 126.74 & 0.003 & 0.017 & 0.005 & 0.083 & 1656 \\
         \bottomrule
-\end{longtable}
+   \end{longtable}
+
+如需要使用双语表头(中文和英文)，需加载额外宏包，本模板使用
+\pkg{bicaption}宏包实现双语表头，其效果可以参考\autoref{tab:bicap}。
+
+\begin{table}[htb]
+  \bicaption[城市人口]{城市人口数量排名 (source:
+    Wikipedia)\label{tab:bicap}}{Urban population ranking}
+  \begin{tabular}{lr}
+    \toprule
+    城市 & 人口 \\
+    \midrule
+    Mexico City & 20,116,842\\
+    Shanghai & 19,210,000\\
+    Peking & 15,796,450\\
+    Istanbul & 14,160,467\\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \qtbr{重要的事说三遍}：浮动体、浮动体、浮动体，在排版图表时，一定要使
 用浮动体排版，并用\cs{caption}命令添加题注以实现自动编号，\qtbr{万万不
