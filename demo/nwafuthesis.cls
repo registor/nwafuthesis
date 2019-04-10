@@ -1559,11 +1559,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 \newcommand{\researchitem}[1]{%
   \vspace{32bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{14bp}}
 \newlist{publications}{enumerate}{1}
-\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=8bp,
-  leftmargin=10mm,labelsep=!,before=\zihao{-4},resume}
+\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4},resume}
 \newlist{achievements}{enumerate}{1}
-\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=8bp,
-  leftmargin=10mm,labelsep=!,before=\zihao{-4}}
+\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4}}
 \def\publicationskip{\bigskip\bigskip}
 \setlist{nosep}
 \setlist*{leftmargin=*}

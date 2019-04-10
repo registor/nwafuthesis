@@ -2998,7 +2998,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %
 % \begin{environment}{resume}
 % \changes{v2.1}{2019/04/08}{添加简历环境。}
-% 个人简历发表文章等。
+% 个人简历、发表文章等。
 %    \begin{macrocode}
 \newenvironment{resume}[1][\nwafu@resume@title]{%
     \nwafu@chapter*{#1}
@@ -3030,11 +3030,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %
 %    \begin{macrocode}
 \newlist{publications}{enumerate}{1}
-\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=8bp,
-  leftmargin=10mm,labelsep=!,before=\zihao{-4},resume}
+\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4},resume}
 \newlist{achievements}{enumerate}{1}
-\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=8bp,
-  leftmargin=10mm,labelsep=!,before=\zihao{-4}}
+\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4}}
 %    \end{macrocode}
 % \end{environment}
 % \end{environment}
