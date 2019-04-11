@@ -15,7 +15,7 @@ jobname(根目录)
 │ 
 ├── bib(存储参考文献数据库，可以有多个，根据需要增减)
 │   └── sample.bib                
-├── content(各章节内容，可以有多个章节，根据需要增减)
+├── contents(各章节内容，可以有多个章节，根据需要增减)
 │   ├── chap00-abs.tex
 │   ├── chap01.tex
 │   ├── chap02.tex
@@ -25,6 +25,9 @@ jobname(根目录)
 │   ├── chap06-app1.tex
 │   ├── chap07-app2.tex
 │   └── chap08-ack.tex
+├── data(数据文件,可根据需要增减)
+│   ├── ackdata.csv(资助项目信息数据文件)
+│   └── committeememb.csv(答辩委员信息数据文件)
 ├── figs(插图目录，根据需要增减)
 │   ├── data
 │   │   ├── plot_2d.csv
@@ -33,9 +36,10 @@ jobname(根目录)
 │   ├── plot_3d.tex
 │   ├── tikz_func.tex
 │   ├── tikz_rot.tex
-│   └── tikz_sum.tex
-├── gb7714-2015ay.bbx(参考文献著录、列表样式文件，必须存在，且置于根目录)
-├── gb7714-2015ay.cbx(参考文献引注样式文件，必须存在，且置于根目录)
+│   ├── tikz_sum.tex
+│   ├── xxx.pdf
+│   ├── xxx.png
+│   └── xxx.jpg
 ├── logo(学校图标，必须存在，且置于根目录)
 │   ├── cie.png
 │   ├── nwafu-bar.png
@@ -43,12 +47,14 @@ jobname(根目录)
 │   ├── nwafu-circle.png
 │   ├── NWAFU_logo.png
 │   └── nwsuaf_logo_new.png
-├── main.tex(主控文件，必须存在，且置于根目录)
-├── Makefile(make命令需要的文件，如能执行make，可以在根目录执行make命令进行编译)
-├── nwafuthesis.cls(文档类文件，即模板文件，必须存在，且置于根目录)
 ├── setup(自定义命令、环境等文件、引入宏包文件，可根据需要进行调整)
 │   ├── format.tex
 │   └── packages.tex
+├── gb7714-2015ay.bbx(参考文献著录、列表样式文件，必须存在，且置于根目录)
+├── gb7714-2015ay.cbx(参考文献引注样式文件，必须存在，且置于根目录)
+├── main.tex(主控文件，必须存在，且置于根目录)
+├── Makefile(make命令需要的文件，如能执行make，可以在根目录执行make命令进行编译)
+├── nwafuthesis.cls(文档类文件，即模板文件，必须存在，且置于根目录)
 ├── zhlineskip.sty(中文行距调整宏包，由于是TeXLive2018未及时更新，该文宏包文件必须存在，且置于根目录)
 └── texboxie.sty(编译样例需要的宏包，如不需要，可以删除，请注意不能再使用相应命令)
 ```
@@ -73,7 +79,9 @@ jobname(根目录)
 
    使用`\nwafuset`和`\nwafusetEn`命令设置论文基本信息
    ```
-   % 设置文档基本信息，\linebreak 前面不要有空格，否则在无需换行的场合，中文之间的空格无法消除
+   % 设置文档基本信息，\linebreak 前面不要有空格，否则在无需换行的场合，
+   % 中文之间的空格无法消除
+   % 另，在\nwafuset中不可以出现空行
    \nwafuset{
      clscode = {TP391.9},			% 分类码，仅研究生需要
      udccode = {004.9},				% UDC码，仅研究生需要
@@ -99,6 +107,11 @@ jobname(根目录)
      author = {\LaTeX{}er},			% 论文作者姓名，仅本科生需要
      college = {信息工程学院},			% 学院名称，仅本科生需要 
      applydate = {\today},			% 完成日期(默认为当前日期)，本科/研究生需要
+     adviserteam = {耿楠,Knuth,Lamport}, % 指导小组，博士论文需要(不同人名用英文逗号分割)
+     % 答辩委员会成员csv文件名称，包含相对路径，研究生论文需要
+     cmteemembfile = {data/committeememb.csv},
+     % 资助项目csv文件名称，包含相对路径，研究生论文需要
+     ackdatafile = {data/ackdata.csv},
    }
    
    % 英文
@@ -110,6 +123,7 @@ jobname(根目录)
      researchername = {\LaTeX{}er},					% 研究生论文作者姓名，仅研究生需要
      advisers = {Geng Nan},						% 指导教师姓名，本科/研究生需要
      coadvisers = {Donald Knuth, tex.se},				% 协助指导教师姓名，本科/研究生需要
+     institute = {College of Information \& Engineering}		% 英文二级学院名称，研究生需要
    }
    ```
 
@@ -135,13 +149,13 @@ jobname(根目录)
 ### 安装教程
 ---------------------
 
-1. 需要安装TexLive2018的跨平台LaTeX发行版。
+1. 强烈建议安装TexLive2018的跨平台LaTeX发行版，低版本TexLives可能会有宏包不完整问题。
 2. 可以使用除Windows记事本外的任何文本编辑器编辑LaTeX代码。
 
 ### 排版样例
 ---------------------
 
-1. 本科生论文排版样例
+1. 排版样例
 ![](./screenshot/output00.png)
 ![](./screenshot/output01.png)
 ![](./screenshot/output02.png)

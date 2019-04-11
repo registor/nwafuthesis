@@ -1,0 +1,163 @@
+% 本文件是示例论文的一部分
+% 论文的主文件位于上级目录的 `main.tex`
+
+\chapter{快速上手}
+
+\section{欢迎}
+
+欢迎使用 \nwafuthesis，本文档将介绍如何利用 \nwafuthesis 模板进行学位论文写作，
+假设读者有 \LaTeX 写作经验，并会使用搜索引擎解决常见问题。
+
+源代码托管于 \url{https://github.com/registor/nwafuthesis}，
+欢迎来提 issue/PR。
+
+\section{\LaTeX 环境准备}
+
+由于本模板使用了大量宏包，因此对 \LaTeX 环境有不少要求。
+推荐使用以下打 \ding{51} 的 \LaTeX 发行版：
+\begin{itemize}
+\item[\ding{51}]\TeX~Live 请安装以下 collection：langchinese, latexextra, science, pictures, fontsextra；\\
+如果觉得安装体积太大的话，可以看 \texttt{.ci/texlive.pkgs} 列出的所需宏包；
+\item[\ding{51}]MiK\TeX 可能国内镜像服务器无法联通，如果无法联通，建议隔天再试； \\
+因为 MiK\TeX{} 能自动下载安装宏包，推荐 Windows 用户使用。
+\item[\ding{53}]CTeX  \qtbr{不推荐}，可能会有宏包缺失、版本过旧导致无法编译现象。
+\end{itemize}
+
+\note{本模板基于\TeX~Live 2018开发完成，强烈建议安装最新版
+  \TeX~Live 发行版。}
+
+\section{编译模板和文档}
+
+只有在找不到 \verb|nwafuthesis.cls| 文件的时候，才需要执行本步骤。
+
+进入模板的根目录，运行 \verb|build.bat|（Windows） 或 \verb|build.sh|（其他系统），
+它会生成模板 \verb|nwafuthesis.cls| 以及对应的说明文档 \verb|nwafuthesis.pdf|。
+
+\section{使用模板}
+
+论文写作时，请确认\textbf{论文的目录}(\verb|main.tex|所在的目录)下有以下文件：
+\begin{itemize}
+  \item \verb|nwafuthesis.cls| 文档模板；
+  \item \verb|logo/| 文件夹，内含学校的LOGO图标；
+\end{itemize}
+
+如果论文目录下没有这些文件的话，请从本模板根目录复制一份。
+
+\section{开始写作}
+
+最方便的开始方法，莫过于修改现有的示例文稿，因此强烈推荐直接demo下的文
+档实现学位论文撰写。
+
+在撰写学位论文时，强烈建议按\autoref{fig:dirforest}所示的目录结构组织和管理写作过程中的各个文件：
+
+\begin{figure}[htb]
+  \begin{forest}
+    pic dir tree,
+    pic root,
+    for tree={% folder icons by default; override using file for file icons
+      directory,
+    },
+    [jobname【工作根目录】%, 
+      [bib【参考文献数据库目录，根据需要，可以有多个数据库】%
+        [sample.bib【样例数据库，根据需要，可以有多个数据库】, file%
+        ]   
+      ]
+      [contents【各章节内容的\LaTeX 源文件，可根据需要增减】        
+        [ack.tex【致谢】, file
+        ]
+        [chap00-abs【摘要】.tex, file
+        ]
+        [chap01.tex【第1章】, file
+        ]
+        [$\vdots$, file
+        ]
+        [denotation.tex【主要符号对照表】, file
+        ]
+        [resume.tex【个人简历】, file
+        ]
+      ]
+      [data【数据文件，可根据需要增减】        
+        [ackdata.csv【资助项目信息数据文件】, file
+        ]
+        [committeememb.csv【答辩委员信息数据文件】, file
+        ]
+      ]  
+      [figs【插图目录，可根据需要增减】
+        [plot
+        ]
+        [xxxx.png, file
+        ]
+        [xxxx.pdf, file
+        ]
+      ]
+      [logo【学校校徽图标，\emph{必须存在}，且置于根目录】        
+        % [cie.png, file
+        % ]
+        % [nwafu-bar.png, file
+        % ]
+        [nwafubilogo.png, file
+        ]
+        [nwafu-circle.png, file
+        ]
+        % [NWAFU\_logo.png, file
+        % ]
+        % [nwsuaf\_logo\_new.png, file
+        % ]
+      ]
+      [setup【自定义命令、环境、引入宏包等\LaTeX 源文件，可根据需要调整】        
+        [format.tex【自定义命令、环境、参数设置等】, file
+        ]
+        [packages.tex【引入宏包】, file
+        ]
+      ]
+      [gb7714-2015ay.bbx【参考文献著录样式文件，\emph{必须存在}，且置于根目录】, file
+      ]
+      [gb7714-2015ay.cbx【参考文引注样式文件，\emph{必须存在}，且置于根目录】, file
+      ]
+      [main.tex【主控文件，\emph{必须存在}，且置于根目录】, file
+      ]
+      [Makefile【make命令需要的文件，若不执行make命令，可以不需要】, file
+      ]
+      [nwafuthesis.cls【文档类文件(模板文件)，\emph{必须存在}，且置于根目录】, file
+      ]
+      [zhlineskip.sty【中文行距宏包，若\TeX~Live 2018未及时更新，必须存在，且置于根目录】, file
+      ]
+      [exboxie.sty【\LaTeX 示例代码宏包，如不需要，可以删除，请注意不能再使用相应命令】, file
+      ]       
+    ]
+  \end{forest}
+  \caption{学位论文撰写目录结构}
+  \label{fig:dirforest}
+\end{figure}
+
+
+% \begin{itemize}
+%   \item \verb|main.tex| 主文件，定义了文档包含的内容，建议不要随意更改
+%     \verb|main.tex|文件名，其它的\verb|*.tex|中会用到该文件名信息；
+%   \item \verb|setup/packages.tex| 载入需要的宏包，可根据需要进行增
+%     加或删除；
+%   \item \verb|setup/format.tex| 全局使用的自定义命令、相关设置等；  
+%   \item \verb|content/*.tex| 文件夹，按章节拆分的文档内容，分章节以存
+%     放在这里；
+%   \item \verb|figs/| 文件夹，插图文件；  
+%   \item \verb|bib/| 文件夹，内含参考文献数据库，文献数据库是纯文本文
+%     件，请务必采用\qtbr{UTF8编码}存储；
+%   \item \verb|ref/| 文件夹，可有可无，内含写作过程中用到的资料、参考文
+%     献、记录等；  
+% \end{itemize}
+
+完成部分或所有\verb|*.tex|撰写和修改后，可以在命令行使用 \verb|latexmk -xelatex main|
+进行编译输出\verb|main.pdf|文件，可以根据需要对结果\texttt{pdf}文件进行改名。
+
+也可以使用\texttt{TeXstudio}、\texttt{vscode}等图形界面的编辑器的进行
+编译输出。
+
+\section{打印论文}
+
+如果论文需要双面打印的话，请务必修改文档类选项，编译双面打印用的 PDF 文件。
+具体地说，在主文件的头部，去除 \texttt{openany, oneside}，改成 \texttt{openright, blankleft, twoside}。
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:

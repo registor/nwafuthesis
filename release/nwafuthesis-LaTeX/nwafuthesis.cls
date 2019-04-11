@@ -360,6 +360,7 @@
 \RequirePackage{booktabs}  % 三线表格
 \RequirePackage{multicol}  % 合并表格列
 \RequirePackage{caption}   % 标题
+\RequirePackage{bicaption} % 双语标题
 \RequirePackage{hyperref}  % 超链接
 \RequirePackage{ifxetex}   % 条件判断
 \RequirePackage{siunitx}   % 单位符号、数字
@@ -668,11 +669,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\bibname}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -735,11 +736,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -803,11 +804,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -864,6 +865,7 @@
   \newcommand\nwafu@denotation@name{主要符号对照表}
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
+  \newcommand\nwafu@ack@name{致\hspace{\ccwd}谢}
 \else
   \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
@@ -872,9 +874,11 @@
 \ifnwafu@bachelor
   \newcommand{\cabstractname}{摘要}
   \newcommand{\eabstractname}{Abstract}
+  \newcommand\nwafu@resume@title{个人简历}
 \else
   \newcommand{\cabstractname}{摘\hspace{\ccwd}要}
   \newcommand{\eabstractname}{Abstract}
+  \newcommand\nwafu@resume@title{个人简历}
 \fi
 \let\CJK@todaysave=\today
 \def\CJK@todaysmall@short{\the\year 年 \the\month 月}
@@ -898,93 +902,85 @@
       {\bfseries #1}%
       {#1}%
       \fi}
-
-\ifnwafu@bachelor
+\ifnwafu@bachelor%
   \ctexset{%
-    chapter={
-      name={第,章},
-      number=\arabic{chapter},
-      afterindent=true,
-      pagestyle={style@main},
-      beforeskip   = {0.5\baselineskip}, %defalut 2\baselineskip
-      afterskip    = {0.5\baselineskip},
-      %fixskip = true,
-      %beforeskip={\ifnwafu@bachelor 20bp\else 20bp\fi},
-      %aftername=\hskip\ccwd,
-      %afterskip={\ifnwafu@bachelor 20bp\else 20bp\fi},
-      format={\centering\sffamily\nwafu@font@title\zihao{3}},
-      nameformat=\relax,
-      numberformat=\relax,
-      titleformat=\nwafu@chapter@titleformat,
-      lofskip=0pt,
-      lotskip=0pt,
-    },
-    section={
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus 1ex \@minus .2ex},
-      format={\sffamily\nwafu@font@title \zihao{4}},
-      %indent=2\ccwd,
-    },
-    subsection={
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus 1ex \@minus .2ex},
-      format={\sffamily\nwafu@font@title \zihao{-4}},
-      %numberformat={\sffamily\ifnwafu@bachelor\banxiaosi[1.154]\else\banxiaosi[1.538]\fi},
-      indent=2\ccwd,
-    },
-    subsubsection={
-      name={（,）},
-      number=\arabic{subsubsection},
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus .2ex},
-      format={\sffamily\songti\zihao{-4}},
-      indent=2\ccwd,
-    },
-    paragraph/afterindent=true,
-    subparagraph/afterindent=true
+    chapter={%
+      name={第,章},%
+      number=\arabic{chapter},%
+      afterindent=true,%
+      pagestyle={style@main},%
+      beforeskip   = {1.5\baselineskip},%
+      afterskip    = {1.0\baselineskip},%
+      format={\centering\sffamily\nwafu@font@title\zihao{3}},%
+      nameformat=\relax,%
+      numberformat=\relax,%
+      titleformat=\nwafu@chapter@titleformat,%
+      lofskip=0pt,%
+      lotskip=0pt,%
+    },%
+    section={%
+      afterindent=true,%
+      beforeskip = {0.5\baselineskip},%
+      afterskip  = {0.5\baselineskip},%
+      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
+    },%
+    subsection={%
+      afterindent=true,%
+      beforeskip = {0.2\baselineskip},%
+      afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+    },%
+    subsubsection={%
+      name={（ , ）},%
+      number=\arabic{subsubsection},%
+      afterindent=true,%
+      beforeskip={8bp \@plus 1ex \@minus .2ex},%
+      afterskip={8bp \@plus .2ex},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      indent=2\ccwd,%
+    },%
+    paragraph/afterindent=true,%
+    subparagraph/afterindent=true%
   }
-\else
+\else%
   \ctexset{%
-    chapter={
-      name={第,章},
-      number=\chinese{chapter},
-      afterindent=true,
-      pagestyle={style@main},
-      beforeskip   = {1.5\baselineskip},
-      afterskip    = {1.0\baselineskip},
-      format={\centering\sffamily\nwafu@font@title\zihao{3}},
-      nameformat=\relax,
-      numberformat=\relax,
-      titleformat=\nwafu@chapter@titleformat,
-      lofskip=0pt,
-      lotskip=0pt,
-    },
-    section={
-      afterindent=true,
-      beforeskip = {0.5\baselineskip},
-      afterskip  = {0.5\baselineskip},
-      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},
-    },
-    subsection={
-      afterindent=true,
-      beforeskip = {0.2\baselineskip},
-      afterskip  = {0.2\baselineskip},
-      format={\sffamily\nwafu@font@title\zihao{-4}},
-    },
-    subsubsection={
-      afterindent=true,
-      %beforeskip = {0.2\baselineskip},
-      %afterskip  = {0.2\baselineskip},
-      format={\sffamily\nwafu@font@title\zihao{-4}},
-      %indent=2\ccwd,
-    },
-    paragraph/afterindent=true,
-    subparagraph/afterindent=true
-  }
-\fi
+    chapter={%
+      name={第,章},%
+      number=\chinese{chapter},%
+      afterindent=true,%
+      pagestyle={style@main},%
+      beforeskip   = {1.5\baselineskip},%
+      afterskip    = {1.0\baselineskip},%
+      format={\centering\sffamily\nwafu@font@title\zihao{3}},%
+      nameformat=\relax,%
+      numberformat=\relax,%
+      titleformat=\nwafu@chapter@titleformat,%
+      lofskip=0pt,%
+      lotskip=0pt,%
+    },%
+    section={%
+      afterindent=true,%
+      beforeskip = {0.5\baselineskip},%
+      afterskip  = {0.5\baselineskip},%
+      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
+    },%
+    subsection={%
+      afterindent=true,%
+      beforeskip = {0.2\baselineskip},%
+      afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+    },%
+    subsubsection={%
+      afterindent=true,%
+      %beforeskip = {0.2\baselineskip},%
+      %afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      %indent=2\ccwd,%
+    },%
+    paragraph/afterindent=true,%
+    subparagraph/afterindent=true%
+  }%
+\fi%
 \newcounter{nwafu@bookmark}
 \NewDocumentCommand\nwafu@chapter{s o m o}{
   \IfBooleanF{#1}{%
@@ -1521,6 +1517,10 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}-\arabic{table}}
 \captionsetup{justification=centerlast}
+\captionsetup[figure][bi-first]{name=图}
+\captionsetup[figure][bi-second]{name=Fig.}
+\captionsetup[table][bi-first]{name=表}
+\captionsetup[table][bi-second]{name=Tab.}
 \setlength\heavyrulewidth{0.5bp}
 \setlength\lightrulewidth{0.5bp}
 \setlength\cmidrulewidth{0.5bp}
@@ -1545,6 +1545,23 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   labelsep*=0.5cm,
   itemindent=0pt,
 }
+\newenvironment{acknowledgement}[1][\nwafu@ack@name]{%
+    \nwafu@chapter*{#1}
+  }{}
+\newenvironment{resume}[1][\nwafu@resume@title]{%
+    \nwafu@chapter*{#1}
+  }{}
+\newcommand{\resumeitem}[1]{%
+  \vspace{24bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{6bp}}
+\newcommand{\researchitem}[1]{%
+  \vspace{32bp}{\zihao{-4}\heiti\centerline{#1}}\par\vspace{14bp}}
+\newlist{publications}{enumerate}{1}
+\setlist[publications]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4},resume}
+\newlist{achievements}{enumerate}{1}
+\setlist[achievements]{label=[\arabic*],align=left,nosep,itemsep=6bp,
+  leftmargin=10mm,before=\zihao{-4}}
+\def\publicationskip{\bigskip\bigskip}
 \setlist{nosep}
 \setlist*{leftmargin=*}
 \setlist[1]{labelindent=\dimexpr\parindent+\nwafuparleft\relax} %% Only the level 1
@@ -1610,7 +1627,14 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \nwafu@make@cover@master@cn
     \nwafu@make@cover@master@en%
     \nwafu@make@titlepage@master@cn
-    \nwafu@make@acknowledgementpage@master
+    %\nwafu@make@projlist@master
+  \fi
+}
+\newcommand\makeprojlist{
+  \ifnwafu@bachelor
+    \relax
+  \else
+    \nwafu@make@projlist@master
   \fi
 }
 \newcommand\makedeclare{
@@ -2043,7 +2067,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \restoregeometry
 }
-\newcommand\nwafu@make@acknowledgementpage@master{
+\newcommand\nwafu@make@projlist@master{
   \cleardoublepage
   %\pagestyle{style@empty}
   %\pagenumbering{Alph}

@@ -669,11 +669,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\bibname}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -736,11 +736,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -804,11 +804,11 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}\nwafu@university\nwafu@worktypecn}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
-        \mbox{\zihao{5}\nwafu@title}
+        \mbox{\songti\zihao{5}\nwafu@label@nwafu\nwafu@worktypecn\nwafu@label@worktype@degree}
       }
       \fi
     }
@@ -877,8 +877,8 @@
   \newcommand\nwafu@resume@title{个人简历}
 \else
   \newcommand{\cabstractname}{摘\hspace{\ccwd}要}
-  \newcommand\nwafu@resume@title{个人简历}
   \newcommand{\eabstractname}{Abstract}
+  \newcommand\nwafu@resume@title{个人简历}
 \fi
 \let\CJK@todaysave=\today
 \def\CJK@todaysmall@short{\the\year 年 \the\month 月}
@@ -902,93 +902,85 @@
       {\bfseries #1}%
       {#1}%
       \fi}
-
-\ifnwafu@bachelor
+\ifnwafu@bachelor%
   \ctexset{%
-    chapter={
-      name={第,章},
-      number=\arabic{chapter},
-      afterindent=true,
-      pagestyle={style@main},
-      beforeskip   = {0.5\baselineskip}, %defalut 2\baselineskip
-      afterskip    = {0.5\baselineskip},
-      %fixskip = true,
-      %beforeskip={\ifnwafu@bachelor 20bp\else 20bp\fi},
-      %aftername=\hskip\ccwd,
-      %afterskip={\ifnwafu@bachelor 20bp\else 20bp\fi},
-      format={\centering\sffamily\nwafu@font@title\zihao{3}},
-      nameformat=\relax,
-      numberformat=\relax,
-      titleformat=\nwafu@chapter@titleformat,
-      lofskip=0pt,
-      lotskip=0pt,
-    },
-    section={
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus 1ex \@minus .2ex},
-      format={\sffamily\nwafu@font@title \zihao{4}},
-      %indent=2\ccwd,
-    },
-    subsection={
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus 1ex \@minus .2ex},
-      format={\sffamily\nwafu@font@title \zihao{-4}},
-      %numberformat={\sffamily\ifnwafu@bachelor\banxiaosi[1.154]\else\banxiaosi[1.538]\fi},
-      indent=2\ccwd,
-    },
-    subsubsection={
-      name={（,）},
-      number=\arabic{subsubsection},
-      afterindent=true,
-      beforeskip={8bp \@plus 1ex \@minus .2ex},
-      afterskip={8bp \@plus .2ex},
-      format={\sffamily\songti\zihao{-4}},
-      indent=2\ccwd,
-    },
-    paragraph/afterindent=true,
-    subparagraph/afterindent=true
+    chapter={%
+      name={第,章},%
+      number=\arabic{chapter},%
+      afterindent=true,%
+      pagestyle={style@main},%
+      beforeskip   = {1.5\baselineskip},%
+      afterskip    = {1.0\baselineskip},%
+      format={\centering\sffamily\nwafu@font@title\zihao{3}},%
+      nameformat=\relax,%
+      numberformat=\relax,%
+      titleformat=\nwafu@chapter@titleformat,%
+      lofskip=0pt,%
+      lotskip=0pt,%
+    },%
+    section={%
+      afterindent=true,%
+      beforeskip = {0.5\baselineskip},%
+      afterskip  = {0.5\baselineskip},%
+      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
+    },%
+    subsection={%
+      afterindent=true,%
+      beforeskip = {0.2\baselineskip},%
+      afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+    },%
+    subsubsection={%
+      name={（ , ）},%
+      number=\arabic{subsubsection},%
+      afterindent=true,%
+      beforeskip={8bp \@plus 1ex \@minus .2ex},%
+      afterskip={8bp \@plus .2ex},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      indent=2\ccwd,%
+    },%
+    paragraph/afterindent=true,%
+    subparagraph/afterindent=true%
   }
-\else
+\else%
   \ctexset{%
-    chapter={
-      name={第,章},
-      number=\chinese{chapter},
-      afterindent=true,
-      pagestyle={style@main},
-      beforeskip   = {1.5\baselineskip},
-      afterskip    = {1.0\baselineskip},
-      format={\centering\sffamily\nwafu@font@title\zihao{3}},
-      nameformat=\relax,
-      numberformat=\relax,
-      titleformat=\nwafu@chapter@titleformat,
-      lofskip=0pt,
-      lotskip=0pt,
-    },
-    section={
-      afterindent=true,
-      beforeskip = {0.5\baselineskip},
-      afterskip  = {0.5\baselineskip},
-      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},
-    },
-    subsection={
-      afterindent=true,
-      beforeskip = {0.2\baselineskip},
-      afterskip  = {0.2\baselineskip},
-      format={\sffamily\nwafu@font@title\zihao{-4}},
-    },
-    subsubsection={
-      afterindent=true,
-      %beforeskip = {0.2\baselineskip},
-      %afterskip  = {0.2\baselineskip},
-      format={\sffamily\nwafu@font@title\zihao{-4}},
-      %indent=2\ccwd,
-    },
-    paragraph/afterindent=true,
-    subparagraph/afterindent=true
-  }
-\fi
+    chapter={%
+      name={第,章},%
+      number=\chinese{chapter},%
+      afterindent=true,%
+      pagestyle={style@main},%
+      beforeskip   = {1.5\baselineskip},%
+      afterskip    = {1.0\baselineskip},%
+      format={\centering\sffamily\nwafu@font@title\zihao{3}},%
+      nameformat=\relax,%
+      numberformat=\relax,%
+      titleformat=\nwafu@chapter@titleformat,%
+      lofskip=0pt,%
+      lotskip=0pt,%
+    },%
+    section={%
+      afterindent=true,%
+      beforeskip = {0.5\baselineskip},%
+      afterskip  = {0.5\baselineskip},%
+      format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
+    },%
+    subsection={%
+      afterindent=true,%
+      beforeskip = {0.2\baselineskip},%
+      afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+    },%
+    subsubsection={%
+      afterindent=true,%
+      %beforeskip = {0.2\baselineskip},%
+      %afterskip  = {0.2\baselineskip},%
+      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      %indent=2\ccwd,%
+    },%
+    paragraph/afterindent=true,%
+    subparagraph/afterindent=true%
+  }%
+\fi%
 \newcounter{nwafu@bookmark}
 \NewDocumentCommand\nwafu@chapter{s o m o}{
   \IfBooleanF{#1}{%
