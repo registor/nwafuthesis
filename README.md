@@ -156,10 +156,10 @@ jobname(根目录)
 ---------------------
 
 1. 排版样例
-![](./screenshot/output00.png)
 ![](./screenshot/output01.png)
 ![](./screenshot/output02.png)
 ![](./screenshot/output03.png)
+![](./screenshot/output04.png)
 
 
 2. 更多样例请查看"./demo"。
