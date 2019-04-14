@@ -1,0 +1,192 @@
+% 使用ctexart文档类（用XeLaTeX编译，直接支持中文）
+\documentclass{ctexart}
+
+% 导言区，可以在此引入必要的宏包
+\usepackage{texboxie}
+% 读取csv数据生成表格的宏包
+\usepackage{csvsimple}
+\usepackage{pgfplotstable}
+\usepackage{datatool}
+\usepackage{booktabs}
+
+% 彩色表格
+%\usepackage[table]{xcolor}
+\usepackage{colortbl}
+
+%%% 表格属性
+\colorlet{tableheadcolor}{black!60}
+\newcommand\tableheadfont{
+  \sffamily\bfseries
+  \slshape
+  \color{white}
+}
+
+\title{通过csv文件生成\LaTeX 表格的几种方法}
+\author{耿楠}
+\date{\today}
+
+% 生成数据文件
+\begin{filecontents*}{db1.csv}
+  姓名,性别,年龄
+  张三,男,18
+  李四,男,45
+  马五,女,16
+\end{filecontents*}
+    
+\begin{document} %在document环境中撰写文档
+  \maketitle
+
+  \begin{abstract}
+    CSV文件是一种用逗号分隔的数据文件，在\LaTeX 中可以采
+    用csvsimple、pgfplotstable、datatool、csvtools等宏包直接使用CSV文件
+    数据生成\LaTeX 表格。
+  \end{abstract}
+
+  \section{准备CSV数据文件}
+  CSV数据文件可能用词本、Excel等软件生成，也可以在导言区用如下\LaTeX 代码生成。
+  \begin{codeonly}
+    \begin{filecontents*}{db1.csv}
+      姓名,性别,年龄
+      张三,男,18
+      李四,男,45
+      马五,女,16
+    \end{filecontents*}
+  \end{codeonly}
+  该代码会在当前工作目录下生成``db1.csv''数据文件。
+
+  \section{使用csvsimple宏包}
+  \subsection{简单方式}
+  可以使用csvautotabular命令直接生成表格：
+  \begin{codeonly}
+    \csvautotabular{db1.csv}
+  \end{codeonly}
+  \csvautotabular{db1.csv}
+
+  \subsection{设置表头}
+  也可以使用csvreader命令对表头进行设置：
+  \begin{codeonly}
+    \csvreader[tabular=|l|l|c|,
+               table head=\hline & 姓名 & 性别 & 年龄 \\ \hline,
+               late after line=\\\hline
+              ]%
+              {scientists.csv}
+              {姓名=\name,性别=\surname,年龄=\age}%
+              {\thecsvrow & \surname~\name & \age}%
+  \end{codeonly}
+
+  \csvreader[tabular=|c|c|c|c|,
+             table head=\hline & 姓名 & 性别 & 年龄\\ \hline,
+             late after line=\\\hline
+            ]%
+            {db1.csv}
+            {姓名=\name,性别=\gender,年龄=\age}%
+            {\thecsvrow & \name & \gender & \age}%
+
+  关于csvsimple宏包详情，请使用texdoc csvsimple查看其宏包手册。
+
+  \section{使用pgfplotstable宏包}
+  \subsection{简单方式}
+  可以使用pgfplotstabletypeset命令直接生成表格：
+  \begin{codeonly}
+    \pgfplotstabletypeset[
+      col sep=comma,
+      string type,
+      columns/name/.style={column name=姓名, column type={|l}},
+      columns/gender/.style={column name=性别, column type={|l}},
+      columns/age/.style={column name=年龄, column type={|c|}},
+      every head row/.style={before row=\hline,after row=\hline},
+      every last row/.style={after row=\hline},
+      ]{db2.csv}
+  \end{codeonly}
+  \pgfplotstabletypeset[
+	col sep=comma,
+	string type,
+	columns/name/.style={column name=姓名, column type={|l}},
+	columns/gender/.style={column name=性别, column type={|l}},
+	columns/age/.style={column name=年龄, column type={|c|}},
+	every head row/.style={before row=\hline,after row=\hline},
+	every last row/.style={after row=\hline},
+	]{db2.csv}
+
+  \subsection{使用multicolumn合并列}
+  可以使用pgfplotstabletypeset命令直接生成表格：
+  \begin{codeonly}
+    \pgfplotstabletypeset[
+        col sep=comma,
+        string type,
+        every head row/.style={%
+         before row = {\hline
+           \multicolumn{2}{c}{基本信息} & \\
+          },
+          after row=\hline
+        },
+        every last row/.style = {after row = \hline},
+        columns/name/.style={column name=姓名, column type={l}},
+        columns/gender/.style={column name=性别, column type={l}},
+        columns/age/.style={column name=年龄, column type={c}},
+        ]{db2.csv}
+  \end{codeonly}
+  \pgfplotstabletypeset[
+	col sep=comma,
+	string type,
+        every head row/.style={%
+          before row = {\hline
+            \multicolumn{2}{c}{基本信息} & \\
+          },
+          after row=\hline
+        },
+        every last row/.style = {after row = \hline},
+	columns/name/.style={column name=姓名, column type={l}},
+	columns/gender/.style={column name=性别, column type={l}},
+	columns/age/.style={column name=年龄, column type={c}},	
+	]{db2.csv}
+        
+  关于pgfplotstable宏包详情，请使用texdoc pgfplotstable查看其宏包手册。                  
+  \section{使用datatool宏包}
+  \subsection{简单方式}
+  可以在使用DTLloaddb载入数据文件后，用DTLdisplaydb命令直接生成表格：
+
+  \begin{codeonly}
+    \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}
+    \DTLdisplaydb{mydb}
+  \end{codeonly}
+  \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}
+  \DTLdisplaydb{mydb}
+
+  \subsection{使用构建复杂表格}
+  \DTLloaddb{table}{db2.csv}
+  % \begin{table}
+  \begin{codeonly}
+    \begin{tabular}{llc}
+      \toprule      
+      姓名 & 性别 & 年龄 \tabularnewline
+      \midrule
+      \DTLforeach*{table}%
+      {\name=name, \gender=gender, \age=age}%
+      {\DTLiffirstrow{}{\tabularnewline}%
+      \name & \gender & \age}\\
+      \bottomrule
+   \end{tabular}
+  \end{codeonly}
+    \begin{tabular}{llc}
+      \toprule      
+      姓名 & 性别 & 年龄 \tabularnewline
+      \midrule
+      \DTLforeach*{table}%
+      {\name=name, \gender=gender, \age=age}%
+      {\DTLiffirstrow{}{\tabularnewline}%
+      \name & \gender & \age}\\
+      \bottomrule
+    \end{tabular}
+  %\end{table}
+
+  关于datatool宏包详情，请使用texdoc datatool查看其宏包手册。  
+  
+  
+  
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
