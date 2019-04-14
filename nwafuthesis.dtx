@@ -122,10 +122,10 @@ and the derived files           nwafuthesis.ins,
 %\GetFileInfo{\jobname.drv}
 %
 %\title{
-%  \nwafuthesis{} --- 西北农林科技大学学位论文 \LaTeX{} 宏包
+%  \nwafuthesis{} --- 西北农林科技大学学位论文 \LaTeX{} 文档类
 %}
 %\author{
-%  耿楠\thanks{https://ginwafub.com/registor/nwafuthesis}
+%  耿楠\thanks{https://github.com/registor/nwafuthesis}
 %}
 %\date{\fileversion{} \qquad \filedate}
 %
@@ -133,7 +133,7 @@ and the derived files           nwafuthesis.ins,
 %
 % \begin{abstract}
 %   \nwafuthesis{} 宏包旨在建立一个简单易用的西北农林科技大学学位论文模板，包括本科学士、硕士
-%   论文、博士论文以及博士后出站报告。
+%   论文及博士论文。
 % \end{abstract}
 %
 % \vskip2cm
@@ -141,15 +141,14 @@ and the derived files           nwafuthesis.ins,
 % \begin{abstract}
 % \noindent
 % \begin{enumerate}
-% \item 本模板的发布遵守 \LaTeX\ Project Public License，使用前请认真阅读协议内
-%   容。
-% \item 本模板为作者根据《西北农林科技大学本科毕业论文(设计)工作规范》(修订)校教发［2006］84号和
-%   《西北农林科技大学研究生学位论文撰写要求》（\url{http://yjshy.nwafu.edu.cn/xwgl/xwlwxzgf/index.htm}）编写而成，
-%   旨在供西北农林科技大学毕业生撰写学位论文使用。
+% \item 本模板的发布遵守 \LaTeX\ Project Public License，使用前请认真阅读协议内容。
+% \item 本模板为作者根据《关于做好2019届本科生毕业论文(设计)工作的通知》(\url{https://jiaowu.nwsuaf.edu.cn/tzgg/34321.htm})和
+%   《西北农林科技大学研究生学位论文写作指南》(\url{https://yjshy.nwafu.edu.cn/xwgl/xwlwxzgf/index.htm})编写而成，
+%   旨在为西北农林科技大学毕业论文撰写提供\LaTeX{}排版模板。
 % \item 西北农林科技大学教务处和研究生院只提供了毕业论文写作指南，并未提供官方\LaTeX{}模板，也未授
 %   权第三方\LaTeX{}模板为官方模板，所以此模板仅为写作指南的参考实现，不保证格式审查老师
 %   完全同意该模板中提供的格式设定。任何由于使用本模板而引起的论文格式审查问题均与本模板作者无关。
-% \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，请严格遵
+% \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新专用模板，请严格遵
 %   守 \LaTeX\ Project Public License 协议。由于违犯协议而引起的任何纠纷争端均与
 %   本模板作者无关。
 % \end{enumerate}
@@ -164,7 +163,9 @@ and the derived files           nwafuthesis.ins,
 % \end{multicols}
 % \clearpage
 %
-% \changes{v2.1}{2019/3/14}{根据研究生院2019年4月2日通知，重新设计研究生(博士、学硕、专硕)模板。}
+% \changes{v2.2.01}{2019/4/14}{修订说明文档错误。}
+% \changes{v2.2}{2019/4/11}{修订本科生ctexset导致的排版字体丢失错误。}
+% \changes{v2.1}{2019/4/5}{根据研究生院2019年4月2日通知，重新设计研究生(博士、学硕、专硕)模板。}
 % \changes{v2.0}{2019/3/14}{实现研究生(博士、学硕、专硕)模板。}
 % \changes{v1.0}{2019/1/22}{模板发布。}
 %
@@ -175,11 +176,12 @@ and the derived files           nwafuthesis.ins,
 %
 % \section{欢迎}
 %
-% \nwafuthesis{} 是西北农林科技大学毕业论文的 \LaTeX{} 模板，支持学士、硕士、博士论文的排版。
-% 合理使用本模板可以减轻论文撰写过程中修改格式的工作量。
+% \nwafuthesis{} 是西北农林科技大学毕业论文的 \LaTeX{} 文档类，目前支持学士、硕士、博士论文的排版。
+% 合理使用本模板可以减轻在论文撰写过程中排版工作量。
 %
-% 本模板按《西北农林科技大学本科毕业论文(设计)工作规范》(修订)校教发校教发［2006］84号和
-% 《西北农林科技大学研究生学位论文撰写要求》（\url{http://yjshy.nwafu.edu.cn/xwgl/xwlwxzgf/index.htm}）编写，
+% 本模板为作者根据《关于做好2019届本科生毕业论文(设计)工作的通知》
+% (\url{https://jiaowu.nwsuaf.edu.cn/tzgg/34321.htm})和
+% 《西北农林科技大学研究生学位论文写作指南》(\url{https://yjshy.nwafu.edu.cn/xwgl/xwlwxzgf/index.htm})编写而成，
 % 力求合规、简洁、用户友好、易于维护。本模板的特色有：
 % \begin{itemize}
 %   \item 支持本科毕业论文(设计)、硕士、博士的毕业论文；
@@ -191,10 +193,11 @@ and the derived files           nwafuthesis.ins,
 % 本文档会尽可能详细介绍模板的使用方法，如有不清楚的地方可以参考示例文档和源代码。
 %
 % \note[注意：]{模板的作用在于减少论文写作过程中格式调整的时间，但其前提是遵守模板的
-% 用法，否则即便用了\nwafuthesis{}模板也难以保证输出的论文格式符合学校规范。}
+% 用法，否则即便用了\nwafuthesis{}模板也难以保证输出的论文格式符合学校的格式规范。}
 %
 % \subsection{系统要求}
-% 本模板用到的宏包较多，有些宏包需要比较新的版本，推荐使用最新的 \TeX~Live 发行版。
+% 本模板用到的宏包较多，有些宏包需要比较新的版本，推荐使用最新的
+% \TeX~Live 发行版(不低于\TeX~Live 2018)。
 %
 % 如果使用系统(Debian、ArchLinux 等)软件包的 \TeX~Live ，
 % 请使用系统软件包管理器，安装 \TeX~Live 的以下 collection：
@@ -210,7 +213,7 @@ and the derived files           nwafuthesis.ins,
 % （也可以参考 \TeX~Live 的宏包列表手动安装）。
 %
 % \subsection{获取模板}
-% 您可以从 \url{https://ginwafub.com/registor/nwafuthesis} 获取本模板的开
+% 您可以从 \url{https://github.com/registor/nwafuthesis} 获取本模板的开
 % 发源代码，或者从 release 里下载``nwafuthesis-LaTeX.zip''模板代码及使
 % 用示例压缩包（强烈推荐后者）。
 %
@@ -221,7 +224,7 @@ and the derived files           nwafuthesis.ins,
 % \label{tab:contents}
 % \begin{tabular}{>{\ttfamily}l|p{8cm}} \toprule
 % {\heiti 文件（夹）} & {\heiti 功能描述}\\ \midrule
-% nwafuthesis.dtx & 本模板和文档开发源代码 \\
+% nwafuthesis.dtx & 本文档类和文档开发源代码 \\
 % \midrule
 % build.sh/bat & 编译脚本 \\
 % demo/ & 带完整目录结构的示例文档 \\
@@ -229,11 +232,12 @@ and the derived files           nwafuthesis.ins,
 % \end{tabular}
 % \end{table}
 %
-% 本模板利用 \textsc{DocStrip} 将源代码与文档封装在 \verb|nwafuthesis.dtx| 一个文件里，
+% 本文档类利用 \textsc{DocStrip} 将源代码与文档封装在 \verb|nwafuthesis.dtx| 一个文件里，
 % 这个文件无法直接在文档中使用，必须先经过编译，然后在文档中使用编译输出的 \verb|nwafuthesis.cls|。
-% 如果您获取的源代码中不带有编译结果，请运行 \verb|build.sh/bat| 来编译本模板。
+% 如果您获取的源代码中不带有编译结果，请运行 \verb|build.sh/bat| 来编
+% 译本文档类。
 %
-% 编译完成后，请将表~\ref{tab:required} 列出的文件复制到论文的目录。
+% 编译完成后，请将表~\ref{tab:required} 列出的文件复制到撰写论文的根目录。
 % \iffalse
 % 表~\ref{tab:compiled} 列出了 \verb|nwafuthesis.dtx| 编译后产生的文件与作用：
 % \begin{table}[H]
@@ -242,9 +246,9 @@ and the derived files           nwafuthesis.ins,
 % \label{tab:compiled}
 % \begin{tabular}{>{\ttfamily}l|p{8cm}} \toprule
 % {\heiti 文件（夹）} & {\heiti 功能描述}\\\midrule
-% nwafuthesis.cls & 主模板 \\
-% nwafuthesis.cfg & 修改主模板加载行为的配置文件（可选） \\ \midrule
-% nwafuthesis.pdf & 本文档 \\
+% nwafuthesis.cls & 文档类 \\
+% nwafuthesis.cfg & 修改文档类加载行为的配置文件（可选） \\ \midrule
+% nwafuthesis.pdf & 本说明文档 \\
 % dtx-style.sty  & 本文档的样式文件 \\ \bottomrule
 % \end{tabular}
 % \end{table}
@@ -255,10 +259,10 @@ and the derived files           nwafuthesis.ins,
 % \label{tab:required}
 % \begin{tabular}{>{\ttfamily}l|p{8cm}} \toprule
 % {\heiti 文件（夹）} & {\heiti 功能描述}\\\midrule
-% nwafuthesis.cls & 主模板 \\
+% nwafuthesis.cls & 文档类 \\
 % logo/ & 学校Logo图片 \\ \midrule
-% nwafuthesis.cfg & 修改主模板加载行为的配置文件（可选） \\
-% nwafuthesis.pdf & 本文档（可选） \\ \bottomrule
+% nwafuthesis.cfg & 修改文档类加载行为的配置文件（可选） \\
+% nwafuthesis.pdf & 本说明文档（可选） \\ \bottomrule
 % \end{tabular}
 % \end{table}
 %
@@ -269,14 +273,17 @@ and the derived files           nwafuthesis.ins,
 % \item 使用前阅读文档：\file{nwafuthesis.pdf}。
 % \end{itemize}
 %
-% \note[注意：]{由于本模板还处在开发阶段，可能无法保持向后兼容性，请将使用的模板版本复制到论文目录下，不推荐系统全局安装。}
+% \note[注意：]{由于本文档类还处在开发阶段，无法保持向后兼容性，请将使
+% 用的文档类文件复制到撰写论文的根目录下使用，不推荐系统全局安装。}
 %
 % \subsection{快速上手}
-% 为了方便演示代码的效果，请参考/修改附带的示例文档。
+% 为了方便演示代码的效果，请参考/修改附带的示例文档(demo文件夹)。
 %
-% 本模板没有使用依赖于特定 \LaTeX 引擎的特性，所以您可以使用任意 \CTeX 支持的 \LaTeX 引擎进行编译，
-% 推荐使用 \XeLaTeX{} 作引擎，并使用 latexmk 来自动化编译流程。
-% up\LaTeX{}、pdf\LaTeX{}、\LaTeX{} 理论上也能够编译中文文档，但不保证能编译出正确结果。
+% 本文档类没有使用依赖于特定 \LaTeX{} 引擎的特性，所以可以使用任意 \CTeX 支持的 \LaTeX 引擎进行编译，
+% 推荐使用 \XeLaTeX{} 作引擎，并使用 latexmk 来实现自动化编译流程。
+% up\LaTeX{}、pdf\LaTeX{}、\LaTeX{} 理论上也能够编译中文文档，但不保证
+% 能编译出正确结果，如果使用这些引擎时出现错误，请根据错误提示修订
+% \file{nwafuthesis.cls}文件中的相关代码。
 %
 % \section{使用说明}
 % 本节介绍在使用本文档类写作时，可能会用到的、由本文档类提供的功能。
@@ -285,11 +292,11 @@ and the derived files           nwafuthesis.ins,
 % \DescribeOption{degree=}
 % 选择论文的类型，必选，当前支持 \option{bachelor}、\option{master} 和 \option{doctor}。
 %
-% \DescribeOption{type=}
-% 本科生需指定文档是毕业论文( \option{paper}) 或者是毕业设计 (\option{design})。
-%
 % \DescribeOption{techmaster}
-% 专硕，只会影响封面中的两个字段，默认不启用。% 
+% 专硕，只会影响封面中的两个字段，默认不启用。%
+%
+% \DescribeOption{type=}
+% 本科生需指定是毕业论文( \option{paper}) 或者是毕业设计 (\option{design})。
 %
 % \DescribeOption{blankleft}
 % 如果指定了 \option{openright} 并开启了本选项，左侧的空白页将变成没有页眉页脚的空白页面。
@@ -304,7 +311,8 @@ and the derived files           nwafuthesis.ins,
 % 指定 \CTeX{} 使用的中文字体，这个参数将原样传递给 \CTeX，具体的用法请参阅 \CTeX{} 文档。
 %
 % \DescribeOption{*}
-% 其他参数将传递给对应的底层文档类，常用的有 \option{openany}、\option{openright}、\option{oneside}、\option{twoside} 等。
+% 其他参数将传递给对应的底层文档类，常用的有 \option{openany}、
+% \option{openright}、\option{oneside}、\option{twoside} 等。
 %
 % 在生成单面打印或电子阅读版的论文时，推荐使用 \option{openany}, \option{oneside}；
 %
@@ -331,8 +339,7 @@ and the derived files           nwafuthesis.ins,
 %
 % \DescribeOption{advisers=}
 % 指导教师姓名，如果需要指定多位指导教师，请用\note[]{英文逗号}分割，
-% 本科封面上将会把所有人的名字写在一行，用顿号分割；
-% 硕士封面上将会每人的名字将独立占用一行。
+% 封面上将会把所有人的名字写在一行，用顿号分割。
 %
 % \DescribeOption{applydate=}
 % 封面日期，如果不指定的话，将会使用当前系统日期。
@@ -379,6 +386,15 @@ and the derived files           nwafuthesis.ins,
 % \option{applydate}、
 % 这些参数与中文封面的含义完全一致。
 %
+% \subsubsection*{摘要页}
+% \DescribeEnv{abstract}
+% 环境，包括 \env{abstract}和\env{abstractEn}，
+% 用于定义中英文摘要页的内容。
+%
+% \DescribeMacro{\keywords}
+% 包括 \cs{keywords}和\cs{keywordsEn}。
+% 设置摘要页上的关键词，用英文逗号分隔，输出时模板会使用指定的符号进行分割。
+%
 % \subsection{符号对照表}
 % \DescribeEnv{denotation}
 % 主要符号表环境，跟 \env{description} 类似，使用方法参见示例文件。带一个可选参数，
@@ -412,17 +428,8 @@ and the derived files           nwafuthesis.ins,
 % 最后使用 \cs{printnomenclature} 命令生成符号表。
 % 更详细的使用方法参见 \pkg{nomencl} 宏包的文档。
 %
-% \subsubsection*{摘要页}
-% \DescribeEnv{abstract}
-% 环境，包括 \env{abstract}和\env{abstractEn}，
-% 用于定义中英文摘要页的内容。
-%
-% \DescribeMacro{\keywords}
-% 包括 \cs{keywords}和\cs{keywordsEn}。
-% 设置摘要页上的关键词，用英文逗号分隔，输出时模板会使用指定的符号进行分割。
-%
 % \subsection{定理环境}
-% 因为本模板提供了多种定理环境编号方式，并且编号格式没有固定的使用方式，
+% 因为本文档类提供了多种定理环境编号方式，并且编号格式没有固定的使用方式，
 % 因此没有定义任何定理环境，所有环境都需要作者在导言中（使用以下3个宏）定义。
 %
 % \begin{macro}{\nwafutheoremg}
@@ -456,10 +463,10 @@ and the derived files           nwafuthesis.ins,
 % \end{macro}
 %
 % \subsection{字体}
-% 大部分场合下，模板会自动指定字体和大小。
-% 但可能有地方仍然需要手工指定字体（比如续表的表头），请使用对应的 \texttt{nwafufont*} 开头的宏。
+% 大部分场合下，在文档类内部会根据要求设定字体和大小，无需用户进行更改。
+% 但也有可能部分内容仍然需要手工指定字体(比如续表的表头)，请使用对应的 \texttt{nwafufont*} 开头的宏。
 %
-% 学校的字体规定是基于Windows习惯的，按常理来说，字体可以分为衬线体与无衬线体，
+% 学校关于排版中字体的规定都是基于Windows习惯的，按常理来说，字体可以分为衬线体与无衬线体，
 % 在不同语言中可能有不同的别称，如：
 %
 % \begin{table}[H]
@@ -472,15 +479,24 @@ and the derived files           nwafuthesis.ins,
 % \caption{本模板依赖的4个主要字体宏}
 % \end{table}
 %
-% 在学校要求中，大部分标题的中文是黑体（无衬线）的，但部分标题的英文却要求是 Times New Roman（衬线）。
-% 当前模板只能根据英文字体，自动设置对应的中文字体，因此在部分标题上，可能无法设置成符合学校规定的字体。
-% 不过，既然是用\LaTeX{}排版，就应该有一套符合\LaTeX{}习惯和规范的规定，希望学校相关部分能够重新制定相关规定。
+% 注意, 非Windows系统下可能缺失类似微软雅黑、 Times New Roman 等字体，
+% 另外，这些字体可能还有版权的问题，因此，本文档类使用newtx等类似字体
+% 进行了替换。当然，也在以通过在Linux下安装和配置相应字体解决字体问题。
+%
+% 在学校要求中，大部分标题的中文是宋体加粗(衬线)，但部分标题的西文却要
+% 求是 Times New Roman(衬线)，没有加粗，建议统一为中文使用黑体(无衬
+% 线)，西文使用粗体(无衬线)。
+%
+% 当前模板只能根据英文字体，自动设置对应的中文字体，因此在部分标题上，
+% 可能无法设置成符合学校规定的字体。不过，既然是用\LaTeX{}排版，就应该
+% 有一套符合\LaTeX{}习惯和规范的规定，建议学校相关部分能够重新制定相关
+% 规定。
 %
 % 如果觉得 \CTeX 和对应的文档类的字体不够美观的话，可以按以下步骤修改字体，
 % 需要注意的是以下步骤只适用于 \XeLaTeX 环境。
 %
-% 修改一个中文字体需要两条命令，可以参考 \verb|demo/setup/format.tex| 开头被 \cs{iffalse} 注释掉的那段代码，
-% 它同时修改了宋体与黑体。
+% 修改一个中文字体需要两条命令，可以参考 \verb|demo/setup/format.tex|
+% 开头被 \cs{iffalse} 注释掉的那段代码，它同时修改了宋体与黑体。
 % \begin{latex}
 % % 加载字体，字体名称可以通过在命令行通过执行 fc-list 命令查看。
 % \setCJKfamilyfont{\CJKrmdefault}[BoldFont=Noto Serif CJK SC Bold]{Noto Serif CJK SC}
@@ -492,34 +508,36 @@ and the derived files           nwafuthesis.ins,
 % \renewcommand\heiti{\CJKfamily{\CJKsfdefault}}
 % \end{latex}
 %
-% 除了英文、数学，以及上述 4 种字体外，本模板还用到了楷体 \cs{kaishu}。
+% 除了英文、数学，以及上述 4 种字体外，本文档类还用到了楷体 \cs{kaishu}。
 %
 % \section{更新方法}
-% 本节将介绍在保留论文代码基本不变的情况下，更新模板代码。
+% 本节将介绍在保留论文代码基本不变的情况下，更新文档类的方法。
 %
-% 在更新原论文使用的模板之前，请务必先\textbf{完整备份}所有文件，
-% 以防意外导致无法还原、也无法用任何模板版本编译的情况。
+% 在更新原论文使用的文档类之前，请务必先\textbf{完整备份}所有文件，
+% 以防意外导致无法还原、也无法用任何文档类版本编译的情况。
 %
-% 如果版本号变化没有在本节中出现的话，直接将新版的 \texttt{nwafuthesis.cls} 替换旧模板即可。
+% 如果版本号变化没有在本节中出现的话，直接将新版的
+% \texttt{nwafuthesis.cls} 替换旧文档类即可。
 % 否则请务必按照本节中描述的步骤进行修改。
 %
 % \section{外文特辑}
 % 本节将介绍外国语论文时的注意事项。
 %
-% 为了避免外文内容中使用中文格式、字体，本模板选择加载原生的外文文档类，并尽量避免使用 \CTeX 的特性。
+% 为了避免外文内容中使用中文格式、字体，本文档类选择加载原生的外文文档类，
+% 并尽量避免使用 \CTeX 的特性。
 %
-% 但由于学校的论文模板中没有提及外文的格式，
+% 但由于学校的论文写作指南中没有提及外文的格式，
 % 所以没能总结出值得信任的标准，请打算用外文写学位论文的准毕业生提前与指导老师确认格式是否有问题。
-% 欢迎在 ginwafub\footnote{\url{https://ginwafub.com/registor/nwafuthesis/issues/new}} 上指正格式问题，
+% 欢迎在 github\footnote{\url{https://github.com/registor/nwafuthesis/issues/new}} 上指正格式问题，
 % 笔者会在第一时间修正模板，使其符合规范的。
 %
 % \subsection{英文}
-% 英文环境下（即文档参数\option{lang=en}），本模板将加载 \verb|book| 文档类。
+% 英文环境下（即文档参数\option{lang=en}），本文档类将加载 \verb|book| 文档类。
 % 基本与中文环境兼容，可以在正文中直接使用中文。
 %
-% \subsection{封底部分}
+% \section{封底部分}
 %
-% \subsubsection{致谢声明}
+% \subsection{致谢声明}
 % \DescribeEnv{acknowledgement}
 % 把致谢做成一个环境更好一些，直接往里面写感谢的话就可以啦。
 % \begin{latex}
@@ -529,17 +547,7 @@ and the derived files           nwafuthesis.ins,
 % \end{acknowledgement}
 % \end{latex}
 %
-% 本科论文在此处还有一节“声明”，提交版本时需要替换为签字扫描文件，同样我们也提供：
-% 如果使用声明扫描页，将可选参数指定为扫描后的 PDF 文件名，例如：
-% \begin{latex}
-% \begin{acknowledgement}[scan-statement.pdf]
-%   加了扫描文件后，这里面的文字就没用了。
-%
-%   还要特别感谢计算机系薛瑞尼同学在论文格式和 \LaTeX\ 编译等方面给我的很多帮助！
-% \end{acknowledgement}
-% \end{latex}
-%
-% \subsubsection{附录}
+% \subsection{附录}
 % \DescribeEnv{appendix}
 % 所有的附录都插到这里来。因为附录会更改默认的 chapter 属性，而后面的{\heiti 个人简
 %   历}又需要恢复，所以实现为环境可以保证全局的属性不受影响。
@@ -566,7 +574,7 @@ and the derived files           nwafuthesis.ins,
 % \end{translationbib}
 % \end{latex}
 %
-% \subsubsection{简历}
+% \subsection{简历}
 % \DescribeEnv{resume}
 % 开启个人简历章节，包括个人简历，发表文章，研究成果列表等。每个子项目请
 % 用以下对应命令开启：\cs{xxxitem}\marg{subtitle}。
@@ -682,16 +690,16 @@ and the derived files           nwafuthesis.ins,
 %<cls>\NeedsTeXFormat{LaTeX2e}
 %<cls>\ProvidesClass{nwafuthesis}
 %<cfg>\ProvidesFile{nwafuthesis.cfg}
-%<cls|cfg>[2019/3/14 v2.1 NWAFU Thesis Template]
+%<cls|cfg>[2019/4/14 v2.2.01 NWAFU Thesis Template]
 %    \end{macrocode}
 % \subsection{配置文件}
-% 配置文件的内容将于模板加载前期执行，一般内容为空（或不存在该配置文件），
-% 主要用于存放必须在模板加载前执行的代码，例如修改本模板加载的宏包参数。
+% 配置文件的内容将于文档类加载前期执行，一般内容为空（或不存在该配置文件），
+% 主要用于存放必须在文档类加载前执行的代码，例如修改本文档类加载的宏包参数。
 %    \begin{macrocode}
 %<cls>\InputIfFileExists{nwafuthesis.cfg}{}{}
 %    \end{macrocode}
 %
-% 原模板中配置文件里的字符串常量，现已移动到文档类主文件；
+% 原文档类中配置文件里的字符串常量，现已移动到文档类主文件；
 % 如果需要修改，请使用 \cs{renewcommand} 重定义对应的宏。
 % （因为宏名称里有 \verb|@| 符号，因此请使用 \cs{makeatletter} 和 \cs{makeatother}。）
 %
@@ -699,31 +707,34 @@ and the derived files           nwafuthesis.ins,
 %    \begin{macrocode}
 %<*cls>
 \AtEndOfClass{
+% 本、硕、博都需要的字符串  
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
-\newcommand\nwafu@label@worktype@degree{学位论文}  
+\newcommand\nwafu@label@stuno{学号}
+\newcommand\nwafu@label@adviser{指导教师}
+% 仅本科需要的字符串
 \newcommand\nwafu@label@worktype@paper{毕业论文}
 \newcommand\nwafu@label@worktype@design{毕业设计}
-\newcommand\nwafu@label@worktype@master{硕士}
-\newcommand\nwafu@label@worktype@doctor{博士}
 \newcommand\nwafu@label@thesisnum{编号}
-\newcommand\nwafu@label@stuno{学号}
-\newcommand\nwafu@label@clscode{分类号}
-\newcommand\nwafu@label@udccode{UDC}
-\newcommand\nwafu@label@cfdlevel{密级}
-\newcommand\nwafu@label@unvcode{学校代码}
 \newcommand\nwafu@label@title{题\quad 目}
-\newcommand\nwafu@label@teamname{团队名称}
-\newcommand\nwafu@label@author{学生姓名}
-\newcommand\nwafu@label@studentid{学号}
 \newcommand\nwafu@label@college{学院}
 \newcommand\nwafu@label@department{系部}
 \newcommand\nwafu@label@major{专业}
 \newcommand\nwafu@label@classid{班级}
-\newcommand\nwafu@label@adviser{指导教师}
+\newcommand\nwafu@label@author{学生姓名}
 \newcommand\nwafu@label@bachelorcoadviser{协助指导教师}
+\newcommand\nwafu@label@bachelorapplydate{完成日期}
+% 仅硕、博士需要的字符串
+\newcommand\nwafu@label@worktype@degree{学位论文}
+\newcommand\nwafu@label@worktype@master{硕士}
+\newcommand\nwafu@label@worktype@doctor{博士}
+\newcommand\nwafu@label@clscode{分类号}
+\newcommand\nwafu@label@udccode{UDC}
+\newcommand\nwafu@label@cfdlevel{密级}
+\newcommand\nwafu@label@unvcode{学校代码}
+\newcommand\nwafu@label@teamname{团队名称}
+\newcommand\nwafu@label@studentid{学号}
 \newcommand\nwafu@label@postcoadviser{联合指导教师}
 \newcommand\nwafu@label@adviserteam{指导小组}
-\newcommand\nwafu@label@bachelorapplydate{完成日期}
 \newcommand\nwafu@label@postapplydate{论文提交时间}
 \newcommand\nwafu@label@defensedate{答辩日期}
 \newcommand\nwafu@label@researchername{论文作者}
@@ -732,7 +743,6 @@ and the derived files           nwafuthesis.ins,
 \newcommand\nwafu@label@professionaltype{专业学位类型}
 \newcommand\nwafu@label@professionalfield{领域名称}
 \newcommand\nwafu@label@graduateschool{研究生院}
-\newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
 \newcommand\nwafu@labelEn@techmasterfield{Field}
 \newcommand\nwafu@labelEn@techmastertype{Degree Type}
 \newcommand\nwafu@labelEn@majorsubject{Major}
@@ -743,13 +753,15 @@ and the derived files           nwafuthesis.ins,
 \newcommand\nwafu@labelEn@applydate{Date of Submission}
 \newcommand\nwafu@labelEn@nwafu{Norhtwest A \& F University}
 \newcommand\nwafu@labelEn@graduateschool{The Graduate School}
-\newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
 \newcommand\nwafu@labelEn@clscode{Classification code}
 \newcommand\nwafu@labelEn@cfdlevel{Confidentiality level}
 \newcommand\nwafu@labelEn@unvcode{University code}
 \newcommand\nwafu@labelEn@studentid{Postgraduate number}
 \newcommand\nwafu@labelEn@worktype@master{Master}
 \newcommand\nwafu@labelEn@worktype@doctor{Doctor}
+% 备用字符串
+\newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
+\newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
 %    \end{macrocode}
 % 摘要页用到的字符串：
 %    \begin{macrocode}
@@ -1189,7 +1201,7 @@ and the derived files           nwafuthesis.ins,
 \fi
 %    \end{macrocode}
 % \end{macro}
-% 加载宏包，只加载本模板必须的，以及常用的、需要调整参数的宏包，
+% 加载宏包，只加载本文档类必须的，以及常用的、需要调整参数的宏包，
 % 其他宏包需要手动加载。
 %    \begin{macrocode}
 \RequirePackage{geometry}  % 页边距
@@ -1267,9 +1279,9 @@ and the derived files           nwafuthesis.ins,
 %
 % \subsection{格式设置}
 % \subsubsection{字体}
-% 学校的 Word 模板要求英文使用 Monotype 的 Times New Roman\textsuperscript{\textregistered}，
+% 学校的 Word 文档类要求英文使用 Monotype 的 Times New Roman\textsuperscript{\textregistered}，
 % 但这不是一个免费字体，而且对于非 Windows 平台，并不提供该字体，因此，
-% 本模板使用字形相似的 \pkg{newtx} 代替。
+% 本文档类使用字形相似的 \pkg{newtx} 代替。
 %    \begin{macrocode}
 \RequirePackage[defaultsups]{newtxtext} % 正文
 \RequirePackage{newtxmath} % 数学
@@ -1451,7 +1463,7 @@ and the derived files           nwafuthesis.ins,
 % \unicodechar{2026}、
 % \unicodechar{2E3A}，
 % 所以要根据语言设置正确的字体。
-% \footnote{\url{https://ginwafub.com/CTeX-org/ctex-kit/issues/389}}
+% \footnote{\url{https://github.com/CTeX-org/ctex-kit/issues/389}}
 % 所以要根据语言设置正确的字体。
 %    \begin{macrocode}
 \newcommand\nwafu@setchinese{%
@@ -1478,7 +1490,7 @@ and the derived files           nwafuthesis.ins,
 % 于是重新定义了这些宏。
 %
 % \sout{不明白为什么要将参考文献、附录、致谢的章标题格式设置为与其
-% 它章节不一样！应该改成一样，这样的话模板会更好设计一些。}
+% 它章节不一样！应该改成一样，这样的话文档类会更好设计一些。}
 %
 %    \begin{macrocode}
 \newif\if@frontmatter
@@ -1555,7 +1567,7 @@ and the derived files           nwafuthesis.ins,
 % \subsubsection{段落左侧缩进}
 %
 % 这个功能只适配了部分定理环境、列表项，所有会改动段落缩进的地方都需要单独适配；
-% 可以参考本模板中 \cs{nwafufontparleft} 的用法，来适配您所需要的环境。
+% 可以参考本文档类中 \cs{nwafufontparleft} 的用法，来适配您所需要的环境。
 % \begin{macro}{\nwafuparleft}
 % 定义段落左侧缩进量，备用功能，实无缩进。
 %    \begin{macrocode}
@@ -2230,7 +2242,7 @@ and the derived files           nwafuthesis.ins,
 %    \end{macrocode}
 %
 % \subsubsection{参考文献}
-% 本节基于胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式(\url{https://ginwafub.com/hushidong/biblatex-gb7714-2015}) 实现，
+% 本节基于胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式(\url{https://github.com/hushidong/biblatex-gb7714-2015}) 实现，
 % 并针对我校参考文献样式要求，在胡振震编的指导下进行了部分样式和驱动代码设计。
 % 强烈建议学校能够完全采用GB/T 7714-2015标准进行参考文献编排，以便直接采用胡振震编写的符合 GB/T 7714-2015 标准的 biblatex 参考文献样式文件。
 %    \begin{macrocode}
@@ -2936,7 +2948,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 % \renewcommand{\p@subfigure}{:}
 %    \end{macrocode}
 %
-% 表格，按模板设置三线表线条粗细，以及本科表格字体。
+% 表格，按文档类设置三线表线条粗细，以及本科表格字体。
 %    \begin{macrocode}
 \setlength\heavyrulewidth{0.5bp}
 \setlength\lightrulewidth{0.5bp}
@@ -3065,7 +3077,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %    \end{macrocode}
 %
 % \subsection{实用命令}
-% 本节介绍模板中用到的 utilities（功能不强大，但顾名思义很实在）。
+% 本节介绍文档类中用到的 utilities（功能不强大，但顾名思义很实在）。
 %
 % \begin{macro}{\nwafu@dateCn}
 % 当前中文日期
@@ -3265,9 +3277,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 % \cs{makebox}不会扩展宽度，但“班级”的值基本都是7~位数字，所以应该没问题吧。
 % 如果“指导教师”很长，\env{tabular} 会加宽表格的列宽，整个表格仍然保持居中。
 %
-% 剩余的部分只需要按照 Word 模板设置字体字号，然后多余的垂直空间按比例填上空格。
-% 如果“题目”过长导致换行，模板会均匀地从多余的空间里抽出等比例的空间给标题用，
-% 不用像 Word 模板那样手工调整，也不用担心底部的日期跑到后一页去。
+% 剩余的部分只需要按照 Word 文档类设置字体字号，然后多余的垂直空间按比例填上空格。
+% 如果“题目”过长导致换行，文档类会均匀地从多余的空间里抽出等比例的空间给标题用，
+% 不用像 Word 文档类那样手工调整，也不用担心底部的日期跑到后一页去。
 %
 %    \begin{macrocode}
 \newcommand\nwafu@make@cover@bachelor{
