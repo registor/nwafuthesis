@@ -1,5 +1,10 @@
-% 使用ctexart文档类（用XeLaTeX编译，直接支持中文）
-\documentclass{ctexart}
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[scheme=chinese, heading = true, UTF8]{ctexart}
+
+% 载入需要的宏包
+\input{setup/packages.tex}
+% 进行必要的设置
+\input{setup/format.tex}
 
 % 导言区，可以在此引入必要的宏包
 \usepackage{texboxie}
@@ -8,6 +13,11 @@
 \usepackage{pgfplotstable}
 \usepackage{datatool}
 \usepackage{booktabs}
+\usepackage{siunitx}
+
+\sisetup{round-mode=places,
+         table-number-alignment = center-decimal-marker
+         }
 
 % 彩色表格
 %\usepackage[table]{xcolor}
@@ -21,11 +31,16 @@
   \color{white}
 }
 
-\title{通过csv文件生成\LaTeX 表格的几种方法}
-\author{耿楠}
+%\usepackage[skip=5pt]{caption}
+\setlength{\abovecaptionskip}{0pt}% plus 2pt minus 1pt} % Chosen fairly arbitrarily
+\setlength{\belowcaptionskip}{2pt plus 1pt minus 0pt} % Chosen fairly arbitrarily
+
+\title{\Large \heiti 通过\csv 生成\ltab 的几种方法}
+\author{\zihao{4} \fangsong 耿楠\\\small \songti 西北农林科技大学信息
+  工程学院，陕西$\cdot$杨凌，712100}
 \date{\today}
 
-% 生成数据文件
+% 生成数据文件(必须置于导言区)
 \begin{filecontents*}{db1.csv}
   姓名,性别,年龄
   张三,男,18
@@ -33,156 +48,359 @@
   马五,女,16
 \end{filecontents*}
     
-\begin{document} %在document环境中撰写文档
+\begin{document}
   \maketitle
 
   \begin{abstract}
-    CSV文件是一种用逗号分隔的数据文件，在\LaTeX 中可以采
-    用csvsimple、pgfplotstable、datatool、csvtools等宏包直接使用CSV文件
-    数据生成\LaTeX 表格。
+    \csv 称\emph{逗号分隔值}(Comma-Separated Values，CSV，有时也称
+    为\emph{字符分隔值}，因为分隔字符也可以不是逗号)文件，以纯文本形式
+    存储表格数据(数字和文本)。纯文本意味着该文件是一个字符序列，不含必
+    须像二进制数字那样被解读的数据。\csv 由任意数目的记录组成，记录间
+    以某种换行符分隔；每条记录由字段组成，字段间的分隔符是其它字符或字
+    符串，最常见的是逗号或制表符。通常，所有记录都有完全相同的字段序列。
+    \csv 都是纯文本文件，可以使用记事本、Excel等软件进行生成或编辑，是
+    一种比较方便的数据管理方式。在\LaTeX 中可以采用\pkg{csvsimple}、
+    \pkg{pgfplotstable}、\pkg{datatool}、\pkg{csvtools}等宏包直接使用
+    \csv 的数据生成\ltab 。
   \end{abstract}
 
-  \section{准备CSV数据文件}
-  CSV数据文件可能用词本、Excel等软件生成，也可以在导言区用如下\LaTeX 代码生成。
-  \begin{codeonly}
-    \begin{filecontents*}{db1.csv}
-      姓名,性别,年龄
-      张三,男,18
-      李四,男,45
-      马五,女,16
-    \end{filecontents*}
-  \end{codeonly}
+  \section{准备\csv  数据}
+  \csv 数据可以使用记事本、Excel等软件生成，也可以在导言区用
+  \env{filecontents*}环境生成。
+  \begin{center}
+    \begin{minipage}[h]{0.6\linewidth}
+      \begin{codeonly}
+        \begin{filecontents*}{db1.csv}
+          姓名,性别,年龄
+          张三,男,18
+          李四,男,45
+          马五,女,16
+        \end{filecontents*}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
+    
   该代码会在当前工作目录下生成``db1.csv''数据文件。
 
-  \section{使用csvsimple宏包}
-  \subsection{简单方式}
-  可以使用csvautotabular命令直接生成表格：
-  \begin{codeonly}
+  \section{使用\pkg{csvsimple}宏包生成\ltab }
+  \pkg{csvsimple}是一个用于处理\csv 数据的宏包，它采用
+  了\pkg{pgfkeys}的\texttt{key-value}语法，是一个基于已有数据生成表格的
+  轻量级工具包。在导言区使用\qtmark{\texinline{\usepackage{csvsimple}}}便可以使
+  用该宏包提供的功能，详情请查阅其说
+  明\url{http://www.ctan.org/pkg/csvsimple}或
+  \url{https://github.com/T-F-S/csvsimple}。
+  \subsection{简单方式生成表格}
+  使用\pkg{csvsimple}宏包的最简单方式是直接\cs{csvautotabular}命令生成
+  表格，其代码如下，生成的表格如表\ref{tab01}所示。
+  \begin{center}
+    \begin{minipage}[h]{0.7\linewidth}
+      \begin{codeonly}
+          \begin{table}[htb]
+            \centering
+            \caption{使用\cs{csvautotabular}命令生成表格\label{tab01}}
+            \csvautotabular{db1.csv}
+          \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
+  
+  \begin{table}[htb]
+    \centering
+    \caption{使用\cs{csvautotabular}命令生成表格\label{tab01}}
     \csvautotabular{db1.csv}
-  \end{codeonly}
-  \csvautotabular{db1.csv}
+  \end{table}
+  
+  \subsection{读入数据生成}
+  为了能够更为灵活地控制生成的表格，可以使用\cs{csvreader}命令读入数据，
+  并对表格属性进行必要地设置，其代码如下，生成的表格如表\ref{tab02}所示。
+  \begin{center}
+    \begin{minipage}[h]{0.75\linewidth}
+      \begin{codeonly}
+          \begin{table}[htb]
+            \centering
+            \caption{使用\cs{csvreader}命令生成表格\label{tab02}}
+            \csvreader[tabular=|c|c|c|c|,% 列格式
+                    table head=\hline & 姓名 & 性别 & 年龄\\ \hline,% 表头
+                    late after line=\\\hline % 表格线
+                    ]%
+                    {db1.csv}% 数据文件
+                    {姓名=\name,性别=\gender,年龄=\age}% 字段命名
+                    {\thecsvrow & \name & \gender & \age}% 读入数据生成表格
+          \end{table}     
+      \end{codeonly}      
+    \end{minipage}
+  \end{center}
+  
 
-  \subsection{设置表头}
-  也可以使用csvreader命令对表头进行设置：
-  \begin{codeonly}
-    \csvreader[tabular=|l|l|c|,
-               table head=\hline & 姓名 & 性别 & 年龄 \\ \hline,
-               late after line=\\\hline
-              ]%
-              {scientists.csv}
-              {姓名=\name,性别=\surname,年龄=\age}%
-              {\thecsvrow & \surname~\name & \age}%
-  \end{codeonly}
-
-  \csvreader[tabular=|c|c|c|c|,
-             table head=\hline & 姓名 & 性别 & 年龄\\ \hline,
-             late after line=\\\hline
+  \begin{table}[htb]
+    \centering
+    \caption{使用\cs{csvreader}命令生成表格\label{tab02}}
+    \csvreader[tabular=|c|c|c|c|,% 列格式
+             table head=\hline & 姓名 & 性别 & 年龄\\ \hline,% 表头
+             late after line=\\\hline % 表格线
             ]%
-            {db1.csv}
-            {姓名=\name,性别=\gender,年龄=\age}%
-            {\thecsvrow & \name & \gender & \age}%
+            {db1.csv}% 数据文件
+            {姓名=\name,性别=\gender,年龄=\age}% 字段命名
+            {\thecsvrow & \name & \gender & \age}% 读入数据生成表格
+  \end{table}
 
-  关于csvsimple宏包详情，请使用texdoc csvsimple查看其宏包手册。
+  \subsection{读入数据生成三线表}
+  结合\pkg{booktabs}宏包，可以非常方便的用\cs{csvautobooktabular}直接
+  生成三线表格，其代码如下，生成的表格如表\ref{tab03}所示。
+  \begin{center}
+    \begin{minipage}[h]{0.75\linewidth}
+      \begin{codeonly}
+          \begin{table}[htb]
+            \centering
+            \caption{使用\cs{csvautobooktabular}命令生成三线表\label{tab03}}
+            \csvautobooktabular{db1.csv}% 数据文件
+          \end{table}     
+      \end{codeonly}      
+    \end{minipage}
+  \end{center}  
 
-  \section{使用pgfplotstable宏包}
+  \begin{table}[htb]
+    \centering    
+    \caption{使用\cs{csvautobooktabular}命令生成三线表\label{tab03}}
+    \csvautobooktabular{db1.csv}% 数据文件
+  \end{table}           
+
+  如果再结合\pkg{siunitx}、\pkg{longtable}、\pkg{xcolor}等宏包，则可以对
+  生成的表格进行更为细致的控制，有关细节，请查阅\pkg{csvsimple}宏包使
+  用手册。
+
+  \section{使用\pkg{pgfplotstable}宏包生成\ltab }
+  \pkg{pgfplotstable}是一个用于处理\csv 数据的宏包，它为生成表格提供了
+  丰富的设置命令。在导言区使用\qtmark{\texinline{\usepackage{pgfplotstable}}}便可以使
+  用该宏包提供的功能，详情请查阅其说
+  明\url{https://ctan.org/pkg/pgfplotstable}。
   \subsection{简单方式}
-  可以使用pgfplotstabletypeset命令直接生成表格：
-  \begin{codeonly}
-    \pgfplotstabletypeset[
-      col sep=comma,
-      string type,
-      columns/name/.style={column name=姓名, column type={|l}},
-      columns/gender/.style={column name=性别, column type={|l}},
-      columns/age/.style={column name=年龄, column type={|c|}},
-      every head row/.style={before row=\hline,after row=\hline},
-      every last row/.style={after row=\hline},
-      ]{db2.csv}
-  \end{codeonly}
-  \pgfplotstabletypeset[
-	col sep=comma,
-	string type,
-	columns/name/.style={column name=姓名, column type={|l}},
-	columns/gender/.style={column name=性别, column type={|l}},
-	columns/age/.style={column name=年龄, column type={|c|}},
-	every head row/.style={before row=\hline,after row=\hline},
-	every last row/.style={after row=\hline},
-	]{db2.csv}
+  使用\pkg{pgfplotstable}宏包的最简单方式是直
+  接\cs{pgfplotstabletypeset}命令生成表格，利用该命令的可选参数，可以对
+  最终生成表格的格式进行必要的设置，并且可以选择性的选取要输出的数据列
+  或是对数据列的顺序进行调整。其示例代码如下，生成的表格如
+  表\ref{tab04}所示\footnote{该例中使用了db2.csv数据，第1行是各列的名
+    称，可以重新为各列命名。}。
+  \begin{center}
+    \begin{minipage}[h]{0.75\linewidth}
+      \begin{codeonly}
+        \begin{table}[htb]
+          \centering    
+          \caption{使用\cs{pgfplotstabletypeset}命令生成表格\label{tab04}}
+          \pgfplotstabletypeset[
+              col sep=comma,
+              string type,
+              columns/name/.style={column name=姓名, column type={|l}},
+              columns/gender/.style={column name=性别, column type={|l}},
+              columns/age/.style={column name=年龄, column type={|c|}},
+              every head row/.style={before row=\hline,after row=\hline},
+              every last row/.style={after row=\hline},
+              ]{db2.csv}
+        \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
 
-  \subsection{使用multicolumn合并列}
-  可以使用pgfplotstabletypeset命令直接生成表格：
-  \begin{codeonly}
+  \begin{table}[htb]
+    \centering    
+    \caption{使用\cs{pgfplotstabletypeset}命令生成表格\label{tab04}}
     \pgfplotstabletypeset[
         col sep=comma,
         string type,
-        every head row/.style={%
-         before row = {\hline
-           \multicolumn{2}{c}{基本信息} & \\
-          },
-          after row=\hline
-        },
-        every last row/.style = {after row = \hline},
-        columns/name/.style={column name=姓名, column type={l}},
-        columns/gender/.style={column name=性别, column type={l}},
-        columns/age/.style={column name=年龄, column type={c}},
+        columns/name/.style={column name=姓名, column type={|l}},
+        columns/gender/.style={column name=性别, column type={|l}},
+        columns/age/.style={column name=年龄, column type={|c|}},
+        every head row/.style={before row=\hline,after row=\hline},
+        every last row/.style={after row=\hline},
         ]{db2.csv}
-  \end{codeonly}
-  \pgfplotstabletypeset[
-	col sep=comma,
-	string type,
-        every head row/.style={%
-          before row = {\hline
-            \multicolumn{2}{c}{基本信息} & \\
-          },
-          after row=\hline
+  \end{table}
+
+  \subsection{结合\pkg{booktabs}生成三线表}
+  结合\pkg{booktabs}宏包，通过\cs{pgfplotstabletypeset}命令的的可选参
+  数，可以方便地实现三线表。其示例代码如下，生成的表格如
+  表\ref{tab05}所示\footnote{该例中使用了db2.csv数据，第1行是各列的名
+    称，该例中使用列号选择各列，并为各列重新命名。}。
+  \begin{center}
+    \begin{minipage}[h]{0.8\linewidth}
+      \begin{codeonly}
+        \begin{table}[htb]
+          \centering    
+          \caption{结合\pkg{booktabs}宏包生成三线表\label{tab05}}
+          \pgfplotstabletypeset[
+              col sep=comma,
+              string type,
+              columns/0/.style={column name=姓名, column type={l}},
+              columns/1/.style={column name=性别, column type={l}},
+              columns/2/.style={column name=年龄, column type={c}},
+              every head row/.style={before row=\toprule,after row=\midrule},
+              every last row/.style={after row=\bottomrule},
+              ]{db2.csv}
+        \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
+
+  \begin{table}[htb]
+    \centering    
+    \caption{结合\pkg{booktabs}宏包生成三线表\label{tab05}}
+    \pgfplotstabletypeset[
+        col sep=comma,
+        string type,
+        columns/0/.style={column name=姓名, column type={l}},
+        columns/1/.style={column name=性别, column type={l}},
+        columns/2/.style={column name=年龄, column type={c}},
+        every head row/.style={before row=\toprule,after row=\midrule},
+        every last row/.style={after row=\bottomrule},
+        ]{db2.csv}
+  \end{table}
+      
+
+  \subsection{结合\pkg{siunitx}控制数据显示精度}
+  结合\pkg{siunitx}宏包，通过\cs{pgfplotstabletypeset}命令的的可选参
+  数，可以方便地实现对数据显示精度的控制。其示例代码如下，生成的表格如
+  表\ref{tab06}所示\footnote{该例中使用了db3.csv数据，第1行是各列的名
+    称，注意数据中小数点不可省略。}。
+  \begin{center}
+    \begin{minipage}[h]{0.9\linewidth}
+      \begin{codeonly}
+        \begin{table}[htb]
+          \centering    
+          \caption{结合\pkg{siunitx}宏包控制数据显示精度\label{tab06}}
+          \pgfplotstabletypeset[
+            multicolumn names, 
+            col sep=comma, 
+            display columns/0/.style={
+              column name=$Value 1$,
+              column type={S[table-format = 3.0  ,round-precision=0]},string type}, 
+            display columns/1/.style={
+              column name=$Value 2$,
+              column type={S[table-format = 3.2  ,round-precision=2]},
+              string type},
+            every head row/.style={
+              before row={\toprule},
+              after row={
+                \si{\ampere} & \si{\volt}\\ 
+                \midrule}
+              },
+            every last row/.style={after row=\bottomrule}, %
+          ]{db3.csv} % 
+      \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
+
+  \begin{table}[htb]
+    \centering    
+    \caption{结合\pkg{siunitx}宏包控制数据显示精度\label{tab06}}
+    \pgfplotstabletypeset[
+      multicolumn names, % 允许合并列名
+      col sep=comma, % 逗号数据分割
+      display columns/0/.style={
+        column name=$Value 1$, % 列名称
+        column type={S[table-format = 3.0  ,round-precision=0]},string type},  % 使用siunitx控制格式
+      display columns/1/.style={
+        column name=$Value 2$,
+        column type={S[table-format = 3.2  ,round-precision=2]},
+        string type},
+      every head row/.style={
+        before row={\toprule},
+        after row={
+          \si{\ampere} & \si{\volt}\\ % 数据单位，用 & 分割
+          \midrule}
         },
-        every last row/.style = {after row = \hline},
-	columns/name/.style={column name=姓名, column type={l}},
-	columns/gender/.style={column name=性别, column type={l}},
-	columns/age/.style={column name=年龄, column type={c}},	
-	]{db2.csv}
+      every last row/.style={after row=\bottomrule}, %
+    ]{db3.csv} % filename/path to file
+  \end{table}
+  
+  另外，也可以使用\pkg{multirow}宏包、\cs{multicolumn}命令实现表格的行
+  列合并。如果再结合\pkg{longtable}、\pkg{array}、\pkg{colortbl}等宏包，则可以对
+  生成的表格进行更为细致的控制，有关细节，请查阅\pkg{pgfplotstable}宏包使
+  用手册。
         
-  关于pgfplotstable宏包详情，请使用texdoc pgfplotstable查看其宏包手册。                  
-  \section{使用datatool宏包}
+  \section{使用\pkg{datatool}宏包}
+  \pkg{datatool}是一个用于处理\csv 数据的宏包，使用它提供
+  的\cs{DTLloaddb}结合\cs{DTLdisplaydb}命令或\cs{DTLforeach}循环，可以
+  实现通过数据生成表格的操作。在导言区使
+  用\qtmark{\texinline{\usepackage{datatool}}}便可以使用该宏包提供的功
+  能，详情请查阅其说明\url{https://ctan.org/pkg/datatool}。
   \subsection{简单方式}
-  可以在使用DTLloaddb载入数据文件后，用DTLdisplaydb命令直接生成表格：
+  可以通过\cs{DTLloaddb}命令载入\csv 数据，然后用\cs{DTLdisplaydb}命令
+  生成表格。其示例代码如下，生成的表格如
+  表\ref{tab07}所示\footnote{此处使用\cs{\DTLremoverow{mydb}{3}}命令删
+    除了第3行数据。}。
 
-  \begin{codeonly}
-    \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}
-    \DTLdisplaydb{mydb}
-  \end{codeonly}
-  \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}
-  \DTLdisplaydb{mydb}
+  \begin{center}
+    \begin{minipage}[h]{0.9\linewidth}
+      \begin{codeonly}
+        \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}% 可以在之前任何位置载入数据
+        \begin{table}[htb]
+          \centering    
+          \caption{\cs{DTLdisplaydb}命令生成表格\label{tab07}}          
+          \DTLdisplaydb{mydb} % 
+      \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
 
-  \subsection{使用构建复杂表格}
-  \DTLloaddb{table}{db2.csv}
-  % \begin{table}
-  \begin{codeonly}
+  \DTLloaddb[keys={col1,col2,col3}]{mydb}{db1.csv}% 可以在之前任何位置载入数据
+  \DTLremoverow{mydb}{3} % 删除第3行数据
+  \begin{table}[htb]
+    \centering
+    \caption{\cs{DTLdisplaydb}命令生成表格\label{tab07}}
+    \DTLdisplaydb{mydb} %
+  \end{table}
+
+  \subsection{使用\cs{DTLforeach}循环构建表格}
+  可以通过\cs{DTLloaddb}命令载入\csv 数据，然后用\cs{DTLforeach}循环命令
+  生成表格，此时，可以按普通表格的编写方式进行数据处理。其示例代码如下，生成的表格如
+  表\ref{tab08}所示。
+  \begin{center}
+    \begin{minipage}[h]{0.7\linewidth}
+      \begin{codeonly}
+        \DTLloaddb{table}{db2.csv}% 可以在之前任何位置载入数据
+        \begin{table}[htb]
+          \centering    
+          \caption{\cs{DTLforeach}循环命令生成表格\label{tab08}}
+          \begin{tabular}{llc}
+            \toprule
+            姓名 & 年龄 & 性别 \tabularnewline
+            \midrule
+            \DTLforeach*{table}{\name=name, \gender=gender, \age=age}%
+              {\DTLiffirstrow{}{\tabularnewline}%
+              \name & \age & \gender}\\ % 数据列位置可任意
+            \bottomrule
+          \end{tabular}  
+        \end{table}
+      \end{codeonly}
+    \end{minipage}
+  \end{center}
+  \DTLloaddb{table}{db2.csv}% 可以在之前任何位置载入数据
+  \DTLremoverow{table}{2} % 删除第2行数据
+  \begin{table}[htb]
+    \centering    
+    \caption{\cs{DTLforeach}循环命令生成表格\label{tab08}}
     \begin{tabular}{llc}
-      \toprule      
-      姓名 & 性别 & 年龄 \tabularnewline
+      \toprule
+      姓名 & 年龄 & 性别 \tabularnewline
       \midrule
       \DTLforeach*{table}%
-      {\name=name, \gender=gender, \age=age}%
-      {\DTLiffirstrow{}{\tabularnewline}%
-      \name & \gender & \age}\\
+        {\name=name, \gender=gender, \age=age}%
+        {\DTLiffirstrow{}{\tabularnewline}%
+        \name & \age & \gender}\\ % 数据列位置可任意
       \bottomrule
-   \end{tabular}
-  \end{codeonly}
-    \begin{tabular}{llc}
-      \toprule      
-      姓名 & 性别 & 年龄 \tabularnewline
-      \midrule
-      \DTLforeach*{table}%
-      {\name=name, \gender=gender, \age=age}%
-      {\DTLiffirstrow{}{\tabularnewline}%
-      \name & \gender & \age}\\
-      \bottomrule
-    \end{tabular}
-  %\end{table}
+    \end{tabular}  
+  \end{table}
+        
+  如果再结合\pkg{siunitx}、\pkg{longtable}、\pkg{booktabs}、\pkg{array}、\pkg{colortbl}等宏包，则可以对
+  生成的表格进行更为细致的控制，有关细节，请查阅\pkg{pgfplotstable}宏包使
+  用手册。
 
-  关于datatool宏包详情，请使用texdoc datatool查看其宏包手册。  
-  
-  
+  \section{结论}
+
+  \LaTeX 排版技术经历了风风雨雨，已积累了大量的相关领域的宏包，借用这
+  些宏包，可以大大减轻排版的工作量。发现这些宏包，善用这些宏包，就可以为
+  我们的工作带来便利。
+    
   
 \end{document}
 

@@ -1,0 +1,79 @@
+% 重定义强调字体的代码，解决默认强调字体是italic，此时中文会用楷体代替，
+% 在此设置为加粗，注意需要使用etoolbox宏包
+\makeatletter
+\let\origemph\emph
+\newcommand*\emphfont{\normalfont\bfseries}
+\DeclareTextFontCommand\@textemph{\emphfont}
+\newcommand\textem[1]{%
+  \ifdefstrequal{\f@series}{\bfdefault}
+    {\@textemph{\CTEXunderline{#1}}}
+    {\@textemph{#1}}%
+}
+\RenewDocumentCommand\emph{s o m}{%
+  \IfBooleanTF{#1}
+    {\textem{#3}}
+    {\IfNoValueTF{#2}
+      {\textem{#3}\index{#3}}
+      {\textem{#3}\index{#2}}%
+     }%
+}
+\makeatother   
+
+% ========设置标题的格式========
+\ctexset{
+  section = {
+    format+ = \zihao{-4} \heiti \raggedright,
+    name = {,、},
+    number = \chinese{section},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0pt}
+  },
+  subsection = {
+    format+ = \zihao{5} \heiti \raggedright,
+    % name={\thesubsection、},
+    name = {,、},
+    number = \arabic{subsection},
+    beforeskip = 1.0ex plus 0.2ex minus .2ex,
+    afterskip = 1.0ex plus 0.2ex minus .2ex,
+    aftername = \hspace{0pt}
+  }
+}
+
+% 设置minted宏包编排代码的参数及用于latex代码排版的简化命令
+\definecolor{listinggray}{gray}{0.92}
+\setminted{fontsize=\tiny, mathescape, breaklines=true, breakautoindent=false, autogobble}
+\newmintinline{tex}{fontsize=\normalsize}
+\newmintinline[texinlinett]{tex}{fontsize=\normalsize,escapeinside=||}
+\newminted{tex}{bgcolor=listinggray, frame=lines}
+\newminted[texcodett]{tex}{bgcolor=listinggray, frame=lines, escapeinside=||}
+\newminted[shell]{sh}{autogobble,fontsize=\small,frame=lines}
+\newmintedfile{tex}{bgcolor=listinggray, linenos=true, frame=lines}
+
+% ========不需要页眉=======
+\pagestyle{plain}
+
+% 定义提醒字体
+\newcommand{\alert}[1]{\textcolor{red}{\textbf{#1}}}
+
+% 定义引号命令
+\newcommand{\qtmark}[1]{``#1''}
+
+% 定义专有名词
+\newcommand{\csv}{\texttt{CSV}文件}
+\newcommand{\ltab}{\LaTeX{}表格}
+
+% ==============LaTeX命令排版命令========================
+\newcommand\cs[1]{\texttt{\textbackslash#1}}
+\newcommand\pkg[1]{\texttt{#1}\textsuperscript{PKG}}
+\newcommand\env[1]{\texttt{#1}}
+\newcommand{\note}[1]{{%
+  \color{magenta}{\bfseries 注意：}\emph{#1}}}
+
+% 参考文献
+\bibliographystyle{plain}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master:"../main.tex"
+%%% End:
