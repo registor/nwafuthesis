@@ -1989,11 +1989,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.5}\sffamily\songti\zihao{3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
     % 作者信息
     \begin{tabular}{>{\bfseries}cc}%>{\bfseries}
-      \nwafu@label@researchername ： & \nwafu@value@researchername \\ \cline{2-2}%
-      \nwafu@label@adviser ： & \nwafu@value@advisers \\ \cline{2-2}%
+      \nwafu@label@researchername ： & \makebox[8cm][s]{} \\ \cline{2-2}%
+      \nwafu@label@adviser ： & \makebox[8cm][s]{} \\ \cline{2-2}%
       % 博士需要指导小组
       \ifnwafu@doctor
-        \nwafu@label@adviserteam ： & \nwafu@value@adviserteam \\
+        \nwafu@label@adviserteam ： & \makebox[8cm][s]{} \\
       \cline{2-2}%
       \else
         \relax

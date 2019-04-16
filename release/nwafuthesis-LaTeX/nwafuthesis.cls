@@ -13,34 +13,34 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafuthesis}
-[2019/3/14 v2.1 NWAFU Thesis Template]
+[2019/4/14 v2.2.01 NWAFU Thesis Template]
 \InputIfFileExists{nwafuthesis.cfg}{}{}
 \AtEndOfClass{
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
-\newcommand\nwafu@label@worktype@degree{学位论文}
+\newcommand\nwafu@label@stuno{学号}
+\newcommand\nwafu@label@adviser{指导教师}
 \newcommand\nwafu@label@worktype@paper{毕业论文}
 \newcommand\nwafu@label@worktype@design{毕业设计}
-\newcommand\nwafu@label@worktype@master{硕士}
-\newcommand\nwafu@label@worktype@doctor{博士}
 \newcommand\nwafu@label@thesisnum{编号}
-\newcommand\nwafu@label@stuno{学号}
-\newcommand\nwafu@label@clscode{分类号}
-\newcommand\nwafu@label@udccode{UDC}
-\newcommand\nwafu@label@cfdlevel{密级}
-\newcommand\nwafu@label@unvcode{学校代码}
 \newcommand\nwafu@label@title{题\quad 目}
-\newcommand\nwafu@label@teamname{团队名称}
-\newcommand\nwafu@label@author{学生姓名}
-\newcommand\nwafu@label@studentid{学号}
 \newcommand\nwafu@label@college{学院}
 \newcommand\nwafu@label@department{系部}
 \newcommand\nwafu@label@major{专业}
 \newcommand\nwafu@label@classid{班级}
-\newcommand\nwafu@label@adviser{指导教师}
+\newcommand\nwafu@label@author{学生姓名}
 \newcommand\nwafu@label@bachelorcoadviser{协助指导教师}
+\newcommand\nwafu@label@bachelorapplydate{完成日期}
+\newcommand\nwafu@label@worktype@degree{学位论文}
+\newcommand\nwafu@label@worktype@master{硕士}
+\newcommand\nwafu@label@worktype@doctor{博士}
+\newcommand\nwafu@label@clscode{分类号}
+\newcommand\nwafu@label@udccode{UDC}
+\newcommand\nwafu@label@cfdlevel{密级}
+\newcommand\nwafu@label@unvcode{学校代码}
+\newcommand\nwafu@label@teamname{团队名称}
+\newcommand\nwafu@label@studentid{学号}
 \newcommand\nwafu@label@postcoadviser{联合指导教师}
 \newcommand\nwafu@label@adviserteam{指导小组}
-\newcommand\nwafu@label@bachelorapplydate{完成日期}
 \newcommand\nwafu@label@postapplydate{论文提交时间}
 \newcommand\nwafu@label@defensedate{答辩日期}
 \newcommand\nwafu@label@researchername{论文作者}
@@ -49,7 +49,6 @@
 \newcommand\nwafu@label@professionaltype{专业学位类型}
 \newcommand\nwafu@label@professionalfield{领域名称}
 \newcommand\nwafu@label@graduateschool{研究生院}
-\newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
 \newcommand\nwafu@labelEn@techmasterfield{Field}
 \newcommand\nwafu@labelEn@techmastertype{Degree Type}
 \newcommand\nwafu@labelEn@majorsubject{Major}
@@ -60,13 +59,14 @@
 \newcommand\nwafu@labelEn@applydate{Date of Submission}
 \newcommand\nwafu@labelEn@nwafu{Norhtwest A \& F University}
 \newcommand\nwafu@labelEn@graduateschool{The Graduate School}
-\newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
 \newcommand\nwafu@labelEn@clscode{Classification code}
 \newcommand\nwafu@labelEn@cfdlevel{Confidentiality level}
 \newcommand\nwafu@labelEn@unvcode{University code}
 \newcommand\nwafu@labelEn@studentid{Postgraduate number}
 \newcommand\nwafu@labelEn@worktype@master{Master}
 \newcommand\nwafu@labelEn@worktype@doctor{Doctor}
+\newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
+\newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
 \newcommand\nwafu@label@abstract{摘\quad 要}
 \newcommand\nwafu@label@abstractshort{摘要}
 \newcommand\nwafu@label@keywords{关键词}
@@ -1989,11 +1989,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.5}\sffamily\songti\zihao{3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
     % 作者信息
     \begin{tabular}{>{\bfseries}cc}%>{\bfseries}
-      \nwafu@label@researchername ： & \nwafu@value@researchername \\ \cline{2-2}%
-      \nwafu@label@adviser ： & \nwafu@value@advisers \\ \cline{2-2}%
+      \nwafu@label@researchername ： & \makebox[8cm][s]{} \\ \cline{2-2}%
+      \nwafu@label@adviser ： & \makebox[8cm][s]{} \\ \cline{2-2}%
       % 博士需要指导小组
       \ifnwafu@doctor
-        \nwafu@label@adviserteam ： & \nwafu@value@adviserteam \\
+        \nwafu@label@adviserteam ： & \makebox[8cm][s]{} \\
       \cline{2-2}%
       \else
         \relax

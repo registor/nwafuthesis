@@ -3584,6 +3584,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{硕/博士题名页}
+% \changes{v2.2.02}{2019/04/16}{利用将学生姓名、导师姓名、指导小组姓名留
+% 空。}
 % \begin{macro}{\nwafu@make@titlepage@master@cn}
 % 硕/博士题名页，只要把论文信息排好就行。
 %
@@ -3637,11 +3639,11 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.5}\sffamily\songti\zihao{3}%fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
     % 作者信息
     \begin{tabular}{>{\bfseries}cc}%>{\bfseries}      
-      \nwafu@label@researchername ： & \nwafu@value@researchername \\ \cline{2-2}%
-      \nwafu@label@adviser ： & \nwafu@value@advisers \\ \cline{2-2}%
+      \nwafu@label@researchername ： & \makebox[8cm][s]{} \\ \cline{2-2}%
+      \nwafu@label@adviser ： & \makebox[8cm][s]{} \\ \cline{2-2}%
       % 博士需要指导小组
       \ifnwafu@doctor
-        \nwafu@label@adviserteam ： & \nwafu@value@adviserteam \\
+        \nwafu@label@adviserteam ： & \makebox[8cm][s]{} \\
       \cline{2-2}%
       \else
         \relax
