@@ -2230,9 +2230,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}{\MakeUppercase
     % \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
     % 0.5\baselineskip
-    \nwafu@chapter*[]{\rmfamily  \nwafu@labelEn@ABSTRACT}
+    \nwafu@chapter*[\nwafu@labelEn@ABSTRACT]{\rmfamily  \nwafu@labelEn@ABSTRACT}
     %\chapter[\nwafu@labelEn@abstract]{\rmfamily  \nwafu@labelEn@ABSTRACT}
-    \addcontentsline{toc}{chapter}{\nwafu@labelEn@abstract}
+    %\addcontentsline{toc}{chapter}{\nwafu@labelEn@abstract}
   \endgroup
 
   %\thispagestyle{style@empty}
