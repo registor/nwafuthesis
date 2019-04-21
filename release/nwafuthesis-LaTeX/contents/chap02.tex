@@ -201,25 +201,43 @@
 如果表格内容很多，导致无法放在一页内的话，需要用 \env{longtable} 或 \env{longtabu} 进行分页。
 \autoref{tab:performance} 是来自 \nuaathesis{} 的一个长表格的例子。
 
+% 定义表中用到的的宏，以简化表格代码并为后续修改提供统一接口
+\def\tabcaption{实验数据，这个题注十分的长，注意这在索引中的处理方式，还有 \cs{caption} 后面的双反斜杠}
+\def\tabheadrow{
+  \multirow{2}{*}{测试程序} & \multicolumn{1}{c}{正常运行} &
+   \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} &
+   \multicolumn{1}{c}{卷回恢复} & \multicolumn{1}{c}{进程迁移} &
+   \multicolumn{1}{c}{检查点} \\
+   & \multicolumn{1}{c}{时间(s)} & \multicolumn{1}{c}{时间(s)} &
+   \multicolumn{1}{c}{时间(s)} & \multicolumn{1}{c}{时间(s)} &
+   \multicolumn{1}{c}{时间(s)} & \multicolumn{1}{c}{文件(KB)} \\
+ }
+
+% 定义跨页表续表表题
+\def\ctntabcap{
+   \multicolumn{7}{c}{续表~\thetable\hskip1em 实验数据}  
+ }
+ % 定义跨页表命令集合
+\def\ctntabcmd{
+   \\\ctntabcap\\
+   \toprule
+   \tabheadrow
+   \midrule
+   \endhead
+   \midrule
+   \multicolumn{7}{r}{续下页}\\
+   \endfoot
+   \endlastfoot  
+ } 
+ 
+ 
 \begin{longtable}[c]{c*{6}{r}}
-        \caption[实验数据]{实验数据，这个题注十分的长，注意这在索引中的处理方式，还有 \cs{caption} 后面的双反斜杠}\label{tab:performance}\\
+        \caption[实验数据]{\tabcaption}\label{tab:performance}\\
         \toprule
-        \multirow{2}{*}{测试程序} & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
-        & \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
-        & \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
-        \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{文件 (KB)} \\ \midrule
+        \tabheadrow
+        \midrule
         \endfirsthead
-        \multicolumn{7}{c}{\nwafufontcaption 续表~\thetable\hskip1em 实验数据}\\
-        \toprule
-        \multirow{2}{*}{测试程序} & \multicolumn{1}{c}{正常运行} & \multicolumn{1}{c}{同步} & \multicolumn{1}{c}{检查点} & \multicolumn{1}{c}{卷回恢复}
-        & \multicolumn{1}{c}{进程迁移} & \multicolumn{1}{c}{检查点} \\
-        & \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}&
-        \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{时间 (s)}& \multicolumn{1}{c}{文件(KB)} \\ \midrule
-        \endhead
-        \hline
-        \multicolumn{7}{r}{续下页}
-        \endfoot
-        \endlastfoot
+        \ctntabcmd
         CG.A.2 & 23.05 & 0.002 & 0.116 & 0.035 & 0.589 & 32491 \\
         CG.A.4 & 15.06 & 0.003 & 0.067 & 0.021 & 0.351 & 18211 \\
         CG.A.8 & 13.38 & 0.004 & 0.072 & 0.023 & 0.210 & 9890 \\
@@ -262,7 +280,7 @@
         \bottomrule
    \end{longtable}
 
-如需要使用双语表头(中文和英文)，需加载额外宏包，本模板使用
+   如需要使用双语表头(中文和英文)，需加载额外宏包，本模板使用
 \pkg{bicaption}宏包实现双语表头，其效果可以参考\autoref{tab:bicap}。
 
 \begin{table}[htb]
@@ -279,6 +297,34 @@
     \bottomrule
   \end{tabular}
 \end{table}
+
+也可以结合在\pkg{csvsimple}、\pkg{pgfplotstable}、\pkg{datatool}等宏包
+直接使用逗号分割的CSV文件中的数据生成\LaTeX 表格。
+\autoref{tab:datatooltab} 是将\autoref{tab:performance}中的数据存储在
+\qtmark{db.csv}文件后，用\pkg{datatool}宏包实现\LaTeX 表格排版的一个例子。
+
+\DTLloaddb{ltab}{db.csv}% 可以在之前任何位置载入数据
+\begin{longtable}[c]{c*{6}{r}}
+  \caption[实验数据]{\tabcaption}\label{tab:datatooltab}\\
+  \toprule
+  \tabheadrow
+  \midrule
+  \endfirsthead
+  \ctntabcmd
+  \DTLforeach*{ltab}{\cola=cola, \colb=colb, \colc=colc, \cold=cold,
+                     \cole=cole, \colf=colf, \colg=colg}%
+        {\DTLiffirstrow{}{\tabularnewline}%
+        \cola & \colb & \colc & \cold & \cole & \colf & \colg}\\ % 数据列位置可任意
+  \bottomrule
+\end{longtable}
+
+   
+在论文撰写中，应具备软件协作意识，是非常重要的事。排版是\LaTeX 的事，而处
+理数据一定是Excel、MATLAB等软件，C语言、R语言等这些语言的事，各负其责，
+通力合作才是高效工作之道。在一个软件里干所有的事，不是好办法。
+
+为减轻负担，在\nwafuthesis 文档类中只引入了\pkg{datatool}，如果需要用
+其它CSV数据文件处理，请查阅其使用说明。
 
 \qtbr{重要的事说三遍}：浮动体、浮动体、浮动体，在排版图表时，一定要使
 用浮动体排版，并用\cs{caption}命令添加题注以实现自动编号，\qtbr{万万不

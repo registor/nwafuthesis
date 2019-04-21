@@ -1530,6 +1530,8 @@ and the derived files           nwafuthesis.ins,
     {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
     {\nwafu@chaptername}{1em}{} 
   \titlespacing*{\chapter}{0pt}{10bp}{10bp} 
+% \changes{v2.2.02}{2019/4/21}{修订本科论文参考文献页眉为奇偶页一样。}
+  \pagestyle{style@biblio} 
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}  
 }
@@ -1545,6 +1547,8 @@ and the derived files           nwafuthesis.ins,
    {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}%\fontsize{15.75bp}{20.0bp}\selectfont}
    {\nwafu@chaptername}{1em}{} 
  \titlespacing*{\chapter}{0pt}{10bp}{10bp} 
+% \changes{v2.2.02}{2019/4/21}{修订本科论文附录页眉为奇偶页一样。}
+ \pagestyle{style@appendix}
  \setlength\nwafuparleft{0pt}
  \setlength\leftskip{\nwafuparleft}
 }
@@ -1558,7 +1562,9 @@ and the derived files           nwafuthesis.ins,
   \titleformat{\chapter}
     {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
     {\nwafu@chaptername}{1em}{}
-  \titlespacing*{\chapter}{0pt}{10bp}{10bp}  
+  \titlespacing*{\chapter}{0pt}{10bp}{10bp} 
+% \changes{v2.2.02}{2019/4/21}{修订本科论文后料页眉为奇偶页一样。}
+  \pagestyle{style@back} 
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}  
 }

@@ -475,6 +475,7 @@
     {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
     {\nwafu@chaptername}{1em}{}
   \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \pagestyle{style@biblio}
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}
 }
@@ -490,6 +491,7 @@
    {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}%\fontsize{15.75bp}{20.0bp}\selectfont}
    {\nwafu@chaptername}{1em}{}
  \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+ \pagestyle{style@appendix}
  \setlength\nwafuparleft{0pt}
  \setlength\leftskip{\nwafuparleft}
 }
@@ -504,6 +506,7 @@
     {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
     {\nwafu@chaptername}{1em}{}
   \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \pagestyle{style@back}
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}
 }
