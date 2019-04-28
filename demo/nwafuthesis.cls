@@ -344,6 +344,7 @@
                 maxbibnames=99,% 著录所有作者
                 maxcitenames=2,% 引用标注中最多显示2个作者
                 mincitenames=1,% 3个及3个以上的作者截断为1个作者
+                gbpub=false,
                 %gbnamefmt=lowercase,% 姓名大小写由输出定
                 %gbnamefmt=pinyin,
                 gbnamefmt=familyahead,
