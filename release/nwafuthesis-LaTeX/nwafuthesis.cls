@@ -22,7 +22,7 @@
 \newcommand\nwafu@label@worktype@paper{毕业论文}
 \newcommand\nwafu@label@worktype@design{毕业设计}
 \newcommand\nwafu@label@thesisnum{编号}
-\newcommand\nwafu@label@title{题\quad 目}
+\newcommand\nwafu@label@title{题目}
 \newcommand\nwafu@label@college{学院}
 \newcommand\nwafu@label@department{系部}
 \newcommand\nwafu@label@major{专业}
@@ -67,7 +67,7 @@
 \newcommand\nwafu@labelEn@worktype@doctor{Doctor}
 \newcommand\nwafu@label@applyaddress{中国\hspace{\ccwd}陕西\hspace{\ccwd}杨凌}
 \newcommand\nwafu@labelEn@applyaddress{Yangling\hspace{1em}Shaanxi\hspace{1em}China}
-\newcommand\nwafu@label@abstract{摘\quad 要}
+\newcommand\nwafu@label@abstract{摘要}
 \newcommand\nwafu@label@abstractshort{摘要}
 \newcommand\nwafu@label@keywords{关键词}
 \newcommand\nwafu@label@keywordsep{; }
@@ -2224,7 +2224,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \vskip 1\baselineskip minus 0.5\baselineskip
 
   \begingroup
-    \nwafu@put@kw{\zihao{-4}\nwafu@textbf{\songti\nwafu@label@keywords}：}{\zihao{-4}\songti\nwafu@keywords}
+    \nwafu@put@kw{\heiti\zihao{5}\nwafu@label@keywords{}：}{\zihao{5}\songti\nwafu@keywords}
   \endgroup
 }
 \newcommand\nwafu@make@abstract@master@en{
@@ -2254,7 +2254,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \vskip 1\baselineskip minus 0.5\baselineskip
 
   \begingroup
-    \nwafu@put@kw{\zihao{-4}\nwafu@textbf{\nwafu@labelEn@keywords}: }{\rmfamily\zihao{-4}\nwafu@keywordsEn}
+    \nwafu@put@kw{\zihao{5}\nwafu@textbf{\nwafu@labelEn@keywords}: }{\rmfamily\zihao{5}\nwafu@keywordsEn}
   \endgroup
 }
 \newcommand\nwafu@atendpackage{\csname ctex_at_end_package:nn\endcsname}
