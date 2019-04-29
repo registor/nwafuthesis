@@ -529,13 +529,14 @@
   autoindent=true
 }
 \ifnwafu@bachelor \geometry{% 本科生页边距
-  top=3.0cm,
-  bottom=2.0cm,
+  paper=a4paper,
+  top=3.1cm,
+  bottom=2.5cm,
   left=2.5cm,
   right=2.5cm,
-  headheight=2.0cm,
-  headsep=2bp,
-  footskip=1.0cm
+  headheight=0.8cm,
+  headsep=0.7cm,
+  footskip=1.4cm,
 } \else \geometry{% 研究生页边距
   paper=a4paper,
   top=3.1cm,
