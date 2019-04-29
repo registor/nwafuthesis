@@ -281,7 +281,7 @@
 \ifnwafu@lang@cn
   \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
   \ProcessKeyvalOptions*
-  \PassOptionsToClass{zihao=-4,linespread=1.3889}{ctexbook}
+  \PassOptionsToClass{zihao=-4}{ctexbook}%,linespread=1.3889
   \PassOptionsToClass{a4paper,scheme=chinese,space=auto,UTF8}{ctexbook}
   \ifx\nwafu@fontset\@empty\relax
     \PassOptionsToClass{fontset=\nwafu@fontset}{ctexbook}
@@ -301,7 +301,7 @@
   \newcommand\nwafu@chaptername{\@chapapp\space \thechapter}
   \PassOptionsToPackage{indentafter}{titlesec}
   \fi
-  \PassOptionsToPackage{zihao=-4, linespread=1.3889}{ctex}
+  \PassOptionsToPackage{zihao=-4}{ctex}% , linespread=1.3889
   \PassOptionsToPackage{scheme=plain}{ctex}
   \ifx\nwafu@fontset\@empty\relax
     \PassOptionsToPackage{fontset=\nwafu@fontset}{ctex}
@@ -344,6 +344,7 @@
                 maxbibnames=99,% 著录所有作者
                 maxcitenames=2,% 引用标注中最多显示2个作者
                 mincitenames=1,% 3个及3个以上的作者截断为1个作者
+                gbpub=false,
                 %gbnamefmt=lowercase,% 姓名大小写由输出定
                 %gbnamefmt=pinyin,
                 gbnamefmt=familyahead,
@@ -371,7 +372,8 @@
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
 \RequirePackage[shortlabels]{enumitem} % 列表环境格式调整宏包
 \RequirePackage{environ}   % 创建环境和命令
-\RequirePackage{zhlineskip}% 调整行距
+\RequirePackage[bodytextleadingratio=1.65,
+                footnoteleadingratio=1.57]{zhlineskip}% 调整行距
 \RequirePackage{datatool} % 处理csv数据文件的宏包
 \RequirePackage{floatrow} % 根据需要单独添加，代原float包
 \floatsetup[table]{style=plaintop}
@@ -535,13 +537,16 @@
   headsep=2bp,
   footskip=1.0cm
 } \else \geometry{% 研究生页边距
-  top=3.0cm,
-  bottom=2.5cm,
+  paper=a4paper,
+  top=3.1cm,
+  bottom=3.3cm,
   left=2.6cm,
   right=2.6cm,
-  headheight=2.0cm,
-  headsep=2bp,
-  footskip=1.75cm
+  headheight=0.8cm,
+  headsep=0.7cm,
+  footskip=1.4cm,
+  %includehead,
+  %includefoot,
 }
 \fi
 \newcommand\nwafu@footerpagenum@decorate[1]{%
@@ -912,8 +917,8 @@
       number=\arabic{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {1.5\baselineskip},%
-      afterskip    = {1.0\baselineskip},%
+      beforeskip   = {0.2\baselineskip},%
+      afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -952,8 +957,8 @@
       number=\chinese{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {1.5\baselineskip},%
-      afterskip    = {1.0\baselineskip},%
+      beforeskip   = {0.2\baselineskip},%
+      afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -1046,7 +1051,7 @@
   {\tablename}
   {\titlerule*[1ex]{.}\contentspage}
 \DefineBibliographyExtras{english}{\renewcommand*{\bibrangedash}{$\sim$}}
-\newcommand\nwafu@font@bib{\zihao{-5}}%\linespread{1.0}
+\newcommand\nwafu@font@bib{\linespread{1.3}\zihao{5}}%
 \renewcommand{\bibfont}{\nwafu@font@bib}%\fangsong
 \DeclareFieldFormat[article]{journaltitle}{\iffieldequalstr{userd}{chinese}{#1}{\textit{#1}}\isdot}%
 \renewcommand{\postnotedelim}{\addcolon\space}
@@ -2229,7 +2234,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \fi
 
   \begingroup
-    \titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
+    %\titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
     % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}{\MakeUppercase
     % \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
     % 0.5\baselineskip

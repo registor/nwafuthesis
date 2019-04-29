@@ -1,5 +1,5 @@
 main.pdf: main.tex prepare
-	latexmk -xelatex $(basename $@)
+	latexmk -xelatex -shell-escape $(basename $@)
 
 nwafuthesis.cls: ../nwafuthesis.cls
 	cp ../nwafuthesis.cls .

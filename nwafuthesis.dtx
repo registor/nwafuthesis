@@ -69,7 +69,7 @@ and the derived files           nwafuthesis.ins,
 \fi
 %</internal>
 %<*driver>
-\ProvidesFile{nwafuthesis.drv}[2019/1/22 v2.1 NWAFU thesis template]
+\ProvidesFile{nwafuthesis.drv}[2019/4/29 v2.203 NWAFU thesis template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 \EnableCrossrefs
@@ -163,6 +163,7 @@ and the derived files           nwafuthesis.ins,
 % \end{multicols}
 % \clearpage
 %
+% \changes{v2.203}{2019/04/29}{修订研究生页眉页脚、行间距、参考文献字号。}
 % \changes{v2.2.01}{2019/4/14}{修订说明文档错误。}
 % \changes{v2.2}{2019/4/11}{修订本科生ctexset导致的排版字体丢失错误。}
 % \changes{v2.1}{2019/4/5}{根据研究生院2019年4月2日通知，重新设计研究生(博士、学硕、专硕)模板。}
@@ -1087,12 +1088,13 @@ and the derived files           nwafuthesis.ins,
 % 加载文档类之前，确保文档类不会干扰数学字体。
 %
 % \subsubsection{中文的文档类}
+% \changes{v2.203}{2019/04/29}{将行间距完全交由zhlineskip宏包控制。}
 % 直接使用 \cls{ctexbook}
 %    \begin{macrocode}
 \ifnwafu@lang@cn
   \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
   \ProcessKeyvalOptions*
-  \PassOptionsToClass{zihao=-4,linespread=1.3889}{ctexbook}
+  \PassOptionsToClass{zihao=-4}{ctexbook}%,linespread=1.3889
   \PassOptionsToClass{a4paper,scheme=chinese,space=auto,UTF8}{ctexbook}
   \ifx\nwafu@fontset\@empty\relax
     \PassOptionsToClass{fontset=\nwafu@fontset}{ctexbook}
@@ -1152,8 +1154,9 @@ and the derived files           nwafuthesis.ins,
 %    \end{macrocode}
 % \subsubsection{英文共用代码}
 % 加载完基础文档类后，再加载 \pkg{ctex} 来使用中文字体，并设置全局默认字号、行间距。
+% \changes{v2.203}{2019/04/29}{将行间距完全交由zhlineskip宏包控制。}
 %    \begin{macrocode}
-  \PassOptionsToPackage{zihao=-4, linespread=1.3889}{ctex}  
+  \PassOptionsToPackage{zihao=-4}{ctex}% , linespread=1.3889 
   \PassOptionsToPackage{scheme=plain}{ctex}
   \ifx\nwafu@fontset\@empty\relax
     \PassOptionsToPackage{fontset=\nwafu@fontset}{ctex}
@@ -1208,6 +1211,7 @@ and the derived files           nwafuthesis.ins,
 \RequirePackage{fancyhdr}  % 页眉页脚
 \RequirePackage{titlesec}  % 各级标题
 \RequirePackage{titletoc}  % 目录
+% \changes{v2.203}{2019/04/29}{修订gbpub=false，以取消“出版地不详”等输出。}
 \RequirePackage[backend=biber,
                 style=gb7714-2015ay,
                 sortlocale=zh__pinyin,
@@ -1246,7 +1250,9 @@ and the derived files           nwafuthesis.ins,
 %\RequirePackage[inline]{enumitem} % 列表环境格式调整宏包
 \RequirePackage[shortlabels]{enumitem} % 列表环境格式调整宏包
 \RequirePackage{environ}   % 创建环境和命令
-\RequirePackage{zhlineskip}% 调整行距
+% \changes{v2.203}{2019/04/29}{修订行间距为1.65。}
+\RequirePackage[bodytextleadingratio=1.65,
+                footnoteleadingratio=1.57]{zhlineskip}% 调整行距
 \RequirePackage{datatool} % 处理csv数据文件的宏包
 \RequirePackage{floatrow} % 根据需要单独添加，代原float包
 %\RequirePackage{setspace} % 设置间距
@@ -1610,6 +1616,7 @@ and the derived files           nwafuthesis.ins,
 % 本节使用 \pkg{geometry} 来设置页边距，适用于大部分页面，
 % 封面、承诺书等特殊页面的页边距将单独设置。
 %
+% \changes{v2.203}{2019/04/29}{修订研究生页眉页脚。}
 % \texttt{headheight}和\texttt{footskip}是五号字的行高（考虑文档网络），
 % $\texttt{headsep} = 3.3\text{cm}-2.6\text{cm}-15.6\text{pt} \approx 0.15\text{cm}$。
 %    \begin{macrocode}
@@ -1622,13 +1629,21 @@ and the derived files           nwafuthesis.ins,
   headsep=2bp,
   footskip=1.0cm
 } \else \geometry{% 研究生页边距
-  top=3.0cm,
-  bottom=2.5cm,
+  paper=a4paper,
+  top=3.1cm,
+  bottom=3.3cm,
   left=2.6cm,
   right=2.6cm,
-  headheight=2.0cm,
-  headsep=2bp,
-  footskip=1.75cm
+  headheight=0.8cm,
+  headsep=0.7cm,
+  footskip=1.4cm,
+  %includehead,
+  %includefoot,
+%  vmargin    = 2.54cm,
+%  hmargin    = 3.17cm,
+%  headheight = 0.8cm,
+%  headsep    = 0.24cm,
+%  footskip   = 0.79cm,
 }
 \fi
 %    \end{macrocode}
@@ -2054,6 +2069,7 @@ and the derived files           nwafuthesis.ins,
   \renewcommand{\chaptermark}[1]{\@mkboth{\CTEXthechapter\hskip\ccwd#1}{}}}
 %    \end{macrocode}
 %
+% \changes{v2.203}{2019/04/29}{修订章标题前后距离以满足要求。}
 % 各级标题格式设置。
 % \begin{description}
 % \item[chapter] 章序号与章名之间空一个汉字符 黑体三号字，居中书写，单倍行距，段
@@ -2088,8 +2104,8 @@ and the derived files           nwafuthesis.ins,
       number=\arabic{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {1.5\baselineskip},%
-      afterskip    = {1.0\baselineskip},%
+      beforeskip   = {0.2\baselineskip},%
+      afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -2128,8 +2144,8 @@ and the derived files           nwafuthesis.ins,
       number=\chinese{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {1.5\baselineskip},%
-      afterskip    = {1.0\baselineskip},%
+      beforeskip   = {0.2\baselineskip},%
+      afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -2257,8 +2273,9 @@ and the derived files           nwafuthesis.ins,
 % 表示范围的波浪线符号
 \DefineBibliographyExtras{english}{\renewcommand*{\bibrangedash}{$\sim$}}
 %
+% \changes{v2.203}{2019/04/29}{修订参考文献字号为5号字，行间距为1.3。}
 % 设置全局字体
-\newcommand\nwafu@font@bib{\zihao{-5}}%\linespread{1.0}
+\newcommand\nwafu@font@bib{\linespread{1.3}\zihao{5}}%
 \renewcommand{\bibfont}{\nwafu@font@bib}%\fangsong
 %
 % 英文刊名用斜体(应该是学校不合理要求)
@@ -3873,6 +3890,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 % 这里在垂直空格上加了一些胶水。对胶水不熟悉的读者可以去读一下 \textit{The \TeX book} 的第12章。
 % \begin{macro}{\nwafu@make@abstract@master@cn}
 % 硕/博士中文摘要页
+% \changes{v2.203}{2019/04/29}{修订英文摘要标题格式为标准格式，原来段前段后过大。}
 %    \begin{macrocode}
 \newcommand\nwafu@make@abstract@master@cn{
   \ifnwafu@abstractopenright
@@ -3910,7 +3928,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \fi
 
   \begingroup
-    \titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
+    %\titleformat{\chapter}{\centering\rmfamily\zihao{3}\bf}{}{0pt}{}{}
     % \chapter*{\textrm{\nwafu@textbf{\nwafu@labelEn@ABSTRACT}}}{\MakeUppercase
     % \rmfamily \nwafu@valueEn@title} \vskip 1\baselineskip minus
     % 0.5\baselineskip  
