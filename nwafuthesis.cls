@@ -874,7 +874,7 @@
   \newcommand\nwafu@denotation@name{主要符号对照表}
   \newcommand\listequationname{公式索引}
   \newcommand\equationname{式}
-  \newcommand\nwafu@ack@name{致\hspace{\ccwd}谢}
+  \newcommand\nwafu@ack@name{致谢}
 \else
   \newcommand\nwafu@denotation@name{Nomenclature}
   \newcommand\listequationname{List of Equations}
@@ -1020,24 +1020,24 @@
 \setcounter{secnumdepth}{3}
 \ifnwafu@lang@en
   \titlecontents{chapter}[5pc]
-    {\nwafu@font@toc}
+    {\bfseries\zihao{-4}\nwafu@font@toc}
     {\contentslabel[\chaptername~\thecontentslabel]{5pc}}
     {\renewcommand\thecontentslabel{\relax}\hspace*{-5pc}}
     {\titlerule*[1ex]{.}\contentspage}
 \else
   \titlecontents{chapter}[3.5pc]
-    {\nwafu@font@toc}
+    {\heiti\zihao{-4}\nwafu@font@toc}
     {\contentslabel[\thecontentslabel]{3.5pc}}
     {\hspace*{-3.5pc}}
     {\titlerule*[1ex]{.}\contentspage}
 \fi
 \titlecontents{section}[3pc]
-  {\nwafu@font@toc}
+  {\zihao{-4}\nwafu@font@toc}
   {\contentslabel[\thecontentslabel]{2pc}}
   {}
   {\titlerule*[1ex]{.}\contentspage}
 \titlecontents{subsection}[5pc]
-  {\nwafu@font@toc}
+  {\zihao{-4}\nwafu@font@toc}
   {\contentslabel[\thecontentslabel]{3pc}}
   {}
   {\titlerule*[1ex]{.}\contentspage}
@@ -2210,9 +2210,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \else
     \clearpage
   \fi
-  \nwafu@chapter*[]{\nwafu@label@abstract}
+  \nwafu@chapter*[\nwafu@label@abstract]{\nwafu@label@abstract}
   %\chapter[\nwafu@label@abstractshort]{\nwafu@label@abstract}%{\nwafu@value@title} \vskip 1\baselineskip minus 0.5\baselineskip
-  \addcontentsline{toc}{chapter}{\nwafu@label@abstract}
+  %\addcontentsline{toc}{chapter}{\nwafu@label@abstract}
   %\thispagestyle{style@empty}
 
   \begingroup
@@ -2254,7 +2254,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \vskip 1\baselineskip minus 0.5\baselineskip
 
   \begingroup
-    \nwafu@put@kw{\zihao{5}\nwafu@textbf{\nwafu@labelEn@keywords}: }{\rmfamily\zihao{5}\nwafu@keywordsEn}
+    \nwafu@put@kw{\zihao{5}\nwafu@textbf{\MakeUppercase{\nwafu@labelEn@KeyWords}}: }{\rmfamily\zihao{5}\nwafu@keywordsEn}
   \endgroup
 }
 \newcommand\nwafu@atendpackage{\csname ctex_at_end_package:nn\endcsname}
