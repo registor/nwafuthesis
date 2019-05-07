@@ -76,16 +76,10 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 圆括号标注文献出版年，可使用\cs{yearcite}、\cs{textcite}
 命令或手动模式引用文献，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}
-    \begin{texdemov}%[0.5]
 赵耀东\yearcite{赵耀东1998--}认为...；
 \textcite{赵耀东1998--}认为...；
 赵耀东(\cite*{赵耀东1998--})认为...；
 赵耀东(\citeyear{赵耀东1998--})认为...；
-    \end{texdemov}
-  \end{minipage}
-\end{center}
 
 \emph{注意}：手动模式使用\cs{cite*}或\cs{citeyear}命令时，需要在两端加上小括
   号，\qtbr{推荐使用}\cs{textcite}命令。
@@ -97,14 +91,8 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 和年份之间空一格，此时可以使用\cs{cite}命令引用文
 献，如：
 %
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
-      孟德尔发现了一个很重要的现象，即红、白花豌豆杂交后的所结种子
-      第二年长出的植株的红白花比例为3:1\cite{fzx1962}。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}%
+孟德尔发现了一个很重要的现象，即红、白花豌豆杂交后的所结种子
+第二年长出的植株的红白花比例为3:1\cite{fzx1962}。%
 %
 \subsubsection{同一著者多篇文献}
 
@@ -114,13 +102,7 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 不同文献之间用逗号隔开。此时可以使用\cs{cite}命令引用文
 献，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
-      UML基础和Rose建模教程中给出了大量案例及案例分析\cite{蔡敏2006a--,蔡敏2006b--}。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}
+UML基础和Rose建模教程中给出了大量案例及案例分析\cite{蔡敏2006a--,蔡敏2006b--}。%
 
 \subsubsection{两著者文献}
 
@@ -128,13 +110,7 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 \qtmark{and}(英文)。此时可以使用\cs{cite}命令引用文
 献，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
 利用基于Matlab的计算机仿真\cite{郭文彬2006--}，研究了UWB和窄带通讯中的信号共存特性\cite{Chiani2009-231-254}。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}
 
 \subsubsection{三个以上著者文献}
 
@@ -142,13 +118,7 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 文)或\qtmark{et al.}(英文)。此时可以使用\cs{cite}命令引用文
 献，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
-      UML基础和Rose建模教程中详细说明了其基本方法和技巧\cite{蔡敏2006--}。你不好好学点\LaTeX{}基本命令还真不行\cite{r9}。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}
+UML基础和Rose建模教程中详细说明了其基本方法和技巧\cite{蔡敏2006--}。你不好好学点\LaTeX{}基本命令还真不行\cite{r9}。%
 
 \subsubsection{同一处引用多篇文献}
 
@@ -156,13 +126,7 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 献之间用分号隔开。此时可以使用\cs{cite}命令引用文
 献，注意用\qtbr{逗号}分开\texttt{citeKey}就好，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
-      同时引用多个文献\cite{r2,r3,r4,r6}。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}
+同时引用多个文献\cite{r2,r3,r4,r6}。%
   
 \subsubsection{多次引用同一著者的同一文献}
 
@@ -170,13 +134,7 @@ d(\mathbf{p},\mathbf{q}) = d(\mathbf{q},\mathbf{p}) & = \sqrt{(q_1-p_1)^2 + (q_2
 并在\qtmark{()}内以以冒号形式标注引文页码。此时可以使用\cs{parencite}命令引用文
 献，注意用可选参数指定引用页码，如：
 
-\begin{center}
-  \begin{minipage}[h]{0.9\linewidth}    
-    \begin{texdemov}%[0.5]      、
-      在文献\parencite[20-22]{程根伟1999-32-36}说了一， 在文献\parencite[55-60]{程根伟1999-32-36}说了二。%
-    \end{texdemov}
-  \end{minipage}
-\end{center}
+在文献\parencite[20-22]{程根伟1999-32-36}说了一， 在文献\parencite[55-60]{程根伟1999-32-36}说了二。%
 
 \subsection{输出参考文献列表}
 
