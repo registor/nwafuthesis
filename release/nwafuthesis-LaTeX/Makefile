@@ -1,10 +1,5 @@
-main.pdf: main.tex prepare
+main.pdf: main.tex
 	latexmk -xelatex $(basename $@)
-
-nwafuthesis.cls: ../nwafuthesis.cls
-	cp ../nwafuthesis.cls .
-
-prepare: nwafuthesis.cls
 
 clean:
 	find . -name "*.out"  | xargs rm -f
