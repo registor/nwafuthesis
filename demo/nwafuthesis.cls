@@ -365,7 +365,7 @@
 \RequirePackage{hyperref}  % 超链接
 \RequirePackage{ifxetex}   % 条件判断
 \RequirePackage{siunitx}   % 单位符号、数字
-\RequirePackage{amsmath}   % 数学公式
+\RequirePackage{amsmath}   % 数学公式(与unicode-math只能有一个)
 \RequirePackage{amsthm}    % 数学定理、公理等
 \RequirePackage{amssymb}   % 数学符号
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
@@ -378,6 +378,7 @@
 \RequirePackage{floatrow} % 根据需要单独添加，代原float包
 \floatsetup[table]{style=plaintop}
 \RequirePackage{CJKfntef}
+\sloppy
 \urlstyle{same}
 \def\UrlBreaks{%
   \do\/%

@@ -69,7 +69,7 @@ and the derived files           nwafuthesis.ins,
 \fi
 %</internal>
 %<*driver>
-\ProvidesFile{nwafuthesis.drv}[2019/4/30 v2.204 NWAFU thesis template]
+\ProvidesFile{nwafuthesis.drv}[2019/05/10 v2.206 NWAFU thesis template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 \EnableCrossrefs
@@ -1242,9 +1242,10 @@ and the derived files           nwafuthesis.ins,
 \RequirePackage{hyperref}  % 超链接
 \RequirePackage{ifxetex}   % 条件判断
 \RequirePackage{siunitx}   % 单位符号、数字
-\RequirePackage{amsmath}   % 数学公式
+\RequirePackage{amsmath}   % 数学公式(与unicode-math只能有一个)
 \RequirePackage{amsthm}    % 数学定理、公理等
 \RequirePackage{amssymb}   % 数学符号
+%\RequirePackage{unicode-math}   % unicode符号数学公式
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
 %\RequirePackage[inline]{enumitem} % 列表环境格式调整宏包
@@ -1265,6 +1266,10 @@ and the derived files           nwafuthesis.ins,
 \RequirePackage{CJKfntef}
 %    \end{macrocode}
 %
+% \changes{v2.206}{2019/05/10}{修订个别英文句子无法正常断行的问题，暂时用sloppy命令实现，待进一步研究如何解决。}
+%    \begin{macrocode}
+\sloppy
+%    \end{macrocode}
 %
 % 设置 url 样式，与上下文一致
 %    \begin{macrocode}
