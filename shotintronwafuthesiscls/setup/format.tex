@@ -1,0 +1,409 @@
+\usetheme[
+%%% 外部主题选项
+%    hidetitle,           % 隐藏边栏中的短标题
+%    hideauthor,          % 隐藏边栏中的作者缩写
+%    hideinstitute,       % 隐藏边栏底部的单位缩写
+%    shownavsym,          % 显示导航符号
+    width=1.8cm,           % 边栏宽度 (默认是 2 cm)
+%    hideothersubsections,% 除了当前section的subsection隐藏其它所有 subsections
+%    hideallsubsections,  % 隐藏所有 subsections
+    left,               % 边栏位置 (默认在右边)
+%%% 颜色主题选项
+    %lightheaderbg       % 页眉背景颜色
+  ]{NWSUAFsidebar}
+  
+\definecolor{Descitem}{RGB}{0, 0, 139}
+
+\definecolor{StdTitle}{RGB}{26, 33, 141}
+\definecolor{StdBody}{RGB}{213,24,0}
+
+\definecolor{AlTitle}{RGB}{255, 190, 190}
+\definecolor{AlBody}{RGB}{213,24,0}
+
+\definecolor{ExTitle}{RGB}{201, 217, 217}
+\definecolor{ExBody}{RGB}{213,24,0}  
+  
+% Standard block
+\setbeamercolor{block title}{fg = Descitem, bg = StdTitle!15!white}
+\setbeamercolor{block body}{bg = StdBody!5!white}
+% Alert block
+
+\setbeamercolor{block title alerted}{bg = AlTitle}
+\setbeamercolor{block body alerted}{bg = AlBody!5!white}
+% Example block
+
+\setbeamercolor{block title example}{bg = ExTitle}
+\setbeamercolor{block body example}{bg = ExBody!5!white}
+
+\setbeamerfont{block title}{size=\scriptsize}
+  
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\setbeamerfont{footnote}{size=\zihao{7}} % 改变脚注字号
+
+% 设置minted宏包编排代码的参数及用于latex代码排版的简化命令
+\definecolor{listinggray}{gray}{0.92}
+%\setminted{breaklines=true, breakautoindent=false}
+\newmintinline{tex}{fontsize=\normalsize}
+\newmintinline[texinlinett]{tex}{fontsize=\normalsize,escapeinside=||}
+\newminted{tex}{bgcolor=yellow!20, frame=lines}
+\newminted[texcodett]{tex}{bgcolor=yellow!20, frame=lines, escapeinside=||}
+\newminted[shell]{sh}{autogobble,fontsize=\small,frame=lines}
+\newmintedfile{tex}{bgcolor=yellow!20, fontsize=\footnotesize, frame=lines}
+
+% 定义颜色
+% ==================================================
+\definecolor{mygray}{gray}{.9}
+\definecolor{mypink}{rgb}{.99,.91,.95}
+\definecolor{mycyan}{cmyk}{.3,0,0,0}
+
+% 改变脚注的符号
+\setbeamerfont{footnote}{size=\zihao{7}} % 改变脚注字号
+\makeatletter
+\def\@fnsymbol#1{\ensuremath{\ifcase#1\or *\or \dagger\or \ddagger\or
+   \mathsection\or \mathparagraph\or \|\or **\or \dagger\dagger
+   \or \ddagger\ddagger \else\@ctrerr\fi}}
+\makeatother
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+%% 自定义相关的名称宏命令
+%% ==================================================
+%% \newcommand{\yourcommand}[参数个数]{内容}
+% 西北农林科技大学各单位名称
+\newcommand{\nwsuaf}{西北农林科技大学}
+\newcommand{\cie}{信息工程学院}
+\newcommand{\cs}{计算机科学系}
+
+% 定义引号命令
+\newcommand{\qtmark}[1]{``#1''}%``''
+% 定义带引号的加粗强调命令
+\newcommand{\qtb}[1]{\qtmark{\emph{#1}}}
+% 定义带引号的加粗加红强调命令
+\newcommand{\qtbr}[1]{\qtmark{\emph{\alert{#1}}}}
+
+% 自定义latex简单教程中要用到的宏命令
+\newcommand\tex{{\fontfamily{cmr}\selectfont \TeX}}
+\newcommand\latex{{\fontfamily{cmr}\selectfont \LaTeX}}
+\newcommand\latextwoe{{\fontfamily{cmr}\selectfont \LaTeX2e}}
+\newcommand\latexpdf{\texorpdfstring{\latex{}}{LaTeX}}
+\newcommand\msoffice{{\rmfamily MS Office}}
+\newcommand\msofficepdf{\texorpdfstring{\msoffice{}}{MS Office}}
+
+\newcommand\demo[1][]{\href{#1}{\ttfamily \textless demo\textgreater}}
+\newcommand\wysiwym{\textsc{WYSIWYM}---所想即所得}
+\newcommand\wysiwyg{\textsc{WYSIWYG}---所见即所得}
+\newcommand\myrule{\rule{\textwidth}{.5pt}}
+\newcommand\pkg[1]{\texttt{#1}}
+
+\colorlet{msofficecolour}{red!90!white}
+\colorlet{latexcolour}{green!90!black}
+
+\newcommand\latexc{\textcolor{white}{\latex}}
+\newcommand\msofficec{\textcolor{white}{\msoffice}}
+
+% 定义TeXLive的LOGO
+\renewcommand*\sfdefault{uop}
+\renewcommand*\familydefault{\sfdefault}
+%
+\definecolor{tlblue}{HTML}{0078B8}
+
+\newcommand*\TeXLive{T\kern -.1667em\lower .5ex\hbox {E}\kern
+  -.025emX\,Live}
+
+\newcommand\tlive[1][2018]{
+  \begin{tikzpicture}[x=1pt,y=1pt,inner sep=0pt,outer sep=0pt]
+    \fill [tlblue] (0,0) rectangle (567,160);
+    \node [white] at (29.7,33.8) [anchor=south west]
+    {\scalebox{10}{\bfseries\TeXLive\~ #1}};
+    \node at (388,9) [anchor=south west] {\includegraphics[width=15em]{tl-lion}};
+    % \node [anchor=south west] {\includegraphics[height=16em]{logo}};
+  \end{tikzpicture}%
+}
+
+%叉号与对号
+\newcommand{\goodmark}{\textcolor{green!50!black}{\Pisymbol{pzd}{52}}}
+\newcommand{\badmark}{\textcolor{red}{\Pisymbol{pzd}{56}}}
+
+% 定义罗马数字
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+% 定义破折号
+\newcommand{\pozhehao}{\kern0.3ex\rule[0.8ex]{2em}{0.1ex}\kern0.3ex}
+
+% 用于绘制geometry页面图
+\newcommand\gpart[1]{\textsf{\textsl{\color[rgb]{.0,.45,.7}#1}}}%
+\def\Gm{\textsf{geometry}}
+  
+% 超链接的颜色
+\newcommand{\chref}[2]{%
+  \href{#1}{{\usebeamercolor[bg]{NWSUAFsidebar}#2}}%
+}
+
+% 定义积分中的微分d为直立体，并与变量分开一点距离\!
+\DeclareMathOperator\dif{\mathrm{d}\!}
+
+% 输出数学符号表的命令---摘自lshort
+% 公式输出
+\newcommand{\X}[1]{$#1$&\texttt{\string#1}\hspace*{1ex}}
+% 文本输出 
+\newcommand{\SC}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+% 文本模式的重音符号
+\newcommand{\A}[1]{#1&\texttt{\string#1}\hspace*{1ex}}
+\newcommand{\BB}[2]{#1#2&\texttt{\string#1{} #2}\hspace*{1ex}}
+
+\newcommand{\W}[2]{$#1{#2}$&
+  \texttt{\string#1}\texttt{\string{\string#2\string}}\hspace*{1ex}}
+\newcommand{\Y}[1]{$\big#1$ &\texttt{\string#1}}  %
+% 数学符号表格环境
+\newsavebox{\symbbox}
+\newenvironment{symbols}[1]%
+{\par\vspace*{2ex}
+\renewcommand{\arraystretch}{1.1}
+\begin{lrbox}{\symbbox}
+\hspace*{4ex}\begin{tabular}{@{}#1@{}}\hline}%
+{\\ \hline \end{tabular}\end{lrbox}\makebox[\textwidth]{\usebox{\symbbox}}\par\medskip}
+
+% 定义子公式编号用的环境
+\newenvironment{mysubeqn}%
+          {\begin{subequations}
+              \renewcommand\theequation{\theparentequation-\roman{equation}}}%
+            {\end{subequations}}
+% ==================================================
+\newcommand{\nwafuthesis}{%
+  \makebox{\rmfamily%
+    N\hspace{-0.2ex}\raisebox{-0.5ex}{W}\raisebox{0.5ex}{\hspace{-0.2ex}\textsc{afu}}\hspace{0.3ex}%
+    \textsc{Thesis}}}          
+
+%% 定义自动扩展垂直间距的命令\stretchon和\stretchoff
+%% ==================================================
+\def\itemsymbol{$\blacktriangleright$}
+\let\svpar\par
+\let\svitemize\itemize
+\let\svenditemize\enditemize
+\let\svitem\item
+\let\svcenter\center
+\let\svendcenter\endcenter
+\let\svcolumn\column
+\let\svendcolumn\endcolumn
+\def\newitem{\renewcommand\item[1][\itemsymbol]{\vfill\svitem[##1]}}%
+\def\newpar{\def\par{\svpar\vfill}}%
+\newcommand\stretchon{%
+  \newpar%
+  \renewcommand\item[1][\itemsymbol]{\svitem[##1]\newitem}%
+  \renewenvironment{itemize}%
+    {\svitemize}{\svenditemize\newpar\par}%
+  \renewenvironment{center}%
+    {\svcenter\newpar}{\svendcenter\newpar}%
+  \renewenvironment{column}[2]%
+    {\svcolumn{##1}\setlength{\parskip}{\columnskip}##2}%
+    {\svendcolumn\vspace{\columnskip}}%
+}
+\newcommand\stretchoff{%
+  \let\par\svpar%
+  \let\item\svitem%
+  \let\itemize\svitemize%
+  \let\enditemize\svenditemize%
+  \let\center\svcenter%
+  \let\endcenter\svendcenter%
+  \let\column\svcolumn%
+  \let\endcolumn\svendcolumn%
+}
+
+%% 签署春秋学期日期命令
+\newcommand{\tomonth}{
+  \the\year 年\the\month 月
+}
+
+
+\newcommand{\tomonthen}{
+  \ifcase\the\month
+  \or January%
+  \or February%
+  \or March%
+  \or April%
+  \or May%
+  \or June%
+  \or July%
+  \or August%
+  \or September%
+  \or October%
+  \or November%
+  \or December%
+  \fi, \the\year
+}
+
+\newcommand{\tosemester}{
+  \the\year 年\ 
+  \ifcase\the\month
+  \or 秋%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 春%
+  \or 夏%
+  \or 秋%
+  \or 秋%
+  \or 秋%
+  \or 秋%
+  \fi 
+}
+
+\newcommand{\tosemesteren}{  
+  \ifcase\the\month
+  \or Autumn%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Spring%
+  \or Summer%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \or Autumn%
+  \fi, \the\year
+}
+
+%% 分栏宽度
+\newlength\columnskip
+\columnskip 0pt
+%% ==================================================          
+          
+% TiKz绘图设置
+\usetikzlibrary{arrows}
+% TikZ宏包扩展
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations}
+% pgfplots设置
+\pgfplotsset{compat=newest,compat/show suggested version=false}
+
+% \newfontfamily\LibertinusKey{LibertinusKeyboard-Regular.otf}
+% \newcommand\kbd[1]{{\LibertinusKey#1}}
+
+
+%% 设置绘制目录结构的宏参数
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+\newlength\Size
+\setlength\Size{4pt}
+\tikzset{%
+  folder/.pic={%
+    \filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);
+    \filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+  },
+  file/.pic={%
+    \filldraw [draw=folderborder, top color=folderbg!5, bottom color=folderbg!10] (-\Size,.4*\Size+5pt) coordinate (a) |- (\Size,-1.2*\Size) coordinate (b) -- ++(0,1.6*\Size) coordinate (c) -- ++(-5pt,5pt) coordinate (d) -- cycle (d) |- (c) ;
+  },
+}
+\forestset{%
+  declare autowrapped toks={pic me}{},
+  declare boolean register={pic root},
+  pic root=0,
+  pic dir tree/.style={%
+    for tree={%
+      folder,
+      %font=\ttfamily,
+      grow'=0,
+      s sep=1.0pt,
+      font=\small \sffamily,
+      %fit=band,
+      %ysep = 1.0pt,
+      inner ysep = 2.6pt,
+    },
+    before typesetting nodes={%
+      for tree={%
+        edge label+/.option={pic me},
+      },
+      if pic root={
+        tikz+={
+          \pic at ([xshift=\Size].west) {folder};
+        },
+        align={l}
+      }{},
+    },
+  },
+  pic me set/.code n args=2{%
+    \forestset{%
+      #1/.style={%
+        inner xsep=2\Size,
+        pic me={pic {#2}},
+      }
+    }
+  },
+  pic me set={directory}{folder},
+  pic me set={file}{file},  
+}
+%% ==================================================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Overlay Generator - Annotated Figures v0.0.2
+% Created with http://ff.cx/latex-overlay-generator/
+% If this generator saves you time, consider donating 5,- EUR! :-)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         #1          #2       #3         #4           #5          #6            #7           #8
+%\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
+\newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick,rounded corners] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=2pt,font=\sffamily,text=#8] {\textbf{#3}};}
+\newcommand*\annotatedFigureBoxLabel[4]{\annotatedFigureBoxCustom{#1}{#2}{#3}{#4}{red}{white}{black}{black}}
+\newcommand*\annotatedFigureBox[3]{\draw[#3,thick,rounded corners] (#1) rectangle (#2);}
+\newenvironment {annotatedFigure}[1]{\centering\begin{tikzpicture}\node[anchor=south west,inner sep=0] (image) at (0,0) { #1};\begin{scope}[x={(image.south east)},y={(image.north west)}]}{\end{scope}\end{tikzpicture}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 动态改变menukeys宏包的win/mac样式
+\makeatletter
+\def\setmenukeyswin{\def\tw@mk@os{win}}
+\def\setmenukeysmac{\def\tw@mk@os{mac}}
+\makeatother
+
+% 插图路径设置
+% ==================================================
+\graphicspath{{figures/}}%图片所在的目录
+% ==================================================
+
+% 为标题页指定一个 logo
+\pgfdeclareimage[height=0.8cm]{titlepagelogo}{nwsuaflogo/nwsuaf_logo_new}% 标题页
+\titlegraphic{% 标题页底部
+  \pgfuseimage{titlepagelogo}%
+}
+
+% 自动插入的帧
+% ==================================================
+% ==================================================
+% 每一讲前面添加的帧
+% ==================================================
+% \AtBeginLecture{
+%   \begin{frame}[allowframebreaks]{本讲主要内容}{目录}
+%     %\Large
+%     %\centering
+%     %\insertlecture
+%     \tableofcontents
+%   \end{frame}
+% }
+
+% \iffalse
+% \AtBeginSection[]{ \frame{
+%     \footnotesize
+%     \frametitle{本讲的主要内容}
+%     \tableofcontents[currentsection]
+%   }
+% }
+% %\iffalse
+% \AtBeginSubsection[]
+% {
+%   \begin{frame}
+%     \footnotesize
+%     \frametitle{本讲的主要内容}
+%     \tableofcontents[currentsection,currentsubsection]
+%   \end{frame}
+% }
+% \fi
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End: 
