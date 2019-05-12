@@ -1,7 +1,7 @@
 % 协助检查有无过期宏包及命令
 \RequirePackage[l2tabu, orthodox]{nag}
 % 包含beamer宏包
-\documentclass[xcolor=svgnames, t, aspectratio=169]{ctexbeamer}
+\documentclass[fontset = adobe, xcolor=svgnames, t, aspectratio=169]{ctexbeamer}
 
 % 载入需要的宏包
 \input{setup/packages.tex}
@@ -1296,7 +1296,7 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \item 例如缺少\$号\\[3ex]
   
   
-  第二常见的错误是忘记将公式放在一对 \texinline{$} 里面．
+  第二常见的错误是忘记将公式放在一对 \$ 里面．
   比如将 \texinline{$2^3=8$} 错写为 \texinline{2^3=8}，
   编译后将会看到如下错误信息：
   \begin{texcode}
@@ -1515,30 +1515,76 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \stretchoff
 \end{frame}
 
+\begin{frame}[fragile]{\nwafuthesis 模板}{模板使用}
+  %\stretchon
+  \begin{itemize}
+  \item 浮动体与交叉引用
+    \begin{itemize}
+    \item 浮动体机制
+      \begin{itemize}
+      \item \texinline{figure} 和 \texinline{table} 环境
+      \item 图、表浮动(乱跑)不是BUG，是\LaTeX 的精髓！
+      \item 希望浮动体不要乱跑：\href{https://liam.page/2017/03/11/floats-in-LaTeX-basic}{\alert{「这是病，得治」}}
+      \item 避免「见上图」、「见下表」
+      \end{itemize}
+    \item 浮动参数
+      \begin{itemize}
+      \item h(就摆这里)、t(页面顶端)、b(页面底端)、p(只有浮动体的页面)
+      \item ! 求你了，听听我的请求吧……
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+  % \centering
+  \begin{center}
+  \begin{minipage}[h]{0.35\linewidth}
+    \begin{texcode}
+      \begin{figure}[htb!]
+        \includegraphics[...]{...}
+        \caption{一个校徽}
+        \label{fig:logo}
+      \end{figure}
+    \end{texcode}
+  \end{minipage}\quad
+  \begin{minipage}[h]{0.53\linewidth}
+    \begin{texcode}
+      \begin{table}[htb]
+        \bicaption[...]{...\label{tab:bicap}}{...}
+        \begin{tabular}{lr}
+          \toprule
+          城市 & 人口 \\
+          \midrule
+          Mexico City & 20,116,842\\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+    \end{texcode}
+  \end{minipage}
+  \end{center}
+  %\stretchoff
+\end{frame}
+
 \begin{frame}{\nwafuthesis 模板}{模板使用}
   \stretchon
   \begin{itemize}
   \item 浮动体与交叉引用
     \begin{itemize}
-    \item 浮动体机制
-
+    \item \alert{标签}控制交叉引用
       \begin{itemize}
-      \item \texinline{figure} 和 \texinline{table} 环境
-      \item 文本为主，图、表为辅
-      \item 希望浮动体不要乱跑：\href{https://liam.page/2017/03/11/floats-in-LaTeX-basic}{「这是病，得治」}
-      \item 避免「见上图」、「见下表」
-      \end{itemize}
-
-    \item 以标签控制交叉引用
-
-      \begin{itemize}
-      \item 被引处：\texinline{\label}
-      \item 引用处：\alert{\texinline{\autoref}}、\texinline{\ref}、\texinline{\eqref}等
+      \item 被引处打标签：\texinline{\label}
+      \item 引用处用标签：\alert{\texinline{\autoref}}、\texinline{\ref}、
+        \texinline{\eqref}等
       \item 用有意义的标签：\texinline{\label{eq:euler-lagrange-eq}}
-      \item 需多次编译---推荐 \pkg{latexmk}
       \end{itemize}
+    \item 文献\alert{键值}交叉引用
+      \begin{itemize}
+      \item 在文献数据库中(\pkg{*.bib})为每篇文献指定\alert{键值}(第1字段)
+      \item 引用处用键值：\texinline{\textcite{键值}}、\texinline{\cite{键值}}系列命令引用文献
+      \item 文献排版引擎：\pkg{biblatex} 宏包 + \pkg{biber} 后端
+      \item 模板已设置，\alert{无需更改}
+      \end{itemize} 
+    \item 需多次编译---推荐 \pkg{latexmk}      
     \end{itemize}
-  \end{itemize}
+  \end{itemize}  
   \stretchoff
 \end{frame}
 
@@ -1576,29 +1622,62 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \stretchoff
 \end{frame}
 
+% \begin{frame}{\nwafuthesis 模板}{模板使用}
+%   \stretchon
+%   \begin{itemize}
+%   \item 文献数据库(\pkg{*bib})
+%     \begin{itemize}
+%     \item 建议自动生成 （你只有三篇参考文献？）
+
+%       \begin{itemize}
+%       \item \href{http://xueshu.baidu.com/}{百度学术}、Google Scholar等可直接复制
+%       \end{itemize}
+      
+%     \end{itemize}
+%   \end{itemize}
+%   \centering
+%   \begin{annotatedFigure}
+%     {\includegraphics[width=0.4\textwidth]{baiduxueshu}}
+%     \annotatedFigureBox{0.36,0.51}{0.46,0.58}{red}
+%     \annotatedFigureBox{0.44,0.015}{0.51,0.08}{blue}
+%   \end{annotatedFigure}\quad
+%   \begin{annotatedFigure}
+%     {\includegraphics[width=0.4\textwidth]{googlescholar}}
+%     \annotatedFigureBox{0.24,0.62}{0.28,0.66}{red}
+%     \annotatedFigureBox{0.63,0.08}{0.685,0.14}{blue}
+%   \end{annotatedFigure}\\[2ex]
+%   \begin{annotatedFigure}
+%     {\includegraphics[width=0.4\textwidth]{baiduxueshu-bibtex}}
+%     \annotatedFigureBox{0.005,0.05}{0.96,0.55}{blue}
+%   \end{annotatedFigure}
+%   \stretchoff
+% \end{frame}
+
 \begin{frame}{\nwafuthesis 模板}{模板使用}
-  \stretchon
+  %\stretchon
   \begin{itemize}
-  \item 文献
+  \item 文献数据库(\pkg{*bib})
     \begin{itemize}
     \item 建议自动生成 （你只有三篇参考文献？）
-    \item \texinline{.bib} 数据库
 
       \begin{itemize}
-      \item Google Scholar 可直接复制
-      \item 用 Zotero、Jabref 等生成
+      \item 用Zotero\footnote[frame,1]{在此，以知网为例，适合所有网站。}、Jabref、NoteExpress等软件辅助
       \end{itemize}
-
-    \item \pkg{biber} 后端 + \pkg{biblatex} 宏包
-
-      \begin{itemize}
-      \item 模板已设置，\alert{无需更改}
-      \end{itemize} 
-
-    \item 需多次编译---强烈推荐 \pkg{latexmk}
+      
     \end{itemize}
   \end{itemize}
-  \stretchoff
+  \centering
+  \vspace{6ex}
+  \begin{annotatedFigure}
+    {\includegraphics[height=0.365\textheight]{zotero-conect}}
+    \annotatedFigureBox{0.895,0.9}{0.925,0.95}{red}
+    \annotatedFigureBox{0.77,0.38}{0.995,0.86}{blue}
+  \end{annotatedFigure}\quad%\\%[2ex]
+  \begin{annotatedFigure}
+    {\includegraphics[height=0.365\textheight]{zotero}}
+    \annotatedFigureBox{0.33,0.263}{0.67,0.75}{blue}
+  \end{annotatedFigure}
+  %\stretchoff
 \end{frame}
 
 \subsection[TeXstudio]{TeXstudio配置}
@@ -1629,10 +1708,12 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \begin{itemize}
   \item 用\XeLaTeX \alert{4次}编译
     \begin{enumerate}
-    \item \XeLaTeX 编译\TeX 源码:\menu[,]{工具,构建并查看/F5}或\menu[,]{工具,编译/F6}
+    \item \XeLaTeX 编译\TeX 源码:\menu[,]{工具,构建并查看/F5}或
+      \menu[,]{工具,编译/F6}\footnote[frame,1]{实践观察，点选一次菜单，
+        则执行两次编译，如果有出入，请多执行几次。}
     \item Biber 编译参考文献:\menu[,]{工具,参考文献/F8}
     \item \XeLaTeX 编译\TeX 源码:\menu[,]{工具,构建并查看/F5}或 \menu[,]{工具,编译/F6}
-    \item \XeLaTeX 编译\TeX 源码:\menu[,]{工具,构建并查看/F5}或\menu[,]{工具,编译/F6}
+    %\item \XeLaTeX 编译\TeX 源码:\menu[,]{工具,构建并查看/F5}或\menu[,]{工具,编译/F6}
     \end{enumerate}
   \end{itemize}
   \centering
@@ -1688,6 +1769,21 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \stretchoff
 \end{frame}
 
+\begin{frame}{\nwafuthesis 模板}{检测TeXstudio配置}
+  \stretchon
+  \begin{itemize}
+  \item \menu[,]{帮助,检测\LaTeX 安装信息}
+    
+  \end{itemize}
+  \centering
+  \begin{annotatedFigure}
+    {\includegraphics[width=0.75\textwidth]{texstudio-help-checklatex}}
+    % \annotatedFigureBox{0.005,0.855}{0.08,0.895}{red}
+    % \annotatedFigureBox{0.18,0.82}{0.4,0.86}{blue}
+    % \annotatedFigureBox{0.18,0.715}{0.4,0.755}{blue}
+  \end{annotatedFigure}
+  \stretchoff
+\end{frame}
 
 \begin{frame}{\nwafuthesis 模板}{宏包推荐\footnote[frame]{请务必先读文
       档：命令行执行\alert{\texttt{texdoc package}}}}
@@ -1785,7 +1881,69 @@ Yangling, China ] % 可选项，在每页边栏的底部显示
   \stretchoff
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 关于我 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 参考文献 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[参考文献]{参考文献}
+\begin{frame}[fragile]{参考文献}{学无止境}
+\begin{multicols}{2}
+\tiny
+\newcommand\BOOK[1]{\textbf{#1}}
+\newcommand\TAG[1]{\CASE{[#1]}}
+\begin{thebibliography}{99}
+  \bibitem{}
+    \textsc{Knuth D E}.
+    \newblock \BOOK{The \TeX book: Computers \& Typesetting, volume C} \TAG{M}. 1984.
+    \newblock Boston: Addison--Wesley Publishing Company
+  \bibitem{}
+    刘海洋．
+    \newblock \BOOK{\LaTeX{} 入门} \TAG{M}. 2013.
+    \newblock 北京：电子工业出版社
+  \bibitem{}
+    \jatext{高冈昌生}．\\
+    翻译：刘庆，监修：陈嵘．
+    \newblock \BOOK{西文排版：排版的基础和规范} \TAG{M}. 2016.
+    \newblock 北京：中信出版集团
+  \bibitem{}
+    \jatext{小林章}．\\
+    翻译：刘庆，监修：陈嵘．
+    \newblock \BOOK{西文字体：字体的背景知识和使用方法} \TAG{M}. 2014.
+    \newblock 北京：中信出版集团
+  \bibitem{}
+    \textsc{Oetiker T}, \textsc{Partl H}, \textsc{Hyna I} and \textsc{Schlegl E}.\\
+    翻译：\CTeX{} 开发小组．
+    \newblock \BOOK{一份（不太）简短的 \LaTeXe{} 介绍：或 106 分钟了解 \LaTeXe{}} \TAG{EB/OL}. 2018.
+    \newblock \url{https://ctan.org/pkg/lshort-zh-cn}
+  \bibitem{}
+    汪彧之，陈晟祺．
+    \newblock \BOOK{如何使用 \LaTeX{} 排版论文} \TAG{EB/OL}. 2018.
+    \newblock PDF:
+      \href{https://github.com/tuna/thulib-latex-talk/raw/master/latex-talk.pdf}{\faDownload}
+  \bibitem{}
+    刘海洋．
+    \newblock \BOOK{\LaTeX{} 入门} \TAG{EB/OL}. 2013.
+    \newblock PDF:
+      \href{https://bbs.pku.edu.cn/attach/e7/f2/e7f2bb698b9c3672/tex_intro_talk.pdf}{\faDownload}
+  \bibitem{}
+    林莲枝．
+    \newblock \BOOK{漫谈 \LaTeX{} 排版常见概念误区：别把 \LaTeX{} 当 Word 用！}\TAG{EB/OL}. 2018.
+    \newblock PDF:
+      \href{http://static.latexstudio.net/wp-content/uploads/2018/03/LianTze-presentation-0320-forReading.pdf}{\faDownload}
+  \bibitem{}
+    Wikibooks.
+    \newblock \BOOK{\LaTeX{}---Wikibooks, The Free Textbook Project} \TAG{EB/OL}.
+    \newblock \url{https://en.wikibooks.org/wiki/LaTeX}
+  \bibitem{}
+    Overleaf.
+    \newblock \BOOK{Overleaf Documentation} \TAG{EB/OL}.
+    \newblock \url{https://www.overleaf.com/learn}
+  \bibitem{}
+    刘庆．
+    \newblock \BOOK{孔雀计划：中文字体排印的思路} \TAG{EB/OL}.
+    \newblock \url{https://thetype.com/kongque}
+\end{thebibliography}
+\end{multicols}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 关于我们 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[关于我们]{关于我们}
 \subsection[联系方式]{联系方式}
 \begin{frame}[fragile]{关于我们}{联系方式}

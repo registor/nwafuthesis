@@ -46,8 +46,8 @@
 %\setminted{breaklines=true, breakautoindent=false}
 \newmintinline{tex}{fontsize=\normalsize}
 \newmintinline[texinlinett]{tex}{fontsize=\normalsize,escapeinside=||}
-\newminted{tex}{bgcolor=yellow!20, frame=lines}
-\newminted[texcodett]{tex}{bgcolor=yellow!20, frame=lines, escapeinside=||}
+\newminted{tex}{autogobble, fontsize=\scriptsize,bgcolor=yellow!20, frame=lines}
+\newminted[texcodett]{tex}{autogobble, fontsize=\scriptsize, bgcolor=yellow!20, frame=lines, escapeinside=||}
 \newminted[shell]{sh}{autogobble,fontsize=\small,frame=lines}
 \newmintedfile{tex}{bgcolor=yellow!20, fontsize=\footnotesize, frame=lines}
 
@@ -350,7 +350,7 @@
 %\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
 \newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick,rounded corners] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=2pt,font=\sffamily,text=#8] {\textbf{#3}};}
 \newcommand*\annotatedFigureBoxLabel[4]{\annotatedFigureBoxCustom{#1}{#2}{#3}{#4}{red}{white}{black}{black}}
-\newcommand*\annotatedFigureBox[3]{\draw[#3,thick,rounded corners] (#1) rectangle (#2);}
+\newcommand*\annotatedFigureBox[3]{\draw[#3,thick,rounded corners=0.5mm] (#1) rectangle (#2);}
 \newenvironment {annotatedFigure}[1]{\centering\begin{tikzpicture}\node[anchor=south west,inner sep=0] (image) at (0,0) { #1};\begin{scope}[x={(image.south east)},y={(image.north west)}]}{\end{scope}\end{tikzpicture}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -370,6 +370,9 @@
 \titlegraphic{% 标题页底部
   \pgfuseimage{titlepagelogo}%
 }
+
+\newcommand\CASE[1]{{\addfontfeatures{Letters=Uppercase}#1}}
+\newcommand\jatext[1]{{\addCJKfontfeatures{Language=Japanese}#1}}
 
 % 自动插入的帧
 % ==================================================
