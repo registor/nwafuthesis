@@ -1,0 +1,52 @@
+% 加载宏包
+%===================注意======================%
+% 在调用beamer.cls宏包后，以下宏包将自动调用，
+% 不应单独调用这些宏包，以免发生冲突
+% amsfonts, amsmath, amssymb, amsthm, 
+% enumerate, geometry, graphics, graphicx, 
+% hyperref, url, 
+% ifpdf, keyval, xcolor, xxcolor
+% =============================================%
+% 由于setspace宏包会改变\@footnotetext，从面造成footcite不能引用的问题，
+% 以下代码用于修正这一问题
+\usepackage{etoolbox}
+% 代码排版工具宏包
+% 需要预先安装 python 和 pygments。
+% 此宏包要加  -shell-escape 编译参数
+% 版本2.0,支持行内代码排版
+\usepackage{minted}
+
+%\usepackage[bwr]{callouts}
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++
+% 为一部分代码用于解决引用setspace调整间距宏包后造成的参考文献引用脚注
+% 丢失问题
+\makeatletter
+% save the meaning of \@footnotetext
+\let\BEAMER@footnotetext\@footnotetext
+\makeatother
+% 调整间距
+\usepackage{setspace} 
+% 叉号与对号要用到的字体
+%\usepackage{pifont}
+% 绘图
+\usepackage{tikz}
+\usepackage{pgfplots}
+% 部分latex的Logo
+\usepackage{xltxtra}
+
+\usepackage{fontawesome5}
+
+\usepackage{multicol}
+
+%% 设置绘制目录结构的宏及参数
+\usepackage[edges]{forest}
+
+% ========排版键盘组合和菜单的宏包=========
+\usepackage{menukeys}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main.tex"
+%%% End:
+
