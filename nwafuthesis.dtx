@@ -69,7 +69,7 @@ and the derived files           nwafuthesis.ins,
 \fi
 %</internal>
 %<*driver>
-\ProvidesFile{nwafuthesis.drv}[2019/05/10 v2.206 NWAFU thesis template]
+\ProvidesFile{nwafuthesis.drv}[2019/05/27 v2.2.10 NWAFU thesis template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 \EnableCrossrefs
@@ -2766,12 +2766,13 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 % \end{macro}
 % \end{macro}
 %
+% \changes{v2.2.10}{2019/05/27}{因为未使用unicode-math宏包，撤消nabla的重定义。}
 % \begin{macro}{\nabla}
 % \cs{nabla} 使用粗正体。
 %    \begin{macrocode}
-\AtBeginDocument{%
-  \renewcommand\nabla{\mbfnabla}%
-}
+%\AtBeginDocument{%
+%  \renewcommand\nabla{\bm{\nabla}}%
+%}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3511,7 +3512,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \begingroup
     \setlength\parindent{2em}\rmfamily\indent
-    \nwafu@put@kw{\nwafu@textbf{\zihao{-4}\nwafu@labelEn@keywords: } }{\nwafu@keywordsEn}
+% \changes{v2.2.10}{2019/05/27}{修订本科生英文摘要中的关键字为衬线5号字体。}
+    \nwafu@put@kw{\nwafu@textbf{\zihao{-4}\nwafu@labelEn@keywords: } }{\rmfamily\zihao{5}\nwafu@keywordsEn}
   \endgroup  
 }
 %    \end{macrocode}
@@ -3577,8 +3579,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   % 论文类别
   \begin{center}
     \linespread{1.212}\zihao{-3}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
-    
-    Dissertation Submitted to Northwest A \& F University\\    
+% \changes{v2.2.10}{2019/05/27}{修订原Dissertation Submitted to 为内容为Thesis Submitted to。}    
+    Thesis Submitted to Northwest A \& F University\\    
     in Partial Fulfillment of the Requirements\\    
     for Degree of\\    
     \nwafu@worktypeen \ of \uline{\nwafu@valueEn@degreefull}    
@@ -3587,7 +3589,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   % 题目及作者信息
   \begin{center}
-    {\linespread{1.0}\bfseries\zihao{1}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+% \changes{v2.2.10}{2019/05/27}{修订英文封面中题目行距为1.212。}    
+    {\linespread{1.212}\bfseries\zihao{1}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
     \nwafu@valueEn@title}%
     %\makebox[0.9\linewidth][c]{\nwafu@valueEn@title}}
     \vspace{\stretch{4.0}}
@@ -3662,7 +3665,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   % 题目及作者
   \begin{center}
     % 题目
-    \linespread{1.0}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%    
+    \linespread{1.212}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%    
     {\nwafu@value@title}
     %\makebox[0.9\linewidth][c]{\nwafu@value@title}
     \vspace{\stretch{4.5}}
@@ -3792,9 +3795,9 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.2}\bfseries\sffamily\heiti\zihao{3}%\fontsize{18bp}{31.2bp}\selectfont
     研究生学位论文的独创性声明
   \end{center}
-
+% \changes{v2.2.10}{2019/05/27}{修订研究生独创性声明内容为小4号字体。}
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
 
     本人声明:所呈交的学位论文是我个人在导师指导下独立进行的研究工作及取
@@ -3826,7 +3829,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \end{center}
 
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+% \changes{v2.2.10}{2019/05/27}{修订承诺页内容为小4号字体。}
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
     % \phantom{西北农林科技}
     本人承诺：我的研究
@@ -3855,7 +3859,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \end{center}
 
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
 
     本学位论文的知识产权归属西北农林科技大学。本人同意西北农林科技大学

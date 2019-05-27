@@ -1406,9 +1406,6 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \renewcommand{\Re}{\operatorname{Re}}%
   \renewcommand{\Im}{\operatorname{Im}}%
 }
-\AtBeginDocument{%
-  \renewcommand\nabla{\mbfnabla}%
-}
 \newcommand\bm{\symbf}
 \renewcommand\boldsymbol{\symbf}
 \allowdisplaybreaks[4]
@@ -1861,7 +1858,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   \begingroup
     \setlength\parindent{2em}\rmfamily\indent
-    \nwafu@put@kw{\nwafu@textbf{\zihao{-4}\nwafu@labelEn@keywords: } }{\nwafu@keywordsEn}
+    \nwafu@put@kw{\nwafu@textbf{\zihao{-4}\nwafu@labelEn@keywords: } }{\rmfamily\zihao{5}\nwafu@keywordsEn}
   \endgroup
 }
 \newcommand\nwafu@make@cover@master@cn{
@@ -1915,8 +1912,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   % 论文类别
   \begin{center}
     \linespread{1.212}\zihao{-3}%\fontsize{35bp}{35bp}\selectfont%\zihaoxiaochu
-
-    Dissertation Submitted to Northwest A \& F University\\
+    Thesis Submitted to Northwest A \& F University\\
     in Partial Fulfillment of the Requirements\\
     for Degree of\\
     \nwafu@worktypeen \ of \uline{\nwafu@valueEn@degreefull}
@@ -1925,7 +1921,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 
   % 题目及作者信息
   \begin{center}
-    {\linespread{1.0}\bfseries\zihao{1}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    {\linespread{1.212}\bfseries\zihao{1}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
     \nwafu@valueEn@title}%
     %\makebox[0.9\linewidth][c]{\nwafu@valueEn@title}}
     \vspace{\stretch{4.0}}
@@ -1991,7 +1987,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   % 题目及作者
   \begin{center}
     % 题目
-    \linespread{1.0}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
+    \linespread{1.212}\heiti\zihao{2}%\fontsize{22bp}{26.4bp}\selectfont%\zihaoer%
     {\nwafu@value@title}
     %\makebox[0.9\linewidth][c]{\nwafu@value@title}
     \vspace{\stretch{4.5}}
@@ -2107,9 +2103,8 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \linespread{1.2}\bfseries\sffamily\heiti\zihao{3}%\fontsize{18bp}{31.2bp}\selectfont
     研究生学位论文的独创性声明
   \end{center}
-
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
 
     本人声明:所呈交的学位论文是我个人在导师指导下独立进行的研究工作及取
@@ -2141,7 +2136,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \end{center}
 
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
     % \phantom{西北农林科技}
     本人承诺：我的研究
@@ -2170,7 +2165,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   \end{center}
 
   \begingroup
-    \linespread{1.5}\songti\zihao{4}%\fontsize{14bp}{31.2bp}\selectfont
+    \linespread{1.5}\songti\zihao{-4}%\fontsize{14bp}{31.2bp}\selectfont
     \setlength\parindent{2\ccwd}\indent
 
     本学位论文的知识产权归属西北农林科技大学。本人同意西北农林科技大学

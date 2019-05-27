@@ -1,5 +1,9 @@
 # -*- mode: gitignore; -*-
 
+# cancle release folder
+/release/
+/release/*
+
 # ======emacs editor======
 *~
 \#*\#
