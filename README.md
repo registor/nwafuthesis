@@ -147,11 +147,18 @@ jobname(根目录)
 
 5. 发现个别英文无法正确断行，原因未找到，加了一个`\sloppy`命令进行暂时处理，这会造成当前行字距松散，请适当加入文字解决松散问题。
 
+### 模板下载
+---------------------
+
+- [nwafuthesis模板](https://github.com/registor/nwafuthesis/releases/tag/2.2.10)
+
 ### 安装教程
 ---------------------
 
 1. 强烈建议安装TexLive2018的跨平台LaTeX发行版，低版本TexLives可能会有宏包不完整问题。
 2. 可以使用任何文本编辑器编辑LaTeX代码。
+- [nwafuthesis模板](https://github.com/registor/nwafuthesis)
+3. []https://github.com/registor/nwafuthesis/releases/tag/2.2.10
 
 ### 排版样例
 ---------------------
