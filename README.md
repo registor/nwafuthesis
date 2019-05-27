@@ -155,10 +155,8 @@ jobname(根目录)
 ### 安装教程
 ---------------------
 
-1. 强烈建议安装TexLive2018的跨平台LaTeX发行版，低版本TexLives可能会有宏包不完整问题。
+1. 强烈建议安装TexLive 2018或以上的跨平台LaTeX发行版，低版本TexLives可能会有宏包不完整问题。
 2. 可以使用任何文本编辑器编辑LaTeX代码。
-- [nwafuthesis模板](https://github.com/registor/nwafuthesis)
-3. []https://github.com/registor/nwafuthesis/releases/tag/2.2.10
 
 ### 排版样例
 ---------------------
