@@ -150,7 +150,7 @@ jobname(根目录)
 ### 模板下载
 ---------------------
 
-- [nwafuthesis模板](https://github.com/registor/nwafuthesis/releases/tag/2.2.10)
+- [nwafuthesis模板](https://github.com/registor/nwafuthesis/releases/tag/2.2.11)
 
 ### 安装教程
 ---------------------
