@@ -1,1 +1,0 @@
-python biblatex_check.py -b thesis-bupt-numeric.bib -a thesis-bupt-numeric.aux -o thesis-bupt-numeric.html

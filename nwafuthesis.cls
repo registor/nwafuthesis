@@ -13,7 +13,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafuthesis}
-[2019/4/14 v2.2.01 NWAFU Thesis Template]
+[2019/5/28 v2.2.11 NWAFU Thesis Template]
 \InputIfFileExists{nwafuthesis.cfg}{}{}
 \AtEndOfClass{
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
@@ -454,7 +454,7 @@
   \@frontmattertrue
   \@backmatterfalse
   \@appendixfalse
-  \ifnwafu@bachelor\pagenumbering{roman}\else\pagenumbering{Roman}\fi
+  \ifnwafu@bachelor\pagenumbering{Roman}\else\pagenumbering{Roman}\fi
   \pagestyle{style@front}
 }
 \renewcommand{\mainmatter}{
@@ -581,7 +581,7 @@
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}sdfsafsafsa}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
@@ -1711,13 +1711,23 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \vspace{\stretch{5}}
 
     \linespread{1}\sffamily\songti\fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    \newlength{\lablen}
+    \ifdefempty{\nwafu@value@coadvisers}{
+      \setlength{\lablen}{\widthof{\nwafu@label@adviser}}
+    }{
+      \setlength{\lablen}{\widthof{\nwafu@label@coadviser}}
+    }
     \begin{tabular} {cc}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@college} ： & \nwafu@value@college \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@major \nwafu@label@classid} ：& \nwafu@value@major \nwafu@value@classid 班 \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@author} ：& \nwafu@value@author \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@adviser} ：& \nwafu@value@advisers \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@coadviser} ：& \nwafu@value@coadvisers \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@applydate} ：& \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}
+      \makebox[\the\lablen][s]{\nwafu@label@college} ： & \nwafu@value@college \\ \cline{2-2}%
+      \makebox[\the\lablen][s]{\nwafu@label@major \nwafu@label@classid} ：& \nwafu@value@major \nwafu@value@classid 班 \\ \cline{2-2}
+      \makebox[\the\lablen][s]{\nwafu@label@author} ：& \nwafu@value@author \\ \cline{2-2}
+      \makebox[\the\lablen][s]{\nwafu@label@adviser} ：& \nwafu@value@advisers \\ \cline{2-2}
+      \ifdefempty{\nwafu@value@coadvisers}{% 无协助指导教师，不输出
+        \relax
+      }{
+        \makebox[\the\lablen][s]{\nwafu@label@coadviser} ：& \nwafu@value@coadvisers \\ \cline{2-2}
+      }
+      \makebox[\the\lablen][s]{\nwafu@label@applydate} ：& \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}
     \end{tabular}
     %\begin{tabular} {cc}
     %  \nwafu@label@college ： & \nwafu@value@college \\ \cline{2-2}

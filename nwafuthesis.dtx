@@ -69,7 +69,7 @@ and the derived files           nwafuthesis.ins,
 \fi
 %</internal>
 %<*driver>
-\ProvidesFile{nwafuthesis.drv}[2019/05/27 v2.2.10 NWAFU thesis template]
+\ProvidesFile{nwafuthesis.drv}[2019/05/27 v2.2.11 NWAFU thesis template]
 \documentclass{ltxdoc}
 \usepackage{dtx-style}
 \EnableCrossrefs
@@ -163,7 +163,7 @@ and the derived files           nwafuthesis.ins,
 % \end{multicols}
 % \clearpage
 %
-% \changes{v2.203}{2019/04/29}{修订研究生页眉页脚、行间距、参考文献字号。}
+% \changes{v2.2.03}{2019/04/29}{修订研究生页眉页脚、行间距、参考文献字号。}
 % \changes{v2.2.01}{2019/4/14}{修订说明文档错误。}
 % \changes{v2.2}{2019/4/11}{修订本科生ctexset导致的排版字体丢失错误。}
 % \changes{v2.1}{2019/4/5}{根据研究生院2019年4月2日通知，重新设计研究生(博士、学硕、专硕)模板。}
@@ -691,7 +691,7 @@ and the derived files           nwafuthesis.ins,
 %<cls>\NeedsTeXFormat{LaTeX2e}
 %<cls>\ProvidesClass{nwafuthesis}
 %<cfg>\ProvidesFile{nwafuthesis.cfg}
-%<cls|cfg>[2019/4/14 v2.2.01 NWAFU Thesis Template]
+%<cls|cfg>[2019/5/28 v2.2.11 NWAFU Thesis Template]
 %    \end{macrocode}
 % \subsection{配置文件}
 % 配置文件的内容将于文档类加载前期执行，一般内容为空（或不存在该配置文件），
@@ -1518,7 +1518,8 @@ and the derived files           nwafuthesis.ins,
   \@frontmattertrue
   \@backmatterfalse
   \@appendixfalse
-  \ifnwafu@bachelor\pagenumbering{roman}\else\pagenumbering{Roman}\fi
+% \changes{v2.2.11}{2019/05/28}{本科生目录页脚也需要大写罗马数字。}
+  \ifnwafu@bachelor\pagenumbering{Roman}\else\pagenumbering{Roman}\fi
   \pagestyle{style@front}
 }
 \renewcommand{\mainmatter}{
@@ -1698,7 +1699,7 @@ and the derived files           nwafuthesis.ins,
     \fancyhead[C]{
       \ifodd\value{page}
       {
-        \mbox{\songti\zihao{5}sdfsafsafsa}
+        \mbox{\songti\zihao{5}\leftmark}
       }
       \else
       {
@@ -3345,14 +3346,26 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
     \end{tabular}
     \vspace{\stretch{5}}
 
-    \linespread{1}\sffamily\songti\fontsize{15.75bp}{37.6bp}\selectfont%\bfseries
+    \linespread{1}\sffamily\songti\fontsize{15.75bp}{37.6bp}\selectfont%\bfseries    
+% \changes{v2.2.11}{2019/05/28}{计算最长标签字数的长度。} 
+    \newlength{\lablen}    
+    \ifdefempty{\nwafu@value@coadvisers}{
+      \setlength{\lablen}{\widthof{\nwafu@label@adviser}}
+    }{
+      \setlength{\lablen}{\widthof{\nwafu@label@coadviser}}
+    }
     \begin{tabular} {cc}%      
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@college} ： & \nwafu@value@college \\ \cline{2-2}%
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@major \nwafu@label@classid} ：& \nwafu@value@major \nwafu@value@classid 班 \\ \cline{2-2}       
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@author} ：& \nwafu@value@author \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@adviser} ：& \nwafu@value@advisers \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@coadviser} ：& \nwafu@value@coadvisers \\ \cline{2-2}
-      \makebox[\widthof{\nwafu@label@coadviser}][s]{\nwafu@label@applydate} ：& \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}
+      \makebox[\the\lablen][s]{\nwafu@label@college} ： & \nwafu@value@college \\ \cline{2-2}%
+      \makebox[\the\lablen][s]{\nwafu@label@major \nwafu@label@classid} ：& \nwafu@value@major \nwafu@value@classid 班 \\ \cline{2-2}       
+      \makebox[\the\lablen][s]{\nwafu@label@author} ：& \nwafu@value@author \\ \cline{2-2}
+      \makebox[\the\lablen][s]{\nwafu@label@adviser} ：& \nwafu@value@advisers \\ \cline{2-2}
+% \changes{v2.2.11}{2019/05/28}{无协助指导教师时，不输出协助指导教师项。}
+      \ifdefempty{\nwafu@value@coadvisers}{% 无协助指导教师，不输出
+        \relax
+      }{
+        \makebox[\the\lablen][s]{\nwafu@label@coadviser} ：& \nwafu@value@coadvisers \\ \cline{2-2}
+      }
+      \makebox[\the\lablen][s]{\nwafu@label@applydate} ：& \ifdefempty{\nwafu@value@applydate}{\nwafu@dateCn}{\nwafu@value@applydate} \\ \cline{2-2}
     \end{tabular}
     %\begin{tabular} {cc}
     %  \nwafu@label@college ： & \nwafu@value@college \\ \cline{2-2} 

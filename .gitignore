@@ -1,13 +1,14 @@
 # -*- mode: gitignore; -*-
 
 # cancle release folder
-#/release/
-#/release/*
-#/release/nwafuthesis-LaTeX/
-#/release/nwafuthesis-LaTeX/*
 release*
 ./release/
 /release/*
+
+# ref folder
+ref*
+./ref/
+/ref/*
 
 # ======emacs editor======
 *~
