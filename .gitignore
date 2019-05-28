@@ -4,11 +4,13 @@
 release*
 ./release/
 /release/*
+./release/*
 
 # ref folder
 ref*
 ./ref/
 /ref/*
+./ref/*
 
 # ======emacs editor======
 *~
