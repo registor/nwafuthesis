@@ -455,6 +455,13 @@
   \@backmatterfalse
   \@appendixfalse
   \ifnwafu@bachelor\pagenumbering{Roman}\else\pagenumbering{Roman}\fi
+  \ifnwafu@bachelor
+    \ctexset{%
+      chapter={%
+        pagestyle={style@front},%
+      },%
+    }
+  \fi
   \pagestyle{style@front}
 }
 \renewcommand{\mainmatter}{
@@ -464,6 +471,13 @@
   \@appendixfalse
   \@mainmattertrue
   \pagenumbering{arabic}
+  \ifnwafu@bachelor
+    \ctexset{%
+      chapter={%
+        pagestyle={style@main},%
+      },%
+    }
+  \fi
   \pagestyle{style@main}
   \setlength\leftskip{\nwafuparleft}
 }
@@ -566,17 +580,20 @@
 \fancypagestyle{style@front}{
   \fancyhead{}
   \ifnwafu@bachelor
-    \fancyhead[C]{
-      \ifodd\value{page}
-      {
-        \mbox{\songti\zihao{5}\leftmark}
-      }
-      \else
-      {
-        \mbox{\songti\zihao{5}\nwafu@title}
-      }
-      \fi
-    }
+    %\fancyhead[C]{
+    %  \ifodd\value{page}
+    %  {
+    %    \mbox{\songti\zihao{5}\leftmark}
+    %  }
+    %  \else
+    %  {
+    %    \mbox{\songti\zihao{5}\nwafu@title}
+    %  }
+    %  \fi
+    %}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
   \else
     \fancyhead[C]{
       \ifodd\value{page}
@@ -607,7 +624,12 @@
   % \else
   %   \relax
   % \fi
-  \renewcommand{\headrulewidth}{0.75bp}
+  \ifnwafu@bachelor
+    \relax
+  \else
+    \renewcommand{\headrulewidth}{0.75bp}
+  \fi
+  %\renewcommand{\headrulewidth}{0.75bp}
   %\ifnwafu@bachelor
   %  \renewcommand{\footrulewidth}{0.75bp}
   %\fi
@@ -1665,11 +1687,13 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
 }
 \newcommand\nwafutableofcontents{
   \cleardoublepage
-  \nwafu@chapter*[]{
-    \ifnwafu@bachelor
+  \ifnwafu@bachelor
+    \nwafu@chapter*[]{
       \linespread{1.5}\fontsize{16bp}{15.6bp}\selectfont
-    \fi
-    \contentsname}
+    \contentsname}[]
+  \else
+    \nwafu@chapter*[]{\contentsname}
+  \fi
   \@starttoc{toc}
 }
 \newcommand\nwafulistoffigurestables{
