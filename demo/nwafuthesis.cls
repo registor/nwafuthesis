@@ -425,6 +425,8 @@
   \setCJKfamilyfont{zhkai}[BoldFont=* Bold]{Kaiti SC}
   \xeCJKsetwidth{‘’“”}{1em}
 }{}
+\newdimen\bp@
+\bp@=1bp
 \newcommand\nwafu@setchinese{%
   \xeCJKResetPunctClass
 }
@@ -459,6 +461,8 @@
     \ctexset{%
       chapter={%
         pagestyle={style@front},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
       },%
     }
   \fi
@@ -475,6 +479,8 @@
     \ctexset{%
       chapter={%
         pagestyle={style@main},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
       },%
     }
   \fi
@@ -941,8 +947,8 @@
       number=\arabic{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {0.2\baselineskip},%
-      afterskip    = {0.5\baselineskip},%
+      %beforeskip   = {0.2\baselineskip},%
+      %afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -952,23 +958,27 @@
     },%
     section={%
       afterindent=true,%
-      beforeskip = {0.5\baselineskip},%
-      afterskip  = {0.5\baselineskip},%
+      %beforeskip = {0.5\baselineskip},%
+      %afterskip  = {0.5\baselineskip},%
+      beforeskip={-7\bp@ \@plus 1ex \@minus .2ex},
+      afterskip={12\bp@ \@plus .2ex},
       format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
     },%
     subsection={%
       afterindent=true,%
-      beforeskip = {0.2\baselineskip},%
-      afterskip  = {0.2\baselineskip},%
+      %beforeskip = {0.2\baselineskip},%
+      %afterskip  = {0.2\baselineskip},%
+      beforeskip={6\bp@ \@plus 1ex \@minus 0.2ex},
+      afterskip={6\bp@ \@plus .2ex},
       format={\sffamily\nwafu@font@title\zihao{-4}},%
     },%
     subsubsection={%
-      name={（ , ）},%
+      name={( , )},%
       number=\arabic{subsubsection},%
       afterindent=true,%
-      beforeskip={8bp \@plus 1ex \@minus .2ex},%
-      afterskip={8bp \@plus .2ex},%
-      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      beforeskip={-8\bp@ \@plus 1ex \@minus .2ex},%
+      afterskip={8\bp@ \@plus 1ex \@minus .2ex},%
+      format={\rmfamily\zihao{-4}},%\nwafu@font@title
       indent=2\ccwd,%
     },%
     paragraph/afterindent=true,%

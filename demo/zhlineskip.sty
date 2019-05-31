@@ -1,5 +1,5 @@
 %
-% Copyright (C) 2018 by Ruixi Zhang <ruixizhang42@gmail.com>
+% Copyright (C) 2018, 2019 by Ruixi Zhang <ruixizhang42@gmail.com>
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -14,16 +14,16 @@
 % The Current Maintainer of this work is Ruixi Zhang.
 %
 % This work consists of the files zhlineskip.sty,
-%                                 zhlineskip-man.tex,
+%                                 zhlineskip.tex,
 %                                 zhlineskip-test.tex,
 %                                 Latinmetrics.pdf,
 %                                 CJKmetrics.pdf,
 %                                 README.md
-%           and the derived file  zhlineskip-man.pdf.
+%           and the derived file  zhlineskip.pdf.
 %
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{zhlineskip}[%
-  2018/11/30 v1.0d Line spacing for CJK documents]
+  2019/05/15 v1.0e Line spacing for CJK documents]
 
 \RequirePackage{kvoptions}
 \RequirePackage{xintexpr}
@@ -100,7 +100,9 @@
     \ZhLS@targetfootleading/\ZhLS@defaultfootleading\relax\relax
 }
 
-\linespread{\ZhLS@bodylinespread}\selectfont
+\AtBeginDocument{%
+  \linespread{\ZhLS@bodylinespread}\selectfont
+}
 
 \patchcmd\@footnotetext
   {\reset@font}
@@ -123,8 +125,8 @@
   \def\ZhLS@textlinespread{#1}%
 }
 \SetTextEnvironmentSinglespace{1}
-\newcommand*\RestoreTextEnvironmentLeading{%
-  \ZhLS@restoretextenvironmentleading
+\newcommand*\RestoreTextEnvironmentLeading[1]{%
+  \forcsvlist\ZhLS@restoretextenvironmentleading{#1}%
 }
 \def\ZhLS@restoretextenvironmentleading#1{%
   \AtBeginEnvironment{#1}{%
@@ -138,8 +140,8 @@
     \def\ZhLS@mathlinespread{#1}%
   }
   \SetMathEnvironmentSinglespace{1}
-  \newcommand*\RestoreMathEnvironmentLeading{%
-    \ZhLS@restoremathenvironmentleading
+  \newcommand*\RestoreMathEnvironmentLeading[1]{%
+    \forcsvlist\ZhLS@restoremathenvironmentleading{#1}%
   }
   \def\ZhLS@restoremathenvironmentleading#1{%
     \AtBeginEnvironment{#1}{%

@@ -1352,6 +1352,15 @@ and the derived files           nwafuthesis.ins,
 }{}
 %    \end{macrocode}
 %
+% 目前最广泛使用的印刷的长度单位点（磅）通常指 PostScript point
+% \footnote{\url{https://en.wikipedia.org/wiki/Point_(typography)}}，
+% 在 \LaTeX{} 中是 bp，比默认的 pt 略大。
+% 这里保存起来可以节约编译时间。
+%    \begin{macrocode}
+\newdimen\bp@
+\bp@=1bp
+%    \end{macrocode}
+%
 % \begin{macro}{\normalsize}
 % 正文小四号 (12bp) 字，行距为固定值 20 bp。
 % \sout{暂时删除}
@@ -1525,6 +1534,8 @@ and the derived files           nwafuthesis.ins,
     \ctexset{%
       chapter={%
         pagestyle={style@front},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
       },%
     }
   \fi
@@ -1542,6 +1553,8 @@ and the derived files           nwafuthesis.ins,
     \ctexset{%
       chapter={%
         pagestyle={style@main},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
       },%
     }
   \fi
@@ -2137,8 +2150,8 @@ and the derived files           nwafuthesis.ins,
       number=\arabic{chapter},%
       afterindent=true,%
       pagestyle={style@main},%
-      beforeskip   = {0.2\baselineskip},%
-      afterskip    = {0.5\baselineskip},%
+      %beforeskip   = {0.2\baselineskip},%
+      %afterskip    = {0.5\baselineskip},%
       format={\centering\sffamily\nwafu@font@title\zihao{3}},%
       nameformat=\relax,%
       numberformat=\relax,%
@@ -2148,28 +2161,34 @@ and the derived files           nwafuthesis.ins,
     },%
     section={%
       afterindent=true,%
-      beforeskip = {0.5\baselineskip},%
-      afterskip  = {0.5\baselineskip},%
+      %beforeskip = {0.5\baselineskip},%
+      %afterskip  = {0.5\baselineskip},%
+      beforeskip={-7\bp@ \@plus 1ex \@minus .2ex},
+      afterskip={12\bp@ \@plus .2ex},
       format={\raggedright\sffamily\nwafu@font@title\zihao{4}},%
     },%
     subsection={%
       afterindent=true,%
-      beforeskip = {0.2\baselineskip},%
-      afterskip  = {0.2\baselineskip},%
+      %beforeskip = {0.2\baselineskip},%
+      %afterskip  = {0.2\baselineskip},%
+      beforeskip={6\bp@ \@plus 1ex \@minus 0.2ex},
+      afterskip={6\bp@ \@plus .2ex},
       format={\sffamily\nwafu@font@title\zihao{-4}},%
     },%
     subsubsection={%
-      name={（ , ）},%
+      name={( , )},%
       number=\arabic{subsubsection},%
       afterindent=true,%
-      beforeskip={8bp \@plus 1ex \@minus .2ex},%
-      afterskip={8bp \@plus .2ex},%
-      format={\sffamily\nwafu@font@title\zihao{-4}},%
+      beforeskip={-8\bp@ \@plus 1ex \@minus .2ex},%
+      afterskip={8\bp@ \@plus 1ex \@minus .2ex},%
+      format={\rmfamily\zihao{-4}},%\nwafu@font@title
       indent=2\ccwd,%
     },%
     paragraph/afterindent=true,%
     subparagraph/afterindent=true%
   }
+%  \patchcmd{\subsection}{0.5ex \@plus .2ex}{0.75ex \@plus 0.1ex}{}{}
+%\patchcmd{\subsubsection}{1.5ex \@plus .2ex}{0.75ex \@plus 0.1ex}{}{}
 \else%
   \ctexset{%
     chapter={%
