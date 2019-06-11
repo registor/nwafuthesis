@@ -13,7 +13,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nwafuthesis}
-[2019/5/28 v2.2.11 NWAFU Thesis Template]
+[2019/6/11 v2.2.13 NWAFU Thesis Template]
 \InputIfFileExists{nwafuthesis.cfg}{}{}
 \AtEndOfClass{
 \newcommand\nwafu@label@nwafu{西北农林科技大学}
@@ -494,41 +494,84 @@
   \@appendixfalse
   \@mainmatterfalse
   \@bibliotrue
-  \titleformat{\chapter}
-    {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
-    {\nwafu@chaptername}{1em}{}
-  \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  %\titleformat{\chapter}
+  %  {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
+  %  {\nwafu@chaptername}{1em}{}
+  %\titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \ifnwafu@bachelor
+    \ctexset{%
+      chapter={%
+        pagestyle={style@biblio},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
+      },%
+    }
+  \else
+    \titleformat{\chapter}
+      {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
+      {\nwafu@chaptername}{1em}{}
+    \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \fi
   \pagestyle{style@biblio}
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}
 }
 \renewcommand{\appendix}{
+ \if@openright\cleardoublepage\else\clearpage\fi
  \nwafu@appendix
  \@frontmatterfalse
  \@backmatterfalse
- \@appendixfalse
+ \@appendixtrue
  \@mainmattertrue
  \@bibliofalse
- \pagestyle{style@appendix}
- \titleformat{\chapter}
-   {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}%\fontsize{15.75bp}{20.0bp}\selectfont}
-   {\nwafu@chaptername}{1em}{}
- \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+ %\titleformat{\chapter}
+ %  {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}%\fontsize{15.75bp}{20.0bp}\selectfont}
+ %  {\nwafu@chaptername}{1em}{}
+ %\titlespacing*{\chapter}{0pt}{10bp}{10bp}
+ \ifnwafu@bachelor
+   \ctexset{%
+     chapter={%
+       pagestyle={style@appendix},%
+       beforeskip = -14\bp@,  % 24bp - 31bp
+       afterskip  =  12\bp@,  % 18bp - 10bp
+     },%
+   }
+ \else
+   \titleformat{\chapter}
+     {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
+     {\nwafu@chaptername}{1em}{}
+   \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+ \fi
  \pagestyle{style@appendix}
  \setlength\nwafuparleft{0pt}
  \setlength\leftskip{\nwafuparleft}
 }
 \renewcommand{\backmatter}{
+  \if@openright\cleardoublepage\else\clearpage\fi
   \nwafu@backmatter
   \@frontmatterfalse
   \@backmattertrue
   \@appendixfalse
   \@mainmatterfalse
   \@bibliofalse
-  \titleformat{\chapter}
-    {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
-    {\nwafu@chaptername}{1em}{}
-  \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  %\titleformat{\chapter}
+  %  {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
+  %  {\nwafu@chaptername}{1em}{}
+  %\titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \ifnwafu@bachelor
+    \ctexset{%
+      chapter={%
+        pagestyle={style@back},%
+        beforeskip = -14\bp@,  % 24bp - 31bp
+        afterskip  =  12\bp@,  % 18bp - 10bp
+      },%
+    }
+  \else
+    \titleformat{\chapter}
+      {\centering\linespread{1.0}\nwafu@font@title\zihao{4}}
+      {\nwafu@chaptername}{1em}{}
+    \titlespacing*{\chapter}{0pt}{10bp}{10bp}
+  \fi
   \pagestyle{style@back}
   \setlength\nwafuparleft{0pt}
   \setlength\leftskip{\nwafuparleft}
@@ -1023,6 +1066,9 @@
     subparagraph/afterindent=true%
   }%
 \fi%
+\patchcmd{\section}{0.5ex \@plus .2ex}{0.75ex \@plus 0.1ex}{}{}
+\patchcmd{\subsection}{0.5ex \@plus .2ex}{0.75ex \@plus 0.1ex}{}{}
+\patchcmd{\subsubsection}{1.5ex \@plus .2ex}{0.75ex \@plus 0.1ex}{}{}
 \newcounter{nwafu@bookmark}
 \NewDocumentCommand\nwafu@chapter{s o m o}{
   \IfBooleanF{#1}{%
@@ -1039,9 +1085,9 @@
   }{%
     \addcontentsline{toc}{chapter}{#3}
   }%
-  \ifnwafu@bachelor \ctexset{chapter/beforeskip=25bp} \fi
+  \ifnwafu@bachelor \ctexset{chapter={beforeskip=-14\bp@,afterskip  =  12\bp@}} \fi
   \chapter*{#3}%
-  \ifnwafu@bachelor \ctexset{chapter/beforeskip=15bp} \fi
+  \ifnwafu@bachelor \ctexset{chapter/beforeskip=15\bp@} \fi
   \IfValueTF{#4}{%
     \ifthenelse{\equal{#4}{}}
     {\@mkboth{}{}}
@@ -1858,6 +1904,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   %\end{center}
 
   \begingroup
+    \linespread{1.782}
     \setlength\parindent{2\ccwd}\songti\indent
     {\heiti\zihao{-4} \makebox[\widthof{\nwafu@label@keywords}][s]{\nwafu@label@abstract}：}
     {\songti\zihao{5}\nwafu@abstract}
@@ -1893,6 +1940,7 @@ test{\iffieldundef{day}} and test{\iffieldundef{endday}} and test{\iffieldundef{
   %\end{center}
 
   \begingroup
+    \linespread{1.782}
     \setlength\parindent{2em}\rmfamily\indent
     {\bfseries \zihao{-4} \nwafu@labelEn@abstract: }
     {\zihao{5}\nwafu@abstractEn}
