@@ -273,6 +273,9 @@
 \fi\fi
 \newcommand\nwafu@font@toc{\normalsize}
 \RequirePackage{expl3}
+\RequirePackage{amsmath}   % 数学公式(与unicode-math只能有一个)
+\RequirePackage{amsthm}    % 数学定理、公理等
+\RequirePackage{amssymb}   % 数学符号
 \ExplSyntaxOn
 \sys_if_engine_xetex:TF{
   \PassOptionsToPackage{no-math}{fontspec}
@@ -365,9 +368,6 @@
 \RequirePackage{hyperref}  % 超链接
 \RequirePackage{ifxetex}   % 条件判断
 \RequirePackage{siunitx}   % 单位符号、数字
-\RequirePackage{amsmath}   % 数学公式(与unicode-math只能有一个)
-\RequirePackage{amsthm}    % 数学定理、公理等
-\RequirePackage{amssymb}   % 数学符号
 \RequirePackage{calc}      % 计算文本长度\widthof{...}
 \RequirePackage{aliascnt}  % 计数器别名newaliascnt/aliascntresetthe
 \RequirePackage[shortlabels]{enumitem} % 列表环境格式调整宏包
